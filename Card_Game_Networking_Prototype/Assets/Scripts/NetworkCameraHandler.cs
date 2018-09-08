@@ -9,6 +9,11 @@ public class NetworkCameraHandler : NetworkBehaviour {
         _camera.enabled = true;
     }
 
+    // client function
+    public void OnConnected(NetworkMessage pNetMsg) {
+        Debug.Log("Connected to server" + pNetMsg.reader.ReadString());
+    }
+
     public void OnDisable() {
         Debug.Log("Camera equals null: " + _camera == null);
     }

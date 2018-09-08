@@ -6,5 +6,5 @@ public class CustomNetworkManager : NetworkManager {
 	// Use this for initialization
 	private void Start () {
         
-	}
+    }
 }
