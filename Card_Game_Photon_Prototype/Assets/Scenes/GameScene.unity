@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -113,6 +113,46 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &27511382
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 27511383}
+  - component: {fileID: 27511384}
+  m_Layer: 0
+  m_Name: Card Game Core
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &27511383
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 27511382}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.6667328, y: -2.9348469, z: 0.21716622}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &27511384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 27511382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d95382e86c47b7479d36e4a6f028afd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &139714810
 GameObject:
   m_ObjectHideFlags: 0
@@ -979,56 +1019,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 985408375}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1056615597
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1056615598}
-  - component: {fileID: 1056615599}
-  m_Layer: 0
-  m_Name: Event Handler
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1056615598
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1056615597}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.7864013, y: -3.552641, z: -1.5752251}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1056615599
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1056615597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93b282a86684cc542b62dc0476685d79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerBoardSlots:
-  - {fileID: 1734492078}
-  - {fileID: 845270908}
-  - {fileID: 765472741}
-  - {fileID: 1717168057}
-  _enemyBoardSlots:
-  - {fileID: 1601712738}
-  - {fileID: 142774719}
-  - {fileID: 670314961}
-  - {fileID: 335794856}
 --- !u!1 &1069717670
 GameObject:
   m_ObjectHideFlags: 0
@@ -1089,7 +1079,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1187727415
 GameObject:
@@ -1194,7 +1184,7 @@ GameObject:
   - component: {fileID: 1511759629}
   - component: {fileID: 1511759630}
   m_Layer: 0
-  m_Name: Spawn Manager
+  m_Name: Player Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1227,6 +1217,16 @@ MonoBehaviour:
   _playerPrefab: {fileID: 1193747159192394, guid: 47ed79ee0f974a945b15e960c6fff03c,
     type: 2}
   _spawnPoint: {fileID: 985408375}
+  _playerBoardSlots:
+  - {fileID: 1734492078}
+  - {fileID: 845270908}
+  - {fileID: 765472741}
+  - {fileID: 1717168057}
+  _enemyBoardSlots:
+  - {fileID: 1601712738}
+  - {fileID: 142774719}
+  - {fileID: 670314961}
+  - {fileID: 335794856}
 --- !u!1 &1601712738
 GameObject:
   m_ObjectHideFlags: 0

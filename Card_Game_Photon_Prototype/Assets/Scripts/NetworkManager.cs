@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class NetworkManager : MonoBehaviour {
 
-    private PhotonView _photonView;
-
     private void Awake() {
         DontDestroyOnLoad(gameObject);
 
@@ -15,10 +13,6 @@ public class NetworkManager : MonoBehaviour {
 
         PhotonNetwork.ConnectUsingSettings(Config.VERSION);
         Debug.Log("Connected to version: " + Config.VERSION);
-    }
-
-    private void Start() {
-        _photonView = PhotonView.Get(this);
     }
 
     private void OnConnectedToMaster() {
@@ -37,7 +31,9 @@ public class NetworkManager : MonoBehaviour {
             Debug.Log("Player limit reached. Starting game...");
 
             if (PhotonNetwork.automaticallySyncScene) {
-                _photonView.RPC("LoadSceneAsyncRPC", PhotonTargets.MasterClient, Config.GAME_SCENE);
+                for (int i = 0; i < PhotonNetwork.room.PlayerCount; i++) {
+                    Events.RaiseJoinGameEvent(PhotonNetwork.playerList[i].ID);
+                }
             }
         }
     }
@@ -52,19 +48,5 @@ public class NetworkManager : MonoBehaviour {
     
     private void OnPhotonJoinRoomFailed() {
         Debug.Log("Failed to join a room");
-    }
-
-    [PunRPC]
-    private void LoadSceneAsyncRPC(string pLevel) {
-        StartCoroutine(LoadSceneAsync(pLevel));
-    }
-
-    private IEnumerator LoadSceneAsync(string pLevel) {
-        AsyncOperation async = PhotonNetwork.LoadLevelAsync(pLevel);
-
-        while (!async.isDone) {
-            Debug.Log("Loading scene.. " + async.progress);
-            yield return null;
-        }
     }
 }

@@ -99,6 +99,7 @@ public class RpsCore : PunBehaviour, IPunTurnManagerCallbacks
 
     public void Start()
     {
+        
 		this.turnManager = this.gameObject.AddComponent<PunTurnManager>();
         this.turnManager.TurnManagerListener = this;
         this.turnManager.TurnDuration = 5f;

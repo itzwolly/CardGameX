@@ -14,7 +14,7 @@ MonoBehaviour:
   AppID: badd2c03-26ba-4b00-ae65-9033e45cba66
   VoiceAppID: 
   ChatAppID: 
-  HostType: 2
+  HostType: 1
   PreferredRegion: 0
   EnabledRegions: -1
   Protocol: 1
@@ -42,10 +42,9 @@ MonoBehaviour:
   - RequestForPickupItems
   - RequestForPickupTimes
   - TaggedPlayer
-  - 
   - LoadSceneAsyncRPC
-  - 
   - InitializePlayer
   - InitializePlayers
   - CreatePlayersAndAssignTeams
+  - LoadSceneASync
   DisableAutoOpenWizard: 1

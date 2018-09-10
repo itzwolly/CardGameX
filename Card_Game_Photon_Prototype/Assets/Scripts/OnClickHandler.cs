@@ -6,7 +6,7 @@ public class OnClickHandler : MonoBehaviour {
     [SerializeField] private InputField _joinRoom;
 
     public void onClickCreateRoom() {
-        PhotonNetwork.CreateRoom(_creatRoom.text, new RoomOptions() { MaxPlayers = 2 }, null);
+        PhotonNetwork.CreateRoom(_creatRoom.text, new RoomOptions() { MaxPlayers = Config.MAX_PLAYERS, PlayerTtl = Config.Player_TTL }, null);
     }
 
     public void onClickJoinRoom() {

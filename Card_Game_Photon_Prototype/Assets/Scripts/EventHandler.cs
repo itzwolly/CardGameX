@@ -1,31 +1,41 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using ExitGames.Client.Photon;
 
 public class EventHandler : MonoBehaviour {
-    [SerializeField] private GameObject[] _playerBoardSlots;
-    [SerializeField] private GameObject[] _enemyBoardSlots;
+    private void Awake() {
+        DontDestroyOnLoad(gameObject);
+    }
 
-    public void OnCardPlayed(byte eventCode, object content, int senderId) {
-        if (eventCode == Events.PLAY_CARD) {
-            object[] data = (object[]) content;
+    public void OnEvent(byte pEventCode, object pContent, int pSenderId) {
+        object[] data = (object[]) pContent;
+        PhotonPlayer sender = PhotonPlayer.Find(pSenderId);
 
-            int targetIndex = (int) data[0];
-            int playerIndex = (int) data[1];
-
-            if (playerIndex == PhotonNetwork.player.ID) {
-                _playerBoardSlots[targetIndex].GetComponent<BoardSlotBehaviour>().OccupyBoardSlot();
-            } else {
-                _enemyBoardSlots[(_playerBoardSlots.Length - 1) - targetIndex].GetComponent<BoardSlotBehaviour>().OccupyBoardSlot();
-            }
+        switch (pEventCode) {
+            case Events.PLAY_CARD:
+                int turnIndex = (int) data[0];
+                int cardIndex = (int) data[1];
+                TurnManager.Instance.TurnManagerListener.OnPlayerMove(sender, turnIndex, cardIndex);
+                break;
+            case Events.END_TURN:
+                int turnId = (int) data[0];
+                TurnManager.Instance.TurnManagerListener.OnTurnCompleted(turnId);
+                break;
+            case Events.JOIN_GAME:
+                int playerId = (int) data[0];
+                if (playerId == PhotonNetwork.player.ID) {
+                    StartCoroutine(LevelManager.Instance.LoadSceneAsync(Config.GAME_SCENE));
+                }
+                break;
+            default:
+                break;
         }
     }
 
     public void OnEnable() {
-        PhotonNetwork.OnEventCall += OnCardPlayed;
+        PhotonNetwork.OnEventCall += OnEvent;
     }
 
     public void OnDisable() {
-        PhotonNetwork.OnEventCall -= OnCardPlayed;
+        PhotonNetwork.OnEventCall -= OnEvent;
     }
 }
