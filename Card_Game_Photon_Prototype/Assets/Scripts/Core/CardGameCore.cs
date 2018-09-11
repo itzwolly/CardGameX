@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon;
 using System;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
-public class CardGameCore : PunBehaviour, IPunTurnManagerCallbacks {
+public class CardGameCore : PunBehaviour, ITurnManagerCallbacks {
 
     private TurnManager _turnManager;
 
-    private void Start() {
+    private void Awake() {
         InitializeTurnManager();
-        StartTurn();
+    }
+
+    private void Start() {
+        StartGame();
     }
 
     private void InitializeTurnManager() {
@@ -19,39 +23,27 @@ public class CardGameCore : PunBehaviour, IPunTurnManagerCallbacks {
         _turnManager.TurnDuration = Config.TURN_DURATION;
     }
 
-    private void StartTurn() {
+    private void StartGame() {
         if (PhotonNetwork.player.IsMasterClient) {
+            Debug.Log("Current master client is: " + PhotonNetwork.player.ID);
+
             _turnManager.BeginTurn();
         }
     }
 
-    private void Update() {
-        Debug.Log("Turn: " + _turnManager.Turn + " Time Left: " + (int) (Config.TURN_DURATION - _turnManager.ElapsedTimeInTurn));
-
-        if (Input.GetMouseButtonUp(0)) {
-            PlayCard(559); // Example
-        } else if (Input.GetMouseButtonUp(1)) {
-            EndTurn(_turnManager.Turn);
-        }
+    public void EndTurn() {
+        _turnManager.EndTurn();
     }
 
-    private void PlayCard(int pCardId) {
-        // Do something
-        Events.RaiseCardPlayedEvent(pCardId, PhotonNetwork.player.ID);
-    }
+    public void OnPlayerMove(PhotonPlayer pPlayer, int pCardId, int pCardIndex) {
+        // when a player made a move
+        Debug.Log(pPlayer.ID + " played card: " + pCardId + " | Card index: " + pCardIndex);
 
-    private void EndTurn(int pTurnId) {
-        Events.RaiseEndTurnEvent(pTurnId);
-    }
+        HandManager hand = PhotonNetwork.player.TagObject as HandManager;
+        hand.DestroyCard(pCardIndex);
 
-    public void OnPlayerFinished(PhotonPlayer pPlayer, int pTurn, object pMove) {
-        // when a player made the last/final move in a turn
-        throw new NotImplementedException();
-    }
+        // Execute whatever card: pCardId is..
 
-    public void OnPlayerMove(PhotonPlayer pPlayer, int pTurn, object pMove) {
-        // when a player moved (but did not finish the turn)
-        Debug.Log(pPlayer.ID + " has played card: " + pMove + " on turn: " + pTurn);
     }
 
     public void OnTurnBegins(int pTurn) {
@@ -59,12 +51,15 @@ public class CardGameCore : PunBehaviour, IPunTurnManagerCallbacks {
         throw new NotImplementedException();
     }
 
-    public void OnTurnCompleted(int pTurn) {
-        StartTurn();
+    public void OnTurnEnds(int pTurn) {
+        // start new turn
+        _turnManager.BeginTurn();
+        //throw new NotImplementedException();
     }
 
     public void OnTurnTimeEnds(int pTurn) {
-        // End turn
-        throw new NotImplementedException();
+        // start new turn
+        _turnManager.BeginTurn();
+        //throw new NotImplementedException();
     }
 }

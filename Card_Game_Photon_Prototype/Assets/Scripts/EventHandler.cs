@@ -11,21 +11,24 @@ public class EventHandler : MonoBehaviour {
         PhotonPlayer sender = PhotonPlayer.Find(pSenderId);
 
         switch (pEventCode) {
-            case Events.PLAY_CARD:
-                int turnIndex = (int) data[0];
-                int cardIndex = (int) data[1];
-                TurnManager.Instance.TurnManagerListener.OnPlayerMove(sender, turnIndex, cardIndex);
-                break;
-            case Events.END_TURN:
-                int turnId = (int) data[0];
-                TurnManager.Instance.TurnManagerListener.OnTurnCompleted(turnId);
-                break;
-            case Events.JOIN_GAME:
-                int playerId = (int) data[0];
-                if (playerId == PhotonNetwork.player.ID) {
-                    StartCoroutine(LevelManager.Instance.LoadSceneAsync(Config.GAME_SCENE));
+            case Events.PLAY_CARD: {
+                    int cardId = (int) data[0];
+                    int cardIndex = (int) data[1];
+                    TurnManager.Instance.TurnManagerListener.OnPlayerMove(sender, cardId, cardIndex);
+                    break;
                 }
-                break;
+            case Events.END_TURN: {
+                    int turnIndex = (int) data[0];
+                    TurnManager.Instance.TurnManagerListener.OnTurnEnds(turnIndex);
+                    break;
+                }
+            case Events.JOIN_GAME: {
+                    int playerId = (int) data[0];
+                    if (playerId == PhotonNetwork.player.ID) {
+                        StartCoroutine(LevelManager.Instance.LoadSceneAsync(Config.GAME_SCENE));
+                    }
+                    break;
+                }
             default:
                 break;
         }
