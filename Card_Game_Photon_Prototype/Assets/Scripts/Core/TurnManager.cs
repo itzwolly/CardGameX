@@ -61,13 +61,13 @@ public class TurnManager : PunBehaviour {
         }
     }
 
+    public void StartGame() {
+        SetActivePlayer(PhotonNetwork.player);
+        BeginTurn();
+    }
+
     public void BeginTurn() {
-        // Sets the first client that joined as the active player on turn 1,
-        // but for every following turn; checks if the local player is not the active player
-        // and saves it as the active player.
-        if (CurrentTurn == 0) {
-            SetActivePlayer(PhotonNetwork.player);
-        } else {
+        if (CurrentTurn > 0) {
             if (GetActivePlayer() != PhotonNetwork.player) {
                 SetActivePlayer(PhotonNetwork.player);
             }
@@ -76,12 +76,12 @@ public class TurnManager : PunBehaviour {
         CurrentTurn = CurrentTurn + 1;
     }
 
-    public void EndTurn() {
+    public bool EndTurn() {
         if (IsActivePlayer) {
             Events.RaiseEndTurnEvent(CurrentTurn);
-        } else {
-            Debug.Log("Sorry! It is not your turn..");
+            return true;
         }
+        return false;
     }
 
     // Sets which player's turn it is right now.

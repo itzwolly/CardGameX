@@ -10,19 +10,20 @@ public class NetworkManager : MonoBehaviour {
         // This is temporary, switching to custom authentication using the custom launcher.
         PhotonNetwork.AuthValues = new AuthenticationValues(Guid.NewGuid().ToString());
         PhotonNetwork.automaticallySyncScene = true;
+        PhotonNetwork.autoJoinLobby = false;
 
         PhotonNetwork.ConnectUsingSettings(Config.VERSION);
         Debug.Log("Connected to version: " + Config.VERSION);
     }
 
     private void OnConnectedToMaster() {
-        PhotonNetwork.JoinLobby(TypedLobby.Default);
+        //PhotonNetwork.JoinLobby(TypedLobby.Default);
         Debug.Log("Connected to master.");
     }
 
-    private void OnJoinedLobby() {
-        Debug.Log("Joined lobby");
-    }
+    //private void OnJoinedLobby() {
+    //    Debug.Log("Joined lobby");
+    //}
 
     private void OnJoinedRoom() {
         Debug.Log("Joined room. Currently: " + PhotonNetwork.room.PlayerCount + " player(s) waiting.");
@@ -48,5 +49,10 @@ public class NetworkManager : MonoBehaviour {
     
     private void OnPhotonJoinRoomFailed() {
         Debug.Log("Failed to join a room");
+    }
+
+    private void OnPhotonRandomJoinFailed() {
+        Debug.Log("Failed to join a random room. Creating a new one...");
+        PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = Config.MAX_PLAYERS, PlayerTtl = Config.Player_TTL }, null);
     }
 }
