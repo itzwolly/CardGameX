@@ -4,6 +4,7 @@ public class Events {
     public const byte PLAY_CARD = 0;
     public const byte END_TURN = 1;
     public const byte JOIN_GAME = 2;
+    public const byte WIN_GAME = 3;
 
     public static void RaiseCardPlayedEvent(int pCardId, int pCardIndex) {
         object[] content = new object[] { pCardId, pCardIndex };
@@ -12,17 +13,24 @@ public class Events {
         PhotonNetwork.RaiseEvent(PLAY_CARD, content, reliable, raiseEventOptions);
     }
 
-    public static void RaiseEndTurnEvent(int pTurnIndex) {
-        object[] content = new object[] { pTurnIndex };
+    public static void RaiseEndTurnEvent(int pTurnId) {
+        object[] content = new object[] { pTurnId };
         bool reliable = true;
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All, CachingOption = EventCaching.AddToRoomCache }; // You would have to set the Receivers to All in order to receive this event on the local client as well
         PhotonNetwork.RaiseEvent(END_TURN, content, reliable, raiseEventOptions);
     }
 
-    public static void RaiseJoinGameEvent(int pPlayerIndex) {
-        object[] content = new object[] { pPlayerIndex };
+    public static void RaiseJoinGameEvent(int pPlayerId) {
+        object[] content = new object[] { pPlayerId };
         bool reliable = true;
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All }; // You would have to set the Receivers to All in order to receive this event on the local client as well
         PhotonNetwork.RaiseEvent(JOIN_GAME, content, reliable, raiseEventOptions);
+    }
+
+    public static void RaiseWinGameEvent() {
+        //object[] content = new object[] { };
+        bool reliable = true;
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All, CachingOption = EventCaching.AddToRoomCache }; // You would have to set the Receivers to All in order to receive this event on the local client as well
+        PhotonNetwork.RaiseEvent(WIN_GAME, null, reliable, raiseEventOptions);
     }
 }

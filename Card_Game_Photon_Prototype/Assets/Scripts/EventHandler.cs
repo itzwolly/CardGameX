@@ -25,8 +25,16 @@ public class EventHandler : MonoBehaviour {
             case Events.JOIN_GAME: {
                     int playerId = (int) data[0];
                     if (playerId == PhotonNetwork.player.ID) {
-                        StartCoroutine(LevelManager.Instance.LoadSceneAsync(Config.GAME_SCENE));
+                        StartCoroutine(LevelManager.Instance.PhotonLoadLevelAsync(Config.GAME_SCENE));
                     }
+                    break;
+                }
+            case Events.WIN_GAME: {
+                    //if (sender.ID == PhotonNetwork.otherPlayers[0].ID) {
+                        
+                    //}
+
+                    TurnManager.Instance.TurnManagerListener.OnGameWin();
                     break;
                 }
             default:

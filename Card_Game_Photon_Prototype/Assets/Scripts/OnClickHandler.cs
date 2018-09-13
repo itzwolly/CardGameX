@@ -11,7 +11,7 @@ public class OnClickHandler : MonoBehaviour {
     }
 
     public void onClickCreateRoom() {
-        PhotonNetwork.CreateRoom(_creatRoom.text, new RoomOptions() { MaxPlayers = Config.MAX_PLAYERS, PlayerTtl = Config.Player_TTL }, null);
+        PhotonNetwork.CreateRoom(_creatRoom.text, new RoomOptions() { MaxPlayers = Config.MAX_PLAYERS, PlayerTtl = Config.Player_TTL, EmptyRoomTtl = 3000 }, null);
     }
 
     public void onClickJoinRoom() {

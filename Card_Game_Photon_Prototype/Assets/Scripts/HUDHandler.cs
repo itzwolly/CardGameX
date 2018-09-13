@@ -6,6 +6,7 @@ public class HUDHandler : MonoBehaviour {
     [SerializeField] private Text _txtPlayerData;
     [SerializeField] private Text _turnTimer;
     [SerializeField] private GameObject _endTurnPopUp;
+    [SerializeField] private GameObject _winPopUp;
 
     private Coroutine _endTurnError;
 
@@ -26,18 +27,24 @@ public class HUDHandler : MonoBehaviour {
         }
     }
 
-    public void DisplayEndTurnError() {
+    public void DisplayEndTurnError(float pTimeToWait) {
         if (_endTurnError != null) {
             StopCoroutine(_endTurnError);
             _endTurnPopUp.gameObject.SetActive(false);
         }
 
-        _endTurnError = StartCoroutine(EnableFadeOut(_endTurnPopUp));
+        _endTurnError = StartCoroutine(EnableFadeOut(_endTurnPopUp, pTimeToWait));
     }
 
-    private IEnumerator EnableFadeOut(GameObject pObject) {
-        _endTurnPopUp.gameObject.SetActive(true);
-        yield return new WaitForSeconds(3);
-        _endTurnPopUp.gameObject.SetActive(false);
+    public void DisplayWinMessage() {
+        if (!_winPopUp.activeSelf) {
+            _winPopUp.gameObject.SetActive(true);
+        }
+    }
+
+    private IEnumerator EnableFadeOut(GameObject pObject, float pTimeToWait) {
+        pObject.gameObject.SetActive(true);
+        yield return new WaitForSeconds(pTimeToWait);
+        pObject.gameObject.SetActive(false);
     }
 }

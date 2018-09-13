@@ -8,4 +8,6 @@
     void OnTurnTimeEnds(int pTurn);
 
     void OnNotYourTurn();
+
+    void OnGameWin();
 }

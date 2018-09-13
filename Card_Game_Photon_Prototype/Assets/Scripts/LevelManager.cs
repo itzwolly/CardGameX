@@ -22,7 +22,7 @@ public class LevelManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
-    public IEnumerator LoadSceneAsync(int pLevel) {
+    public IEnumerator PhotonLoadLevelAsync(int pLevel) {
         AsyncOperation operation = PhotonNetwork.LoadLevelAsync(pLevel);
 
         while (!operation.isDone) {
@@ -31,7 +31,7 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
-    public IEnumerator LoadSceneAsync(string pLevel) {
+    public IEnumerator PhotonLoadLevelAsync(string pLevel) {
         AsyncOperation operation = PhotonNetwork.LoadLevelAsync(pLevel);
 
         while (!operation.isDone) {

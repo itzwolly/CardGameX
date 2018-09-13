@@ -67,6 +67,11 @@ public class CardGameCore : PunBehaviour, ITurnManagerCallbacks {
 
     public void OnNotYourTurn() {
         // Display error mesage
-        _hud.DisplayEndTurnError();
+        _hud.DisplayEndTurnError(3);
+    }
+
+    public void OnGameWin() {
+        Debug.Log("OnGameWin called baby..");
+        //_hud.DisplayWinMessage();
     }
 }

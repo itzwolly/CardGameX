@@ -39,8 +39,16 @@ public class NetworkManager : MonoBehaviour {
         }
     }
 
+    private void OnConnectionFail(DisconnectCause pCause) {
+        Debug.Log("Cause for connection failure is: " + pCause);
+    }
+
     private void OnDisconnectedFromPhoton() {
         Debug.Log("Disconnected from photon.");
+
+        if (!PhotonNetwork.ReconnectAndRejoin()) {
+            Debug.LogError("Failed to reconnect to photon and rejoin to room");
+        }
     }
 
     private void OnLeftRoom() {
@@ -49,10 +57,15 @@ public class NetworkManager : MonoBehaviour {
     
     private void OnPhotonJoinRoomFailed() {
         Debug.Log("Failed to join a room");
+        Debug.Log("Currently in room: " + PhotonNetwork.room + " with build index: " + SceneManagerHelper.ActiveSceneBuildIndex);
+
+        if (SceneManagerHelper.ActiveSceneBuildIndex != 0) {
+            StartCoroutine(LevelManager.Instance.PhotonLoadLevelAsync(0));
+        }
     }
 
     private void OnPhotonRandomJoinFailed() {
         Debug.Log("Failed to join a random room. Creating a new one...");
-        PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = Config.MAX_PLAYERS, PlayerTtl = Config.Player_TTL }, null);
+        PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = Config.MAX_PLAYERS, PlayerTtl = Config.Player_TTL, EmptyRoomTtl = 3000 }, null);
     }
 }
