@@ -9,5 +9,5 @@
 
     void OnNotYourTurn();
 
-    void OnGameWin();
+    void OnGameEnd(PhotonPlayer pWinner);
 }

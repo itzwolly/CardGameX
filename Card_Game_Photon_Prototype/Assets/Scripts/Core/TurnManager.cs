@@ -22,14 +22,13 @@ public class TurnManager : PunBehaviour {
     }
     #endregion
 
-    private const string ACTIVE_PLAYER_KEY = "APK";
-    private PhotonPlayer _activePlayer;
+    public const string ACTIVE_PLAYER_KEY = "APK";
 
     public ITurnManagerCallbacks TurnManagerListener;
     public float TurnDuration = 5f;
 
     public bool IsActivePlayer {
-        get { return (PhotonNetwork.player == GetActivePlayer()); }
+        get { return (PhotonNetwork.player.UserId == GetActivePlayer()); }
     }
 
     public int CurrentTurn {
@@ -62,14 +61,14 @@ public class TurnManager : PunBehaviour {
     }
 
     public void StartGame() {
-        SetActivePlayer(PhotonNetwork.player);
+        SetActivePlayer(PhotonNetwork.player.UserId);
         BeginTurn();
     }
 
     public void BeginTurn() {
         if (CurrentTurn > 0) {
-            if (GetActivePlayer() != PhotonNetwork.player) {
-                SetActivePlayer(PhotonNetwork.player);
+            if (GetActivePlayer() != PhotonNetwork.player.UserId) {
+                SetActivePlayer(PhotonNetwork.player.UserId);
             }
         }
         
@@ -85,7 +84,7 @@ public class TurnManager : PunBehaviour {
     }
 
     // Sets which player's turn it is right now.
-    public void SetActivePlayer(PhotonPlayer pPlayer) {
+    public void SetActivePlayer(string pUserId) {
         Room room = PhotonNetwork.room;
         if (room == null || room.CustomProperties == null) {
             return;
@@ -93,18 +92,18 @@ public class TurnManager : PunBehaviour {
 
         string propKey = ACTIVE_PLAYER_KEY;
         Hashtable playerData = new Hashtable();
-        playerData[propKey] = pPlayer;
+        playerData[propKey] = pUserId;
 
         room.SetCustomProperties(playerData);
     }
 
     // Gets which player's turn it is right now.
-    public PhotonPlayer GetActivePlayer() {
+    public string GetActivePlayer() {
         Room room = PhotonNetwork.room;
         if (room == null || room.CustomProperties == null || !room.CustomProperties.ContainsKey(ACTIVE_PLAYER_KEY)) {
             return null;
         }
 
-        return (PhotonPlayer) room.CustomProperties[ACTIVE_PLAYER_KEY];
+        return (string) room.CustomProperties[ACTIVE_PLAYER_KEY];
     }
 }

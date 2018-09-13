@@ -7,6 +7,7 @@ public class HUDHandler : MonoBehaviour {
     [SerializeField] private Text _turnTimer;
     [SerializeField] private GameObject _endTurnPopUp;
     [SerializeField] private GameObject _winPopUp;
+    [SerializeField] private GameObject _losePopUp;
 
     private Coroutine _endTurnError;
 
@@ -19,11 +20,9 @@ public class HUDHandler : MonoBehaviour {
 
         if (timeLeft > 0) {
             int currentTurn = TurnManager.Instance.CurrentTurn;
-            PhotonPlayer activePlayer = TurnManager.Instance.GetActivePlayer();
+            string activeUserId = TurnManager.Instance.GetActivePlayer();
 
-            if (activePlayer != null) {
-                _turnTimer.text = "Turn: " + currentTurn + " Time Left: " + timeLeft + " | Active player id: " + activePlayer.ID;
-            }
+            _turnTimer.text = "Turn: " + currentTurn + " Time Left: " + timeLeft + " | Active player id: " + activeUserId;
         }
     }
 
@@ -36,15 +35,36 @@ public class HUDHandler : MonoBehaviour {
         _endTurnError = StartCoroutine(EnableFadeOut(_endTurnPopUp, pTimeToWait));
     }
 
-    public void DisplayWinMessage() {
+    public void EngageWinSequence(int pTimeToWait) {
         if (!_winPopUp.activeSelf) {
             _winPopUp.gameObject.SetActive(true);
         }
+
+        StartCoroutine(EndGameSequence(pTimeToWait, true));
+    }
+
+    public void EngageLoseSequence(int pTimeToWait) {
+        if (!_losePopUp.activeSelf) {
+            _losePopUp.gameObject.SetActive(true);
+        }
+
+        StartCoroutine(EndGameSequence(pTimeToWait, false));
     }
 
     private IEnumerator EnableFadeOut(GameObject pObject, float pTimeToWait) {
         pObject.gameObject.SetActive(true);
         yield return new WaitForSeconds(pTimeToWait);
         pObject.gameObject.SetActive(false);
+    }
+
+    private IEnumerator EndGameSequence(int pAmount, bool pHasWon) {
+        yield return new WaitForSeconds(pAmount);
+        // Leave current room.
+        if (PhotonNetwork.connected) {
+            PhotonNetwork.LeaveRoom();
+        }
+        // Not using boolean "pHasWon" for now, but will be useful in the future.
+        // For displaying different particles when you lose vs when you win etc.
+        LevelManager.Instance.LoadLevelASync(Config.MAIN_SCENE);
     }
 }

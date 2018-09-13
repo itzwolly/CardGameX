@@ -7,11 +7,17 @@ public class OnClickHandler : MonoBehaviour {
 
     public void onClickQuickPlay() {
         // Currently completely random, will add a filter later.
-        PhotonNetwork.JoinRandomRoom();
+        // returns bool, to check if it couldn't find a room (i.e
+        // If A is looking for a room, but decides to stop looking and B tries to join using quick play Error: OperationResponse 226: Returncode: 32758 is thrown)
+        if (!PhotonNetwork.JoinRandomRoom()) {
+            Debug.Log("No random room found!");
+        } else {
+            Debug.Log("Joined Existing room: " + PhotonNetwork.room);
+        }
     }
 
     public void onClickCreateRoom() {
-        PhotonNetwork.CreateRoom(_creatRoom.text, new RoomOptions() { MaxPlayers = Config.MAX_PLAYERS, PlayerTtl = Config.Player_TTL, EmptyRoomTtl = 3000 }, null);
+        PhotonNetwork.CreateRoom(_creatRoom.text, new RoomOptions() { MaxPlayers = Config.MAX_PLAYERS, PlayerTtl = Config.PLAYER_TTL, EmptyRoomTtl = Config.EMPTY_ROOM_TTL }, null);
     }
 
     public void onClickJoinRoom() {

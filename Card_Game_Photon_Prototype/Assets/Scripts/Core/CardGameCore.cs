@@ -6,14 +6,20 @@ using System;
 
 public class CardGameCore : PunBehaviour, ITurnManagerCallbacks {
     [SerializeField] private HUDHandler _hud;
+
     private TurnManager _turnManager;
 
     private void Awake() {
+        Debug.Log("Initializing Turn manager in the Game's core.");
         InitializeTurnManager();
     }
 
     private void Start() {
-        StartGame();
+        Debug.Log("Calling Start in the Game's Core..");
+
+        if (_turnManager.CurrentTurn == 0) {
+            StartGame();
+        }
     }
 
     private void InitializeTurnManager() {
@@ -25,7 +31,6 @@ public class CardGameCore : PunBehaviour, ITurnManagerCallbacks {
     private void StartGame() {
         if (PhotonNetwork.player.IsMasterClient) {
             Debug.Log("Current master client is: " + PhotonNetwork.player.ID);
-
             _turnManager.StartGame();
         }
     }
@@ -57,11 +62,13 @@ public class CardGameCore : PunBehaviour, ITurnManagerCallbacks {
 
     public void OnTurnEnds(int pTurn) {
         // start new turn
+        Debug.Log("Calling OnTurnEnds");
         _turnManager.BeginTurn();
     }
 
     public void OnTurnTimeEnds(int pTurn) {
         // start new turn
+        Debug.Log("Calling OnTurnTimeEnds");
         _turnManager.BeginTurn();
     }
 
@@ -70,8 +77,15 @@ public class CardGameCore : PunBehaviour, ITurnManagerCallbacks {
         _hud.DisplayEndTurnError(3);
     }
 
-    public void OnGameWin() {
-        Debug.Log("OnGameWin called baby..");
-        //_hud.DisplayWinMessage();
+    public void OnGameEnd(PhotonPlayer pWinner) {
+        Debug.Log("OnGameEnd called.");
+
+        if (pWinner.ID == PhotonNetwork.player.ID) {
+            Debug.Log("Displaying win message and changing back to main scene after 3 seconds.");
+            _hud.EngageWinSequence(3);
+        } else if (pWinner.ID == PhotonNetwork.otherPlayers[0].ID) {
+            Debug.Log("Displaying loss message and changing back to main scene after 3 seconds..");
+            _hud.EngageLoseSequence(5);
+        }
     }
 }

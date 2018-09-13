@@ -367,7 +367,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1604238184}
-  - component: {fileID: 1604238186}
   - component: {fileID: 1604238185}
   m_Layer: 0
   m_Name: Network Manager
@@ -400,32 +399,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4066dea86e6e8ca4195ae45244184d77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1604238186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1604238183}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ownerId: 0
-  group: 0
-  OwnerShipWasTransfered: 0
-  prefixBackup: -1
-  synchronization: 0
-  onSerializeTransformOption: 3
-  onSerializeRigidBodyOption: 2
-  ownershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 0}
-  ObservedComponentsFoldoutOpen: 1
-  viewIdField: 1
-  instantiationId: 1
-  currentMasterID: -1
-  isRuntimeInstantiated: 0
 --- !u!1001 &2032048463
 Prefab:
   m_ObjectHideFlags: 0

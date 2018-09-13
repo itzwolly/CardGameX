@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public class NetworkManager : MonoBehaviour {
@@ -7,48 +8,75 @@ public class NetworkManager : MonoBehaviour {
     private void Awake() {
         DontDestroyOnLoad(gameObject);
 
-        // This is temporary, switching to custom authentication using the custom launcher.
-        PhotonNetwork.AuthValues = new AuthenticationValues(Guid.NewGuid().ToString());
+        if (FindObjectsOfType(GetType()).Length > 1) {
+            Destroy(gameObject);
+        }
+        
         PhotonNetwork.automaticallySyncScene = true;
         PhotonNetwork.autoJoinLobby = false;
 
-        PhotonNetwork.ConnectUsingSettings(Config.VERSION);
-        Debug.Log("Connected to version: " + Config.VERSION);
+        if (PhotonNetwork.connectionState == ConnectionState.Disconnected) {
+            // This is temporary, switching to custom authentication using the custom launcher.
+            PhotonNetwork.AuthValues = new AuthenticationValues(SystemInfo.deviceUniqueIdentifier);
+            Debug.Log("UserId: " + PhotonNetwork.AuthValues.UserId);
+
+            PhotonNetwork.ConnectUsingSettings(Config.VERSION);
+            Debug.Log("Connected to version: " + Config.VERSION);
+        }
+
+        InvokeRepeating("Service", 0.0f, 0.02f); // 20 times per second
+    }
+
+    private void Service() {
+        // https://doc.photonengine.com/en-us/realtime/current/reference/client-connection-handling
+        PhotonNetwork.networkingPeer.Service();
+    }
+
+    private void OnJoinedLobby() {
+        Debug.Log("Joined Lobby somehow??");
     }
 
     private void OnConnectedToMaster() {
-        //PhotonNetwork.JoinLobby(TypedLobby.Default);
         Debug.Log("Connected to master.");
     }
 
-    //private void OnJoinedLobby() {
-    //    Debug.Log("Joined lobby");
-    //}
+    private void OnJoinedRandomRoom() {
+        Debug.Log("Joined random room. Currently: " + PhotonNetwork.room.PlayerCount + " player(s) waiting.");
+    }
 
     private void OnJoinedRoom() {
         Debug.Log("Joined room. Currently: " + PhotonNetwork.room.PlayerCount + " player(s) waiting.");
 
-        if (PhotonNetwork.room.PlayerCount == Config.MAX_PLAYERS) {
-            Debug.Log("Player limit reached. Starting game...");
+        if (SceneManagerHelper.ActiveSceneName != Config.GAME_SCENE) {
+            if (PhotonNetwork.room.PlayerCount == Config.MAX_PLAYERS) {
+                Debug.Log("Player limit reached. Starting game...");
 
-            if (PhotonNetwork.automaticallySyncScene) {
-                for (int i = 0; i < PhotonNetwork.room.PlayerCount; i++) {
-                    Events.RaiseJoinGameEvent(PhotonNetwork.playerList[i].ID);
+                if (PhotonNetwork.automaticallySyncScene) {
+                    for (int i = 0; i < PhotonNetwork.room.PlayerCount; i++) {
+                        Events.RaiseJoinGameEvent(PhotonNetwork.playerList[i].ID);
+                    }
                 }
             }
         }
     }
 
+    private void OnPhotonPlayerDisconnected(PhotonPlayer pOther) {
+        Debug.Log("Player " + pOther.ID + " Disconnected.");
+        Events.RaiseEndGameEvent();
+    }
+
     private void OnConnectionFail(DisconnectCause pCause) {
         Debug.Log("Cause for connection failure is: " + pCause);
+        if (!PhotonNetwork.connected || PhotonNetwork.room == null) {
+            PhotonNetwork.ReconnectAndRejoin();
+            //PhotonNetwork.FetchServerTimestamp();
+        }
     }
 
     private void OnDisconnectedFromPhoton() {
         Debug.Log("Disconnected from photon.");
-
-        if (!PhotonNetwork.ReconnectAndRejoin()) {
-            Debug.LogError("Failed to reconnect to photon and rejoin to room");
-        }
+        PhotonNetwork.ReconnectAndRejoin();
+        //PhotonNetwork.FetchServerTimestamp();
     }
 
     private void OnLeftRoom() {
@@ -56,16 +84,16 @@ public class NetworkManager : MonoBehaviour {
     }
     
     private void OnPhotonJoinRoomFailed() {
-        Debug.Log("Failed to join a room");
-        Debug.Log("Currently in room: " + PhotonNetwork.room + " with build index: " + SceneManagerHelper.ActiveSceneBuildIndex);
+        Debug.Log("Failed to join a room.");
 
-        if (SceneManagerHelper.ActiveSceneBuildIndex != 0) {
-            StartCoroutine(LevelManager.Instance.PhotonLoadLevelAsync(0));
+        if (SceneManagerHelper.ActiveSceneName != Config.MAIN_SCENE) {
+            Debug.Log("Changing back to the main scene.");
+            LevelManager.Instance.PhotonLoadLevelASync(Config.MAIN_SCENE);
         }
     }
 
     private void OnPhotonRandomJoinFailed() {
         Debug.Log("Failed to join a random room. Creating a new one...");
-        PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = Config.MAX_PLAYERS, PlayerTtl = Config.Player_TTL, EmptyRoomTtl = 3000 }, null);
+        PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = Config.MAX_PLAYERS, PlayerTtl = Config.PLAYER_TTL, EmptyRoomTtl = Config.EMPTY_ROOM_TTL }, null);
     }
 }

@@ -4,7 +4,7 @@ public class Events {
     public const byte PLAY_CARD = 0;
     public const byte END_TURN = 1;
     public const byte JOIN_GAME = 2;
-    public const byte WIN_GAME = 3;
+    public const byte END_GAME = 3;
 
     public static void RaiseCardPlayedEvent(int pCardId, int pCardIndex) {
         object[] content = new object[] { pCardId, pCardIndex };
@@ -27,10 +27,9 @@ public class Events {
         PhotonNetwork.RaiseEvent(JOIN_GAME, content, reliable, raiseEventOptions);
     }
 
-    public static void RaiseWinGameEvent() {
-        //object[] content = new object[] { };
+    public static void RaiseEndGameEvent() {
         bool reliable = true;
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All, CachingOption = EventCaching.AddToRoomCache }; // You would have to set the Receivers to All in order to receive this event on the local client as well
-        PhotonNetwork.RaiseEvent(WIN_GAME, null, reliable, raiseEventOptions);
+        PhotonNetwork.RaiseEvent(END_GAME, null, reliable, raiseEventOptions);
     }
 }

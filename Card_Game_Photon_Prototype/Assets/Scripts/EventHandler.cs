@@ -2,11 +2,16 @@
 using ExitGames.Client.Photon;
 
 public class EventHandler : MonoBehaviour {
+
     private void Awake() {
         DontDestroyOnLoad(gameObject);
+
+        if (FindObjectsOfType(GetType()).Length > 1) {
+            Destroy(gameObject);
+        }
     }
 
-    public void OnEvent(byte pEventCode, object pContent, int pSenderId) {
+    private void OnEvent(byte pEventCode, object pContent, int pSenderId) {
         object[] data = (object[]) pContent;
         PhotonPlayer sender = PhotonPlayer.Find(pSenderId);
 
@@ -25,16 +30,12 @@ public class EventHandler : MonoBehaviour {
             case Events.JOIN_GAME: {
                     int playerId = (int) data[0];
                     if (playerId == PhotonNetwork.player.ID) {
-                        StartCoroutine(LevelManager.Instance.PhotonLoadLevelAsync(Config.GAME_SCENE));
+                        LevelManager.Instance.PhotonLoadLevelASync(Config.GAME_SCENE);
                     }
                     break;
                 }
-            case Events.WIN_GAME: {
-                    //if (sender.ID == PhotonNetwork.otherPlayers[0].ID) {
-                        
-                    //}
-
-                    TurnManager.Instance.TurnManagerListener.OnGameWin();
+            case Events.END_GAME: {
+                    TurnManager.Instance.TurnManagerListener.OnGameEnd(sender);
                     break;
                 }
             default:
@@ -42,11 +43,11 @@ public class EventHandler : MonoBehaviour {
         }
     }
 
-    public void OnEnable() {
+    private void OnEnable() {
         PhotonNetwork.OnEventCall += OnEvent;
     }
 
-    public void OnDisable() {
+    private void OnDisable() {
         PhotonNetwork.OnEventCall -= OnEvent;
     }
 }

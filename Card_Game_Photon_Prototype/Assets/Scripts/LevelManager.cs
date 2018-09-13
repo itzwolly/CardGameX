@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour {
     private static LevelManager _instance;
@@ -22,7 +23,41 @@ public class LevelManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
-    public IEnumerator PhotonLoadLevelAsync(int pLevel) {
+    public void LoadLevelASync(int pLevel) {
+        StartCoroutine(CRLoadLevelASync(pLevel));
+    }
+
+    public void LoadLevelASync(string pLevel) {
+        StartCoroutine(CRLoadLevelASync(pLevel));
+    }
+
+    public void PhotonLoadLevelASync(int pLevel) {
+        StartCoroutine(CRPhotonLoadLevelAsync(pLevel));
+    }
+
+    public void PhotonLoadLevelASync(string pLevel) {
+        StartCoroutine(CRPhotonLoadLevelAsync(pLevel));
+    }
+
+    private IEnumerator CRLoadLevelASync(int pLevel) {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(pLevel);
+
+        while (!operation.isDone) {
+            Debug.Log("Loading.. scene: " + pLevel + " progress: " + operation.progress);
+            yield return null;
+        }
+    }
+
+    private IEnumerator CRLoadLevelASync(string pLevel) {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(pLevel);
+
+        while (!operation.isDone) {
+            Debug.Log("Loading.. scene: " + pLevel + " progress: " + operation.progress);
+            yield return null;
+        }
+    }
+
+    private IEnumerator CRPhotonLoadLevelAsync(int pLevel) {
         AsyncOperation operation = PhotonNetwork.LoadLevelAsync(pLevel);
 
         while (!operation.isDone) {
@@ -31,7 +66,7 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
-    public IEnumerator PhotonLoadLevelAsync(string pLevel) {
+    private IEnumerator CRPhotonLoadLevelAsync(string pLevel) {
         AsyncOperation operation = PhotonNetwork.LoadLevelAsync(pLevel);
 
         while (!operation.isDone) {
