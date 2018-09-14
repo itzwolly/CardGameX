@@ -17,9 +17,7 @@ public class CardGameCore : PunBehaviour, ITurnManagerCallbacks {
     private void Start() {
         Debug.Log("Calling Start in the Game's Core..");
 
-        if (_turnManager.CurrentTurn == 0) {
-            StartGame();
-        }
+        StartGame();
     }
 
     private void InitializeTurnManager() {
@@ -29,7 +27,7 @@ public class CardGameCore : PunBehaviour, ITurnManagerCallbacks {
     }
 
     private void StartGame() {
-        if (PhotonNetwork.player.IsMasterClient) {
+        if (PhotonNetwork.player.IsMasterClient && _turnManager.CurrentTurn == 0) {
             Debug.Log("Current master client is: " + PhotonNetwork.player.ID);
             _turnManager.StartGame();
         }

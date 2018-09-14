@@ -94,6 +94,6 @@ public class NetworkManager : MonoBehaviour {
 
     private void OnPhotonRandomJoinFailed() {
         Debug.Log("Failed to join a random room. Creating a new one...");
-        PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = Config.MAX_PLAYERS, PlayerTtl = Config.PLAYER_TTL, EmptyRoomTtl = Config.EMPTY_ROOM_TTL }, null);
+        PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = Config.MAX_PLAYERS, PlayerTtl = Config.PLAYER_TTL, EmptyRoomTtl = Config.EMPTY_ROOM_TTL, CleanupCacheOnLeave = Config.CLEANUP_CACHE_ON_LEAVE }, null);
     }
 }
