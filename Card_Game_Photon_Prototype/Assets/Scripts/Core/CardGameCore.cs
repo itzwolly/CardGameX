@@ -48,9 +48,10 @@ public class CardGameCore : PunBehaviour, ITurnManagerCallbacks {
         HandManager hand = PhotonNetwork.player.TagObject as HandManager;
         // Would normally just play a certain animation..
         // Just destroying for now.
-        hand.DestroyCard(pCardIndex);
+        hand.DestroyCard(pPlayer.ID, pCardIndex);
 
         // Execute whatever card: pCardId is..
+
     }
 
     public void OnTurnBegins(int pTurn) {

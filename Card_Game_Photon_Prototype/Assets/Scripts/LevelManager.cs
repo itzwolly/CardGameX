@@ -24,19 +24,27 @@ public class LevelManager : MonoBehaviour {
     }
 
     public void LoadLevelASync(int pLevel) {
-        StartCoroutine(CRLoadLevelASync(pLevel));
+        if (SceneManagerHelper.ActiveSceneBuildIndex != pLevel) {
+            StartCoroutine(CRLoadLevelASync(pLevel));
+        }
     }
 
     public void LoadLevelASync(string pLevel) {
-        StartCoroutine(CRLoadLevelASync(pLevel));
+        if (SceneManagerHelper.ActiveSceneName != pLevel) {
+            StartCoroutine(CRLoadLevelASync(pLevel));
+        }
     }
 
     public void PhotonLoadLevelASync(int pLevel) {
-        StartCoroutine(CRPhotonLoadLevelAsync(pLevel));
+        if (SceneManagerHelper.ActiveSceneBuildIndex != pLevel) {
+            StartCoroutine(CRPhotonLoadLevelAsync(pLevel));
+        }
     }
 
     public void PhotonLoadLevelASync(string pLevel) {
-        StartCoroutine(CRPhotonLoadLevelAsync(pLevel));
+        if (SceneManagerHelper.ActiveSceneName != pLevel) {
+            StartCoroutine(CRPhotonLoadLevelAsync(pLevel));
+        }
     }
 
     private IEnumerator CRLoadLevelASync(int pLevel) {

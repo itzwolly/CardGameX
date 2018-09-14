@@ -12,8 +12,8 @@ public class HandManager : MonoBehaviour {
         PhotonNetwork.player.TagObject = this;
 	}
 
-    public void DestroyCard(int pIndex) {
-        if (TurnManager.Instance.IsActivePlayer) {
+    public void DestroyCard(int pPlayerId, int pIndex) {
+        if (pPlayerId == PhotonNetwork.player.ID) {
             Destroy(_playerHand.transform.GetChild(pIndex).gameObject);
         } else {
             Destroy(_enemyHand.transform.GetChild((_enemyHand.transform.childCount - 1) - pIndex).gameObject);

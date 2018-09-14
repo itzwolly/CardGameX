@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 public class NetworkManager : MonoBehaviour {
+    private Coroutine _crService;
 
     private void Awake() {
         DontDestroyOnLoad(gameObject);
@@ -16,18 +17,20 @@ public class NetworkManager : MonoBehaviour {
         PhotonNetwork.autoJoinLobby = false;
 
         if (PhotonNetwork.connectionState == ConnectionState.Disconnected) {
-            // This is temporary, switching to custom authentication using the custom launcher.
-            PhotonNetwork.AuthValues = new AuthenticationValues(SystemInfo.deviceUniqueIdentifier);
+            // TODO: This is temporary, switching to custom authentication using the custom launcher.
+            PhotonNetwork.AuthValues = new AuthenticationValues(SystemInfo.deviceUniqueIdentifier /*+ PhotonNetwork.player.ID*/); // enable Photonnetwork.player.id if you want to be able to play on the same device.
             Debug.Log("UserId: " + PhotonNetwork.AuthValues.UserId);
 
             PhotonNetwork.ConnectUsingSettings(Config.VERSION);
             Debug.Log("Connected to version: " + Config.VERSION);
         }
 
-        InvokeRepeating("Service", 0.0f, 0.02f); // 20 times per second
+        InvokeRepeating("Service", 0.001f, 0.05f); // 20 times per second
     }
 
     private void Service() {
+        //Debug.Log("Calling Service: " + (int) Time.time);
+
         // https://doc.photonengine.com/en-us/realtime/current/reference/client-connection-handling
         PhotonNetwork.networkingPeer.Service();
     }

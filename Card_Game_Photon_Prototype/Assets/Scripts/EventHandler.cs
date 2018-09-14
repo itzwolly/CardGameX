@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using ExitGames.Client.Photon;
+using System;
 
 public class EventHandler : MonoBehaviour {
 
@@ -11,9 +12,18 @@ public class EventHandler : MonoBehaviour {
         }
     }
 
-    private void OnEvent(byte pEventCode, object pContent, int pSenderId) {
+    public void OnEvent(byte pEventCode, object pContent, int pSenderId) {
         object[] data = (object[]) pContent;
         PhotonPlayer sender = PhotonPlayer.Find(pSenderId);
+
+        string debug = "";
+        if (data != null) {
+            for (int i = 0; i < data.Length; i++) {
+                debug += data[i] + " {type = " + data[i].GetType() + "}" + ((i == data.Length - 1) ? "" : ", ");
+            }
+        }
+
+        Debug.Log("[Received] Event from the server: ev=" + pEventCode + ", data=" + (debug == "" ? "null" : debug) + "" + ", senderId=" + sender.ID + " on player.ID: " + PhotonNetwork.player.ID);
 
         switch (pEventCode) {
             case Events.PLAY_CARD: {
@@ -44,10 +54,12 @@ public class EventHandler : MonoBehaviour {
     }
 
     private void OnEnable() {
+        Debug.Log("Started Listening to OnEventCall");
         PhotonNetwork.OnEventCall += OnEvent;
     }
 
     private void OnDisable() {
+        Debug.Log("Stopped listening to OnEventCall");
         PhotonNetwork.OnEventCall -= OnEvent;
     }
 }
