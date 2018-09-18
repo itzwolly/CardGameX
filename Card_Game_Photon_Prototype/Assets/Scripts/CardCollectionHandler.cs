@@ -2,21 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using System.Linq;
 
-public class CardCollection : MonoBehaviour {
+public class CardCollectionHandler : MonoBehaviour {
     [SerializeField] private GameObject _hud;
     [SerializeField] private GameObject _cardCollectionPrefab;
     [SerializeField] private GameObject _cardPrefab;
-
-    public const int MAX_CARDS_PER_PAGE = 21;
-    private const string CARD_COLLECTION_URL = "http://card-game.gearhostpreview.com/cardcollection.php";
     
+    private const string CARD_COLLECTION_URL_USING_DB = "http://card-game.gearhostpreview.com/cardcollection.php";
+    private const string CARD_COLLECTION_URL_USING_JSON = "http://card-game.gearhostpreview.com/cardcollection.json";
+
     private int _pageIndex;
     private int _cardsInPageAmount;
     private bool _hasFinishedLoadingCards;
 
     private Coroutine _crGetCardCollection;
     private GameObject _cardCollectionParent;
+
+    public Coroutine CRGetCardCollection {
+        get { return _crGetCardCollection; }
+    }
 
     public int PageIndex {
         get { return _pageIndex; }
@@ -35,7 +41,9 @@ public class CardCollection : MonoBehaviour {
             _cardsInPageAmount = 0;
             _hasFinishedLoadingCards = false;
             CreateCardCollectionParent();
-            _crGetCardCollection = StartCoroutine(GetCardCollection());
+
+            //_crGetCardCollection = StartCoroutine(GetCardCollectionFromDB());
+            _crGetCardCollection = StartCoroutine(GetCardCollectionFromJSON());
         }
     }
     public int CardsInPageAmount {
@@ -50,7 +58,9 @@ public class CardCollection : MonoBehaviour {
         _cardsInPageAmount = 0;
         _hasFinishedLoadingCards = false;
         CreateCardCollectionParent();
-        _crGetCardCollection = StartCoroutine(GetCardCollection());
+
+        //_crGetCardCollection = StartCoroutine(GetCardCollectionFromDB());
+        _crGetCardCollection = StartCoroutine(GetCardCollectionFromJSON());
     }
 
     private void CreateCardCollectionParent() {
@@ -61,10 +71,10 @@ public class CardCollection : MonoBehaviour {
         _cardCollectionParent.transform.SetParent(_hud.transform, false);
     }
 
-    private GameObject CreateCardContainer(string[] pCardData) {
+    private GameObject CreateCardContainer(CardData pCardData) {
         GameObject card = Instantiate(_cardPrefab);
         _cardCollectionParent.transform.SetParent(_hud.transform, false);
-        card.transform.SetParent(_cardCollectionParent.transform, false); 
+        card.transform.SetParent(_cardCollectionParent.transform, false);
 
         RectTransform cardRectTransform = card.GetComponent<RectTransform>();
         Rect cardRect = cardRectTransform.rect;
@@ -78,37 +88,57 @@ public class CardCollection : MonoBehaviour {
         cardChildRectTransform.anchoredPosition = Vector2.zero;
         cardChildRectTransform.sizeDelta = new Vector2(cardRect.width, cardRect.height);
 
-        GameObject cardChildContainer = cardChildCanvas.gameObject;
-        foreach (Transform child in cardChildContainer.transform) {
-            if (child.tag == "CardContainerData") {
-                for (int i = 0; i < pCardData.Length; i++) {
-                    child.GetChild(i).GetComponent<Text>().text = pCardData[i];
-                }
-            }
-        }
-        
+        card.GetComponent<CardCollectionBehaviour>().SetCardData(pCardData);
+
         return card;
     }
 
-    private IEnumerator GetCardCollection() {
+    private IEnumerator GetCardCollectionFromDB() {
         WWWForm form = new WWWForm();
         form.AddField("pageindex", _pageIndex);
-        form.AddField("maxcardsperpage", MAX_CARDS_PER_PAGE);
+        form.AddField("maxcardsperpage", Config.MAX_CARDS_PER_PAGE);
 
         Dictionary<string, string> headers = form.headers;
         byte[] postData = form.data;
 
-        using (WWW hs_get = new WWW(CARD_COLLECTION_URL, postData)) {
+        using (WWW hs_get = new WWW(CARD_COLLECTION_URL_USING_DB, postData)) {
             yield return hs_get;
 
             if (hs_get.error != null) {
                 print("There was an error getting the card collection: " + hs_get.error);
             } else {
                 string[] rows = hs_get.text.Split('\n');
-                // the last entry in the row is the '\n', not interested in that only interested in the split lines on '\t'.
+                
+                // using rows.length - 1 because:
+                // the last entry in the row is the '\n', not interested in that only interested in the lines split on '\t'.
                 for (int i = 0; i < rows.Length - 1; i++) { 
                     string[] cols = rows[i].Split('\t');
-                    CreateCardContainer(cols);
+                    CardData data = new CardData(Convert.ToInt32(cols[0]), cols[1], cols[2], cols[3]);
+
+                    CreateCardContainer(data);
+                    _cardsInPageAmount++;
+                }
+                _hasFinishedLoadingCards = true;
+            }
+        }
+    }
+
+    private IEnumerator GetCardCollectionFromJSON() {
+        using (WWW hs_get = new WWW(CARD_COLLECTION_URL_USING_JSON)) {
+            yield return hs_get;
+
+            if (hs_get.error != null) {
+                print("There was an error getting the card collection: " + hs_get.error);
+            } else {
+                CardInfoList infoArray = CardInfoList.CreateFromJSON(hs_get.text);
+                List<CardInfo> infoList = infoArray.Cards.ToList();
+                IEnumerable<CardInfo> result = infoList.Skip(Config.MAX_CARDS_PER_PAGE * _pageIndex).Take(Config.MAX_CARDS_PER_PAGE);
+
+                for (int i = 0; i < result.Count(); i++) {
+                    CardInfo info = result.ElementAt(i);
+                    CardData data = new CardData(info.Id, (info.Name == null) ? "" : info.Name, (info.Description == null) ? "" : info.Description, (info.Actions == null) ? "" : info.Actions);
+
+                    CreateCardContainer(data);
                     _cardsInPageAmount++;
                 }
                 _hasFinishedLoadingCards = true;

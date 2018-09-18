@@ -73,6 +73,7 @@ public class TurnManager : PunBehaviour {
         }
         
         CurrentTurn = CurrentTurn + 1;
+        TurnManagerListener.OnTurnBegins(CurrentTurn);
     }
 
     public bool EndTurn() {

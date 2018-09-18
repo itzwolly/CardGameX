@@ -331,6 +331,16 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1543503388}
+    - target: {fileID: 114806326405272962, guid: d7797aa1685f19048b5a85f582070eb0,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1543503388}
+    - target: {fileID: 114812875808712908, guid: d7797aa1685f19048b5a85f582070eb0,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClickPreviousScene
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7797aa1685f19048b5a85f582070eb0, type: 2}
   m_IsPrefabAsset: 0
@@ -558,6 +568,6 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1790986004 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1692239834549090, guid: d7797aa1685f19048b5a85f582070eb0,
+  m_CorrespondingSourceObject: {fileID: 1829887696750432, guid: d7797aa1685f19048b5a85f582070eb0,
     type: 2}
   m_PrefabInternal: {fileID: 837670152}

@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CardBehaviour : MonoBehaviour {
+public class CardGameBehaviour : MonoBehaviour {
     [SerializeField] private int _cardId;
 
     public int CardId {
