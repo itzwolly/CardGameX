@@ -2,6 +2,7 @@
     public const string VERSION = "v0.02";
     public const string GAME_SCENE = "GameScene";
     public const string MAIN_SCENE = "Networking";
+    public const string CARD_COLLECTION_SCENE = "CardCollection";
     public const string PLAYER_PREFAB = "Player";
     public const int MAX_PLAYERS = 2;
     public const int PLAYER_TTL = 20000;

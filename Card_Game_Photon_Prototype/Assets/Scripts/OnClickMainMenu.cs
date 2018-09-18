@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class OnClickHandler : MonoBehaviour {
+public class OnClickMainMenu : MonoBehaviour {
     [SerializeField] private InputField _creatRoom;
     [SerializeField] private InputField _joinRoom;
 
@@ -22,5 +22,9 @@ public class OnClickHandler : MonoBehaviour {
 
     public void onClickJoinRoom() {
         PhotonNetwork.JoinRoom(_joinRoom.text);
+    }
+
+    public void onClickCardCollection() {
+        LevelManager.Instance.LoadLevelASync(Config.CARD_COLLECTION_SCENE);
     }
 }

@@ -5,7 +5,7 @@ using Photon;
 using System;
 
 public class CardGameCore : PunBehaviour, ITurnManagerCallbacks {
-    [SerializeField] private HUDHandler _hud;
+    [SerializeField] private GameHUDHandler _hud;
 
     private TurnManager _turnManager;
 
@@ -51,7 +51,7 @@ public class CardGameCore : PunBehaviour, ITurnManagerCallbacks {
         hand.DestroyCard(pPlayer.ID, pCardIndex);
 
         // Execute whatever card: pCardId is..
-
+        
     }
 
     public void OnTurnBegins(int pTurn) {

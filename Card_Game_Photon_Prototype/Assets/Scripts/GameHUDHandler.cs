@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HUDHandler : MonoBehaviour {
+public class GameHUDHandler : MonoBehaviour {
     [SerializeField] private Text _txtPlayerData;
     [SerializeField] private Text _turnTimer;
     [SerializeField] private GameObject _endTurnPopUp;
@@ -29,6 +29,7 @@ public class HUDHandler : MonoBehaviour {
     public void DisplayEndTurnError(float pTimeToWait) {
         if (_endTurnError != null) {
             StopCoroutine(_endTurnError);
+            _endTurnError = null;
             _endTurnPopUp.gameObject.SetActive(false);
         }
 

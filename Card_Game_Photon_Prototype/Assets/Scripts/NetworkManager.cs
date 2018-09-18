@@ -72,14 +72,12 @@ public class NetworkManager : MonoBehaviour {
         Debug.Log("Cause for connection failure is: " + pCause);
         if (!PhotonNetwork.connected || PhotonNetwork.room == null) {
             PhotonNetwork.ReconnectAndRejoin();
-            //PhotonNetwork.FetchServerTimestamp();
         }
     }
 
     private void OnDisconnectedFromPhoton() {
         Debug.Log("Disconnected from photon.");
         PhotonNetwork.ReconnectAndRejoin();
-        //PhotonNetwork.FetchServerTimestamp();
     }
 
     private void OnLeftRoom() {

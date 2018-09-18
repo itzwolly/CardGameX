@@ -9,6 +9,11 @@ TagManager:
   - Enemy
   - PlayerBoardSlots
   - EnemyBoardSlots
+  - CardName
+  - CardDescription
+  - CardId
+  - CardActions
+  - CardContainerData
   layers:
   - Default
   - TransparentFX
