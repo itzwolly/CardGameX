@@ -30,6 +30,6 @@ public class DeckHandler : MonoBehaviour {
     private void Awake() {
         DontDestroyOnLoad(gameObject);
 
-        _activeDeck = new Deck(0, "DUMMY_NAME");
+        _activeDeck = new Deck(0, "DUMMY_NAME"); // Temporary
     }
 }

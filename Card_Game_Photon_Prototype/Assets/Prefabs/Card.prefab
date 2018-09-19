@@ -176,8 +176,7 @@ MonoBehaviour:
   _name: {fileID: 114470818663920390}
   _description: {fileID: 114602973754402406}
   _actions: {fileID: 114538523545613666}
-  _cardEntryPrefab: {fileID: 1145209296564438, guid: 11125eb85f499594b99420bc9b199f19,
-    type: 2}
+  _collectionList: {fileID: 0}
 --- !u!114 &114470818663920390
 MonoBehaviour:
   m_ObjectHideFlags: 1

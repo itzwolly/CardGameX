@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -122,6 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 462089814}
   - component: {fileID: 462089815}
+  - component: {fileID: 462089816}
   m_Layer: 0
   m_Name: Card Collection Handler
   m_TagString: Untagged
@@ -159,6 +160,22 @@ MonoBehaviour:
   _cardCollectionPrefab: {fileID: 1334987523043242, guid: e67159cc03cffb34eb5ae4bd8a9d9d8e,
     type: 2}
   _cardPrefab: {fileID: 1561038816830324, guid: c23cd0993806da748b6799c83376405f,
+    type: 2}
+  _cardCollectionList: {fileID: 462089816}
+--- !u!114 &462089816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 462089813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98ab58d3f0db4ba46b9b9f6e0ed64185, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cardEntryContainer: {fileID: 1149192228809782, guid: 21bd2a4e1c6b4064e8b18c2de2c95c63,
+    type: 2}
+  _cardEntryPrefab: {fileID: 1145209296564438, guid: 11125eb85f499594b99420bc9b199f19,
     type: 2}
 --- !u!1 &764826984
 GameObject:
