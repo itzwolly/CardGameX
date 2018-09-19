@@ -14,12 +14,24 @@ public class Deck {
     }
 
     public void AddCard(Card pCard) {
-        if (_cards.Count >= Config.DECK_SIZE) {
+        int duplicates = GetDuplicateCardCount(pCard);
+
+        if (_cards.Count >= Config.DECK_SIZE || duplicates == Config.CARD_LIMIT) {
+            Debug.Log("Exceeded amount of duplicates/cards in a deck");
             return;
         }
 
         _cards.Add(pCard);
         Debug.Log("Deck now has: " + _cards.Count + " amount of cards.");
+    }
+
+    public void RemoveCard(Card pCard) {
+        if (pCard != null) {
+            Card clone = pCard;
+            _cards.Remove(pCard);
+
+            Debug.Log("Deck now has: " + _cards.Count + " amount of cards.");
+        }
     }
 
     public Card DrawCard() {
@@ -29,9 +41,25 @@ public class Deck {
             Card copy = _cards[0]; // Create clone to return, because we're deleting later.
             _cards.RemoveAt(0); // remove existing card from deck
 
-            return copy; // Return top card.
+            return copy; // Return copy.
         }
         return null;
+    }
+
+    public Card GetCard(CardData pData) {
+        return _cards.Find(o => o.Data == pData);
+    }
+
+    public List<Card> GetCards() {
+        return _cards;
+    }
+
+    public int GetDuplicateCardCount(Card pCard) {
+        if (pCard == null) {
+            return 0;
+        }
+
+        return _cards.FindAll(o => o.Data == pCard.Data).Count;
     }
 
     private static void Shuffle<T>(IList<T> pList) {

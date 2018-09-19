@@ -7,6 +7,7 @@ using System.Linq;
 
 public class CardCollectionHandler : MonoBehaviour {
     [SerializeField] private GameObject _hud;
+    [SerializeField] private GameObject _cardEntryContainerPrefab;
     [SerializeField] private GameObject _cardCollectionPrefab;
     [SerializeField] private GameObject _cardPrefab;
     
@@ -19,6 +20,7 @@ public class CardCollectionHandler : MonoBehaviour {
 
     private Coroutine _crGetCardCollection;
     private GameObject _cardCollectionParent;
+    private GameObject _cardEntryParent;
 
     public Coroutine CRGetCardCollection {
         get { return _crGetCardCollection; }
@@ -52,15 +54,26 @@ public class CardCollectionHandler : MonoBehaviour {
     public bool HasFinishedLoadingCards {
         get { return _hasFinishedLoadingCards; }
     }
+    public GameObject HUD {
+        get { return _hud; }
+    }
 
     private void Start () {
         _pageIndex = 0;
         _cardsInPageAmount = 0;
         _hasFinishedLoadingCards = false;
         CreateCardCollectionParent();
+        CreateCardEntryParent();
 
         //_crGetCardCollection = StartCoroutine(GetCardCollectionFromDB());
         _crGetCardCollection = StartCoroutine(GetCardCollectionFromJSON());
+    }
+
+    private void CreateCardEntryParent() {
+        if (_cardEntryParent == null) {
+            _cardEntryParent = Instantiate(_cardEntryContainerPrefab);
+            _cardEntryParent.transform.SetParent(_hud.transform, false);
+        }
     }
 
     private void CreateCardCollectionParent() {
@@ -88,7 +101,9 @@ public class CardCollectionHandler : MonoBehaviour {
         cardChildRectTransform.anchoredPosition = Vector2.zero;
         cardChildRectTransform.sizeDelta = new Vector2(cardRect.width, cardRect.height);
 
-        card.GetComponent<CardCollectionBehaviour>().SetCardData(pCardData);
+        CardCollectionBehaviour ccb = card.GetComponent<CardCollectionBehaviour>();
+        ccb.SetCardEntryContainer(_cardEntryParent);
+        ccb.SetCardData(pCardData);
 
         return card;
     }
@@ -131,8 +146,7 @@ public class CardCollectionHandler : MonoBehaviour {
                 print("There was an error getting the card collection: " + hs_get.error);
             } else {
                 CardInfoList infoArray = CardInfoList.CreateFromJSON(hs_get.text);
-                List<CardInfo> infoList = infoArray.Cards.ToList();
-                IEnumerable<CardInfo> result = infoList.Skip(Config.MAX_CARDS_PER_PAGE * _pageIndex).Take(Config.MAX_CARDS_PER_PAGE);
+                IEnumerable<CardInfo> result = infoArray.Cards.Skip(Config.MAX_CARDS_PER_PAGE * _pageIndex).Take(Config.MAX_CARDS_PER_PAGE);
 
                 for (int i = 0; i < result.Count(); i++) {
                     CardInfo info = result.ElementAt(i);

@@ -2,37 +2,28 @@
 using System.Collections.Generic;
 
 public class Card {
-    private int _id;
-    private string _name;
-    private string _description;
+    private CardData _data;
     private List<Action> _actions;
+    private GameObject _collectionEntry;
 
-    public string Name {
-        get { return _name; }
+    public CardData Data {
+        get { return _data; }
     }
-    public string Description {
-        get { return _description; }
+    public GameObject CollectionEntry {
+        get { return _collectionEntry; }
+        set { _collectionEntry = value; }
     }
 
     public Card(int pId, string pName, string pDescription, List<Action> pActions) {
-        _id = pId;
-        _name = pName;
-        _description = pDescription;
-        _actions = pActions;
+        _data = new CardData(pId, pName, pDescription, /*pActions*/ "");
     }
 
     public Card(int pId, string pName, string pDescription, string pActions) {
-        _id = pId;
-        _name = pName;
-        _description = pDescription;
-        //_actions = pActions;
+        _data = new CardData(pId, pName, pDescription, pActions);
     }
 
     public Card(CardData pCardData) {
-        _id = pCardData.Id;
-        _name = pCardData.Name;
-        _description = pCardData.Description;
-        //_actions = pCardData.Actions;
+        _data = pCardData;
     }
 
     public void Execute() {
@@ -43,11 +34,15 @@ public class Card {
 
     public override string ToString() {
         string s = "Card data: ";
-        s += _id + ", " + _name + ", " + _description + ", ";
+        s += _data.Id + ", " + _data.Name + ", " + _data.Description + ", ";
 
-        for (int i = 0; i < _actions.Count; i++) {
-            s += _actions[i].GetType() + ((i == _actions.Count) ? "" : " | ");
-        } 
+        if (_actions != null) {
+            for (int i = 0; i < _actions.Count; i++) {
+                s += _actions[i].GetType() + ((i == _actions.Count) ? "" : " | ");
+            }
+        } else {
+            s += "null";
+        }
 
         return s;
     }

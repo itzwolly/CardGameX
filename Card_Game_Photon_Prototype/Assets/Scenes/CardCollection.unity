@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -154,6 +154,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hud: {fileID: 878465334}
+  _cardEntryContainerPrefab: {fileID: 1149192228809782, guid: 21bd2a4e1c6b4064e8b18c2de2c95c63,
+    type: 2}
   _cardCollectionPrefab: {fileID: 1334987523043242, guid: e67159cc03cffb34eb5ae4bd8a9d9d8e,
     type: 2}
   _cardPrefab: {fileID: 1561038816830324, guid: c23cd0993806da748b6799c83376405f,
@@ -224,7 +226,12 @@ Transform:
   m_Father: {fileID: 956559345}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1001 &837670152
+--- !u!1 &878465334 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1616503574593056, guid: d7797aa1685f19048b5a85f582070eb0,
+    type: 2}
+  m_PrefabInternal: {fileID: 903806411}
+--- !u!1001 &903806411
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -326,34 +333,24 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1543503388}
-    - target: {fileID: 114390976984056370, guid: d7797aa1685f19048b5a85f582070eb0,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1543503388}
     - target: {fileID: 114806326405272962, guid: d7797aa1685f19048b5a85f582070eb0,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1543503388}
-    - target: {fileID: 114812875808712908, guid: d7797aa1685f19048b5a85f582070eb0,
+    - target: {fileID: 114390976984056370, guid: d7797aa1685f19048b5a85f582070eb0,
         type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnClickPreviousScene
-      objectReference: {fileID: 0}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1543503388}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7797aa1685f19048b5a85f582070eb0, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &878465334 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1616503574593056, guid: d7797aa1685f19048b5a85f582070eb0,
-    type: 2}
-  m_PrefabInternal: {fileID: 837670152}
 --- !u!1 &930080028 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1138103865511756, guid: d7797aa1685f19048b5a85f582070eb0,
     type: 2}
-  m_PrefabInternal: {fileID: 837670152}
+  m_PrefabInternal: {fileID: 903806411}
 --- !u!1 &956559344
 GameObject:
   m_ObjectHideFlags: 0
@@ -570,4 +567,4 @@ Transform:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1829887696750432, guid: d7797aa1685f19048b5a85f582070eb0,
     type: 2}
-  m_PrefabInternal: {fileID: 837670152}
+  m_PrefabInternal: {fileID: 903806411}

@@ -59,7 +59,7 @@ public class CardGameCore : PunBehaviour, ITurnManagerCallbacks {
         Card drawnCard = DeckHandler.Instance.ActiveDeck.DrawCard();
 
         if (drawnCard != null) {
-            Debug.Log("My turn just began. Drew card: " + drawnCard.Name);
+            Debug.Log("My turn just began. Drew card: " + drawnCard.Data.Name);
         } else {
             Debug.Log("Sorry pal.. Your deck is empty.");
         }

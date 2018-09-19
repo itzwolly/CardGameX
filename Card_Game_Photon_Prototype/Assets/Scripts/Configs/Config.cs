@@ -9,6 +9,7 @@
     public const int EMPTY_ROOM_TTL = 0; // Possibly change to 3000, if there is issues with rooms not existing or w.e
     public const float TURN_DURATION = 60f;
     public const bool CLEANUP_CACHE_ON_LEAVE = false;
-    public const int MAX_CARDS_PER_PAGE = 21;
+    public const int MAX_CARDS_PER_PAGE = 10;
     public const int DECK_SIZE = 20;
+    public const int CARD_LIMIT = 3;
 }
