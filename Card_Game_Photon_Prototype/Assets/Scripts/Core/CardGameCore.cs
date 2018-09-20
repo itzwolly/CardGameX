@@ -45,33 +45,45 @@ public class CardGameCore : PunBehaviour, ITurnManagerCallbacks {
         // when a player made a move
         Debug.Log(pPlayer.ID + " played card: " + pCardId + " | Card index: " + pCardIndex);
 
-        HandManager hand = PhotonNetwork.player.TagObject as HandManager;
-        // Would normally just play a certain animation..
-        // Just destroying for now.
-        hand.DestroyCard(pPlayer.ID, pCardIndex);
+        HandManager handManager = PhotonNetwork.player.TagObject as HandManager;
+        handManager.DestroyCard(pPlayer.ID, pCardIndex);
 
         // Execute whatever card: pCardId is..
-        
+        Hand.Instance.PlayCard(pCardId);
     }
 
-    public void OnTurnBegins(int pTurn) {
-        // Draw card???
-        Card drawnCard = DeckHandler.Instance.ActiveDeck.DrawCard();
+    public void OnTurnBegins() {
+        int handSize = Hand.Instance.GetCards().Count;
 
-        if (drawnCard != null) {
-            Debug.Log("My turn just began. Drew card: " + drawnCard.Data.Name);
+        if (handSize >= Config.HAND_SIZE) {
+            Debug.Log("Sorry you've already exceeded your hand limit of " + Config.HAND_SIZE + " cards");
+            return;
+        }
+
+        Card drawn = DeckHandler.Instance.ActiveDeck.DrawCard();
+        if (drawn != null) {
+            Debug.Log("My turn just began. Drew card: " + drawn.Data.Name);
+            Hand.Instance.AddCard(drawn);
+            Events.RaiseCardDrawnEvent(handSize);
         } else {
             Debug.Log("Sorry pal.. Your deck is empty.");
         }
     }
 
-    public void OnTurnEnds(int pTurn) {
+    public void OnCardDrawn(PhotonPlayer pSender, int pHandSize) {
+        if (pSender != PhotonNetwork.player) {
+            HandManager manager = PhotonNetwork.player.TagObject as HandManager;
+            manager.DisplayEnemyCardDrawn(pHandSize);
+        }
+    }
+
+    public void OnTurnEnds() {
         // start new turn
         Debug.Log("Calling OnTurnEnds");
         _turnManager.BeginTurn();
     }
 
-    public void OnTurnTimeEnds(int pTurn) {
+    public void OnTurnTimeEnds() {
         // start new turn
         Debug.Log("Calling OnTurnTimeEnds");
         _turnManager.BeginTurn();

@@ -4,31 +4,60 @@ using System.Collections.Generic;
 public class Card {
     private CardData _data;
     private List<Action> _actions;
-    private GameObject _collectionEntry;
 
     public CardData Data {
         get { return _data; }
     }
-    public GameObject CollectionEntry {
-        get { return _collectionEntry; }
-        set { _collectionEntry = value; }
-    }
-
-    public Card(int pId, string pName, string pDescription, List<Action> pActions) {
-        _data = new CardData(pId, pName, pDescription, /*pActions*/ "");
-    }
 
     public Card(int pId, string pName, string pDescription, string pActions) {
         _data = new CardData(pId, pName, pDescription, pActions);
+        _actions = new List<Action>();
+
+        ConvertActions(pActions);
     }
 
     public Card(CardData pCardData) {
         _data = pCardData;
+        _actions = new List<Action>();
+
+        ConvertActions(_data.ActionsToString);
     }
 
-    public void Execute() {
+    private void ConvertActions(string pActions) {
+        if (pActions == "") {
+            return;
+        }
+        
+        if (pActions.Contains(",")) {
+            string[] actions = pActions.Split(',');
+
+            for (int i = 0; i < actions.Length; i++) {
+                string actionString = actions[i].Trim();
+                Action action = Action.CreateInstance(actionString);
+                _actions.Add(action);
+            }
+        } else {
+            string actionString = pActions.Trim();
+            Action action = Action.CreateInstance(actionString);
+            _actions.Add(action);
+        }
+    }
+
+    public void ExecuteOnEnter() {
         foreach (Action action in _actions) {
-            action.Execute();
+            action.OnEnter();
+        }
+    }
+
+    public void ExecuteOnExit() {
+        foreach (Action action in _actions) {
+            action.OnExit();
+        }
+    }
+
+    public void ExecuteOnStay() {
+        foreach (Action action in _actions) {
+            action.OnStay();
         }
     }
 

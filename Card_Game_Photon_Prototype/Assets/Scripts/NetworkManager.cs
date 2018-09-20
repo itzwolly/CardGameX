@@ -18,7 +18,7 @@ public class NetworkManager : MonoBehaviour {
 
         if (PhotonNetwork.connectionState == ConnectionState.Disconnected) {
             // TODO: This is temporary, switching to custom authentication using the custom launcher.
-            PhotonNetwork.AuthValues = new AuthenticationValues(SystemInfo.deviceUniqueIdentifier /*+ PhotonNetwork.player.ID*/); // enable Photonnetwork.player.id if you want to be able to play on the same device.
+            PhotonNetwork.AuthValues = new AuthenticationValues(/*SystemInfo.deviceUniqueIdentifier*/ Guid.NewGuid().ToString()); // swap with Guid.NewGuid().ToString() if you want to be able to play on the same device.
             Debug.Log("UserId: " + PhotonNetwork.AuthValues.UserId);
 
             PhotonNetwork.ConnectUsingSettings(Config.VERSION);
@@ -48,7 +48,7 @@ public class NetworkManager : MonoBehaviour {
     }
 
     private void OnJoinedRoom() {
-        Debug.Log("Joined room. Currently: " + PhotonNetwork.room.PlayerCount + " player(s) waiting.");
+        Debug.Log("Joined room. Currently: " + PhotonNetwork.room.PlayerCount + " player(s) waiting. UserId: " + PhotonNetwork.player.UserId);
 
         if (SceneManagerHelper.ActiveSceneName != Config.GAME_SCENE) {
             if (PhotonNetwork.room.PlayerCount == Config.MAX_PLAYERS) {

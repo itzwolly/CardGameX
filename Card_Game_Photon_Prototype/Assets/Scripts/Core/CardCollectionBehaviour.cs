@@ -14,7 +14,6 @@ public class CardCollectionBehaviour : MonoBehaviour {
     private CardData _cardData;
     private OnCollectionCardClick _onClickCard;
     private CardCollectionList _collectionList;
-    private Transform _collectionListParent;
 
     public CardData CardData {
         get { return _cardData; }
@@ -31,27 +30,30 @@ public class CardCollectionBehaviour : MonoBehaviour {
         SetCardText(_cardData);
     }
 
-    public void SetCollectionListData(CardCollectionList pCollectionList, Transform pParent) {
-        _collectionList = pCollectionList;
-        _collectionListParent = pParent;
-    }
-
     private void SetCardText(CardData pCardData) {
         _id.text = pCardData.Id.ToString();
         _name.text = pCardData.Name;
         _description.text = pCardData.Description;
-        _actions.text = pCardData.Actions;
+        _actions.text = pCardData.ActionsToString;
     }
 
     private void AddCardToDeck(CardData pCardData) {
+        if (pCardData == null) {
+            Debug.Log("Card data equals null");
+            return;
+        }
+
         Card card = new Card(pCardData);
         DeckHandler.Instance.ActiveDeck.AddCard(card);
-        _collectionList.AddCardEntry(card, _collectionListParent);
     }
 
     private void RemoveCardFromDeck(CardData pCardData) {
+        if (pCardData == null) {
+            Debug.Log("Card data equals null");
+            return;
+        }
+
         Card card = DeckHandler.Instance.ActiveDeck.GetCard(pCardData);
         DeckHandler.Instance.ActiveDeck.RemoveCard(card);
-        _collectionList.RemoveCardEntry(card);
     }
 }

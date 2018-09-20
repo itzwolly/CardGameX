@@ -1,9 +1,9 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class DealDamageToOpponent : Action {
+public class HealAmountPlayer : Action {
+
     public override void OnEnter() {
-        Debug.Log("Dealing damage to x");
+        Debug.Log("Healing player for x");
     }
 
     public override void OnExit() {

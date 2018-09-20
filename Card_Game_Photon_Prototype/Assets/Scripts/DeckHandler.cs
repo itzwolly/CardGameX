@@ -14,6 +14,7 @@ public class DeckHandler : MonoBehaviour {
                 if (_instance == null) {
                     GameObject container = new GameObject("Deck Manager");
                     _instance = container.AddComponent<DeckHandler>();
+
                 }
             }
             return _instance;
@@ -30,6 +31,8 @@ public class DeckHandler : MonoBehaviour {
     private void Awake() {
         DontDestroyOnLoad(gameObject);
 
-        _activeDeck = new Deck(0, "DUMMY_NAME"); // Temporary
+        if (_activeDeck == null) {
+            _activeDeck = new Deck(0, "DUMMY_NAME"); // Temporary
+        }
     }
 }

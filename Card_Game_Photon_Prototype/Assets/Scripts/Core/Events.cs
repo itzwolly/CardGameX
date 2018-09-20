@@ -11,6 +11,7 @@ public class Events {
     public const byte END_TURN = 1;
     public const byte JOIN_GAME = 2;
     public const byte END_GAME = 3;
+    public const byte CARD_DRAWN = 4;
 
     public static void RaiseCardPlayedEvent(int pCardId, int pCardIndex) {
         object[] content = new object[] { pCardId, pCardIndex };
@@ -21,11 +22,10 @@ public class Events {
         PhotonNetwork.RaiseEvent(PLAY_CARD, content, reliable, raiseEventOptions);
     }
 
-    public static void RaiseEndTurnEvent(int pTurnId) {
-        object[] content = new object[] { pTurnId };
+    public static void RaiseEndTurnEvent() {
         bool reliable = true;
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All, CachingOption = EventCaching.AddToRoomCache }; // You would have to set the Receivers to All in order to receive this event on the local client as well
-        PhotonNetwork.RaiseEvent(END_TURN, content, reliable, raiseEventOptions);
+        PhotonNetwork.RaiseEvent(END_TURN, null, reliable, raiseEventOptions);
     }
 
     public static void RaiseJoinGameEvent(int pPlayerId) {
@@ -39,5 +39,12 @@ public class Events {
         bool reliable = true;
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All, CachingOption = EventCaching.AddToRoomCache }; // You would have to set the Receivers to All in order to receive this event on the local client as well
         PhotonNetwork.RaiseEvent(END_GAME, null, reliable, raiseEventOptions);
+    }
+
+    public static void RaiseCardDrawnEvent(int pHandSize) {
+        object[] content = new object[] { pHandSize };
+        bool reliable = true;
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All, CachingOption = EventCaching.AddToRoomCache }; // You would have to set the Receivers to All in order to receive this event on the local client as well
+        PhotonNetwork.RaiseEvent(CARD_DRAWN, content, reliable, raiseEventOptions);
     }
 }

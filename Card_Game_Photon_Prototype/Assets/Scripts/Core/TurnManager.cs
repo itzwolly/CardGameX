@@ -56,7 +56,7 @@ public class TurnManager : PunBehaviour {
 
     private void Update() {
         if (CurrentTurn > 0 && TurnTimeIsOver) {
-            TurnManagerListener.OnTurnTimeEnds(CurrentTurn);
+            TurnManagerListener.OnTurnTimeEnds();
         }
     }
 
@@ -73,12 +73,11 @@ public class TurnManager : PunBehaviour {
         }
         
         CurrentTurn = CurrentTurn + 1;
-        TurnManagerListener.OnTurnBegins(CurrentTurn);
     }
 
     public bool EndTurn() {
         if (IsActivePlayer) {
-            Events.RaiseEndTurnEvent(CurrentTurn);
+            Events.RaiseEndTurnEvent();
             return true;
         }
         return false;

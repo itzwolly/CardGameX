@@ -21,7 +21,7 @@ public class CardData {
         get { return _description; }
         set { _description = value; }
     }
-    public string Actions {
+    public string ActionsToString {
         get { return _actions; }
         set { _actions = value; }
     }

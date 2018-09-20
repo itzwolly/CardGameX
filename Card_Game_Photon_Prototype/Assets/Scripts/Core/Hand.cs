@@ -3,10 +3,51 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Hand : MonoBehaviour {
+    private static Hand _instance;
+    public static Hand Instance {
+        get {
+            if (!_instance) {
+                _instance = FindObjectOfType(typeof(Hand)) as Hand;
+
+                if (!_instance) {
+                    Debug.Log("There should be an active object with the component Hand");
+                } else {
+                    _instance.Init();
+                }
+            }
+            return _instance;
+        }
+    }
+
     private List<Card> _hand;
 
-    private void Awake() {
-        _hand = new List<Card>();
+    private void Init() {
+        if (_hand == null) {
+            _hand = new List<Card>();
+        }
+    }
+
+    public void AddCard(Card pCard) {
+        _hand.Add(pCard);
+
+        DisplayCard(pCard);
+    }
+
+    private void DisplayCard(Card pCard) {
+        HandManager manager = PhotonNetwork.player.TagObject as HandManager;
+        GameObject gameCard = manager.DisplayPlayerCardDrawn(_hand.Count);
+        gameCard.GetComponent<CardGameBehaviour>().Card = pCard;
+    }
+
+    public void PlayCard(int pId) {
+        Card card = GetCard(pId);
+        card.ExecuteOnEnter();
+
+        _hand.Remove(card);
+    }
+
+    public Card GetCard(int pId) {
+        return _hand.Find(o => o.Data.Id == pId);
     }
 
     public List<Card> GetCards() {

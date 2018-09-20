@@ -10,7 +10,7 @@ public class OnClickMainMenu : MonoBehaviour {
         // returns bool, to check if it couldn't find a room (i.e
         // If A is looking for a room, but decides to stop looking and B tries to join using quick play Error: OperationResponse 226: Returncode: 32758 is thrown)
         if (!PhotonNetwork.JoinRandomRoom()) {
-            Debug.Log("No random room found!");
+            Debug.Log("No random room found!" + PhotonNetwork.room);
         } else {
             Debug.Log("Joined Existing room: " + PhotonNetwork.room);
         }

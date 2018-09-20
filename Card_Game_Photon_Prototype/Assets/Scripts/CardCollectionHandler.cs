@@ -7,7 +7,6 @@ using System.Linq;
 
 public class CardCollectionHandler : MonoBehaviour {
     [SerializeField] private GameObject _hud;
-    [SerializeField] private GameObject _cardEntryContainerPrefab;
     [SerializeField] private GameObject _cardCollectionPrefab;
     [SerializeField] private GameObject _cardPrefab;
     [SerializeField] private CardCollectionList _cardCollectionList;
@@ -21,7 +20,6 @@ public class CardCollectionHandler : MonoBehaviour {
 
     private Coroutine _crGetCardCollection;
     private GameObject _cardCollectionParent;
-    private GameObject _cardEntryCollectionParent;
 
     public Coroutine CRGetCardCollection {
         get { return _crGetCardCollection; }
@@ -64,7 +62,6 @@ public class CardCollectionHandler : MonoBehaviour {
         _cardsInPageAmount = 0;
         _hasFinishedLoadingCards = false;
         CreateCardCollectionParent();
-        CreateCardCollectionList();
 
         //_crGetCardCollection = StartCoroutine(GetCardCollectionFromDB());
         _crGetCardCollection = StartCoroutine(GetCardCollectionFromJSON());
@@ -76,13 +73,6 @@ public class CardCollectionHandler : MonoBehaviour {
         }
         _cardCollectionParent = Instantiate(_cardCollectionPrefab);
         _cardCollectionParent.transform.SetParent(_hud.transform, false);
-    }
-
-    private void CreateCardCollectionList() {
-        if (_cardEntryCollectionParent == null) {
-            _cardEntryCollectionParent = Instantiate(_cardEntryContainerPrefab);
-            _cardEntryCollectionParent.transform.SetParent(_hud.transform, false);
-        }
     }
 
     private GameObject CreateCardContainer(CardData pCardData) {
@@ -103,7 +93,6 @@ public class CardCollectionHandler : MonoBehaviour {
         cardChildRectTransform.sizeDelta = new Vector2(cardRect.width, cardRect.height);
 
         CardCollectionBehaviour ccb = card.GetComponent<CardCollectionBehaviour>();
-        ccb.SetCollectionListData(_cardCollectionList, _cardEntryCollectionParent.transform);
         ccb.SetCardData(pCardData);
 
         return card;

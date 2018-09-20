@@ -5,46 +5,71 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CardCollectionList : MonoBehaviour {
-    [SerializeField] private GameObject _cardEntryPrefab;
+    private static CardCollectionList _cardCollectionList;
+    public static CardCollectionList Instance {
+        get {
+            if (!_cardCollectionList) {
+                _cardCollectionList = FindObjectOfType(typeof(CardCollectionList)) as CardCollectionList;
 
-    private Dictionary<int, GameObject> _containers;
-
-    private void Awake() {
-        _containers = new Dictionary<int, GameObject>();
+                if (!_cardCollectionList) {
+                    Debug.LogError("There needs to be one active EventManger script on a GameObject in your scene.");
+                } else {
+                    _cardCollectionList.Init();
+                }
+            }
+            return _cardCollectionList;
+        }
     }
 
-    public void AddCardEntry(Card pCard, Transform pParent) {
+    [SerializeField] private GameObject _hud;
+    [SerializeField] private GameObject _cardEntryContainerPrefab;
+    [SerializeField] private GameObject _cardEntryPrefab;
+
+    private GameObject _cardEntryParent;
+    private Dictionary<int, GameObject> _containers;
+
+    private void Start() {
+        if (_cardEntryParent == null) {
+            _cardEntryParent = Instantiate(_cardEntryContainerPrefab);
+            _cardEntryParent.transform.SetParent(_hud.transform, false);
+        }
+    }
+
+    private void Init() {
+        if (_containers == null) {
+            _containers = new Dictionary<int, GameObject>();
+        }
+    }
+
+    public void AddCardEntry(Card pCard, int pDuplicateAmount) {
         if (pCard == null) {
             Debug.Log("The card you are trying to add to the visual list is null.");
             return;
         }
 
-        int duplicates = DeckHandler.Instance.ActiveDeck.GetDuplicateCardCount(pCard);
-        if (duplicates == 1) { // First instance of card X
+        if (pDuplicateAmount == 0) {
             GameObject entry = Instantiate(_cardEntryPrefab);
-            entry.transform.SetParent(pParent, false);
+            entry.transform.SetParent(_cardEntryParent.transform, false);
             _containers.Add(pCard.Data.Id, entry);
         }
 
-        if (_containers.ContainsKey(pCard.Data.Id)) {
-            _containers[pCard.Data.Id].GetComponentInChildren<Text>().text = pCard.Data.Name + " " + duplicates + "x";
-        }
+        int localDuplicateAmount = pDuplicateAmount + 1;
+        _containers[pCard.Data.Id].GetComponentInChildren<Text>().text = pCard.Data.Name + " " + localDuplicateAmount + "x";
     }
 
-    public void RemoveCardEntry(Card pCard) {
+    public void RemoveCardEntry(Card pCard, int pDuplicateAmount) {
         if (pCard == null) {
-            Debug.Log("The card you are trying to add to the visual list is null.");
+            Debug.Log("The card you are trying to remove from the visual list is null.");
             return;
         }
 
-        int duplicates = DeckHandler.Instance.ActiveDeck.GetDuplicateCardCount(pCard);
-        if (duplicates == 0) {
-            Destroy(_containers[pCard.Data.Id]);
+        if (pDuplicateAmount == 0) {
+            GameObject obj = _containers[pCard.Data.Id];
             _containers.Remove(pCard.Data.Id);
+            Destroy(obj);
+            return;
         }
-
-        if (_containers.ContainsKey(pCard.Data.Id)) {
-            _containers[pCard.Data.Id].GetComponentInChildren<Text>().text = pCard.Data.Name + " " + duplicates + "x";
-        }
+        
+        _containers[pCard.Data.Id].GetComponentInChildren<Text>().text = pCard.Data.Name + " " + pDuplicateAmount + "x";
     }
 }
