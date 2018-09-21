@@ -12,13 +12,12 @@ public class Events {
     public const byte JOIN_GAME = 2;
     public const byte END_GAME = 3;
     public const byte CARD_DRAWN = 4;
+    public const byte START_TURN = 5;
 
     public static void RaiseCardPlayedEvent(int pCardId, int pCardIndex) {
         object[] content = new object[] { pCardId, pCardIndex };
         bool reliable = true;
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All, CachingOption = EventCaching.AddToRoomCache }; // You would have to set the Receivers to All in order to receive this event on the local client as well
-
-        Debug.Log("Raising... PLAY_CARD event on: " + PhotonNetwork.player.ID);
         PhotonNetwork.RaiseEvent(PLAY_CARD, content, reliable, raiseEventOptions);
     }
 
@@ -42,9 +41,19 @@ public class Events {
     }
 
     public static void RaiseCardDrawnEvent(int pHandSize) {
+        Debug.Log("RaiseCardDrawnEvent on: " + PhotonNetwork.player.UserId);
+
         object[] content = new object[] { pHandSize };
         bool reliable = true;
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All, CachingOption = EventCaching.AddToRoomCache }; // You would have to set the Receivers to All in order to receive this event on the local client as well
         PhotonNetwork.RaiseEvent(CARD_DRAWN, content, reliable, raiseEventOptions);
+    }
+
+    public static void RaiseStartTurnEvent() {
+        Debug.Log("RaiseStartTurnEvent on: " + PhotonNetwork.player.UserId);
+
+        bool reliable = true;
+        RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All, CachingOption = EventCaching.AddToRoomCache }; // You would have to set the Receivers to All in order to receive this event on the local client as well
+        PhotonNetwork.RaiseEvent(START_TURN, null, reliable, raiseEventOptions);
     }
 }

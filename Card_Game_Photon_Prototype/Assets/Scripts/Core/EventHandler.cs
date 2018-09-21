@@ -33,7 +33,7 @@ public class EventHandler : MonoBehaviour {
                     break;
                 }
             case Events.END_TURN: {
-                    TurnManager.Instance.TurnManagerListener.OnTurnEnds();
+                    TurnManager.Instance.TurnManagerListener.OnTurnEnd(sender);
                     break;
                 }
             case Events.JOIN_GAME: {
@@ -50,6 +50,10 @@ public class EventHandler : MonoBehaviour {
             case Events.CARD_DRAWN: {
                     int handSize = (int) data[0];
                     TurnManager.Instance.TurnManagerListener.OnCardDrawn(sender, handSize);
+                    break;
+                }
+            case Events.START_TURN: {
+                    TurnManager.Instance.TurnManagerListener.OnTurnBegins(sender);
                     break;
                 }
             default:

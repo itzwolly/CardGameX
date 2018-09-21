@@ -6,13 +6,13 @@ using System;
 public class Deck {
     private int _id;
     private string _name;
-    private List<Card> _cards;
+    private List<Card> _deck;
     private static System.Random _random = new System.Random();
 
     public Deck(int pId, string pName) {
         _id = pId;
         _name = pName;
-        _cards = new List<Card>();
+        _deck = new List<Card>();
     }
 
     public void AddCard(Card pCard) {
@@ -23,15 +23,15 @@ public class Deck {
         
         int duplicates = GetDuplicateCardCount(pCard);
 
-        if (_cards.Count >= Config.DECK_SIZE || duplicates == Config.CARD_LIMIT) {
+        if (_deck.Count >= Config.DECK_SIZE || duplicates == Config.CARD_LIMIT) {
             Debug.Log("Exceeded amount of duplicates/cards in a deck");
             return;
         }
         
-        _cards.Add(pCard);
+        _deck.Add(pCard);
         CardCollectionList.Instance.AddCardEntry(pCard, duplicates);
 
-        Debug.Log("Deck now has: " + _cards.Count + " amount of cards.");
+        Debug.Log("Deck now has: " + _deck.Count + " amount of cards.");
     }
 
     public void RemoveCard(Card pCard) {
@@ -41,17 +41,17 @@ public class Deck {
         }
 
         Card clone = pCard;
-        _cards.Remove(pCard);
+        _deck.Remove(pCard);
         CardCollectionList.Instance.RemoveCardEntry(clone, GetDuplicateCardCount(clone));
-        Debug.Log("Deck now has: " + _cards.Count + " amount of cards.");
+        Debug.Log("Deck now has: " + _deck.Count + " amount of cards.");
     }
 
     public Card DrawCard() {
-        if (_cards.Count > 0) {
-            Shuffle(_cards); // Shuffle the deck
+        if (_deck.Count > 0) {
+            Shuffle(_deck); // Shuffle the deck
 
-            Card copy = _cards[0]; // Create clone to return, because we're deleting later.
-            _cards.RemoveAt(0); // remove existing card from deck
+            Card copy = _deck[0]; // Create clone to return, because we're deleting later.
+            _deck.RemoveAt(0); // remove existing card from deck
 
             return copy; // Return copy.
         }
@@ -59,11 +59,11 @@ public class Deck {
     }
 
     public Card DrawCard(int pPosition) {
-        if (_cards.Count > pPosition - 1) {
-            Shuffle(_cards); // Shuffle the deck
+        if (_deck.Count > pPosition - 1) {
+            Shuffle(_deck); // Shuffle the deck
 
-            Card copy = _cards[pPosition - 1]; // Create clone to return, because we're deleting later.
-            _cards.RemoveAt(pPosition - 1); // remove existing card from deck
+            Card copy = _deck[pPosition - 1]; // Create clone to return, because we're deleting later.
+            _deck.RemoveAt(pPosition - 1); // remove existing card from deck
 
             return copy; // Return copy.
         }
@@ -75,14 +75,14 @@ public class Deck {
 
         if (pAmount > 1) {
             for (int i = 0; i < pAmount; i++) {
-                if (_cards.Count == 0) {
+                if (_deck.Count == 0) {
                     break;
                 }
 
-                Shuffle(_cards); // Shuffle the deck
+                Shuffle(_deck); // Shuffle the deck
 
-                Card copy = _cards[0]; // Create clone to return, because we're deleting later.
-                _cards.RemoveAt(0); // remove existing card from deck
+                Card copy = _deck[0]; // Create clone to return, because we're deleting later.
+                _deck.RemoveAt(0); // remove existing card from deck
                 cardsToDraw[i] = copy;
             }
             return cardsToDraw;
@@ -93,15 +93,15 @@ public class Deck {
     }
 
     public Card GetCard(CardData pData) {
-        return _cards.Find(o => o.Data.Id == pData.Id);
+        return _deck.Find(o => o.Data.Id == pData.Id);
     }
 
     public Card GetCard(int pId) {
-        return _cards.Find(o => o.Data.Id == pId);
+        return _deck.Find(o => o.Data.Id == pId);
     }
 
     public List<Card> GetCards() {
-        return _cards;
+        return _deck;
     }
 
     public int GetDuplicateCardCount(Card pCard) {
@@ -110,7 +110,7 @@ public class Deck {
             return 0;
         }
 
-        return _cards.Where(o => o.Data.Id == pCard.Data.Id).Count();
+        return _deck.Where(o => o.Data.Id == pCard.Data.Id).Count();
     }
 
     private static void Shuffle<T>(IList<T> pList) {

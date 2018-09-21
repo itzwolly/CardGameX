@@ -50,15 +50,15 @@ public class Card {
     }
 
     public void ExecuteOnExit() {
-        foreach (Action action in _actions) {
-            action.OnExit();
-        }
+        //foreach (Action action in _actions) {
+        //    action.OnExit();
+        //}
     }
 
     public void ExecuteOnStay() {
-        foreach (Action action in _actions) {
-            action.OnStay();
-        }
+        //foreach (Action action in _actions) {
+        //    action.OnStay();
+        //}
     }
 
     public override string ToString() {

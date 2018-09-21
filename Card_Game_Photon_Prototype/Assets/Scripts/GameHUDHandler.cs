@@ -8,10 +8,17 @@ public class GameHUDHandler : MonoBehaviour {
     [SerializeField] private GameObject _endTurnPopUp;
     [SerializeField] private GameObject _winPopUp;
     [SerializeField] private GameObject _losePopUp;
+    [SerializeField] private Button _btnEndTurn;
 
     private Coroutine _endTurnError;
 
+    public Button btnEndTurn {
+        get { return _btnEndTurn; }
+    }
+
     private void Start() {
+        _btnEndTurn.onClick.AddListener(TurnManager.Instance.EndTurn);
+
         _txtPlayerData.text = "Player Data => Amount of players: " + PhotonNetwork.room.PlayerCount.ToString() + " | Room name: " + PhotonNetwork.room.Name + " | Player ID: " + PhotonNetwork.player.ID;
     }
 
@@ -19,10 +26,10 @@ public class GameHUDHandler : MonoBehaviour {
         int timeLeft = (int) (Config.TURN_DURATION - TurnManager.Instance.ElapsedTimeInTurn);
 
         if (timeLeft > 0) {
-            int currentTurn = TurnManager.Instance.CurrentTurn;
-            string activeUserId = TurnManager.Instance.GetActivePlayer();
+            //int currentTurn = TurnManager.Instance.CurrentTurn;
+            /*string activeUserId = TurnManager.Instance.GetActivePlayer();*/
 
-            _turnTimer.text = "Turn: " + currentTurn + " Time Left: " + timeLeft + " | Active player id: " + activeUserId;
+            _turnTimer.text = " Time Left: " + timeLeft;
         }
     }
 

@@ -33,10 +33,12 @@ public class Hand : MonoBehaviour {
         DisplayCard(pCard);
     }
 
-    private void DisplayCard(Card pCard) {
+    private GameObject DisplayCard(Card pCard) {
         HandManager manager = PhotonNetwork.player.TagObject as HandManager;
-        GameObject gameCard = manager.DisplayPlayerCardDrawn(_hand.Count);
+        GameObject gameCard = manager.DisplayPlayerCardDrawn();
         gameCard.GetComponent<CardGameBehaviour>().Card = pCard;
+
+        return gameCard;
     }
 
     public void PlayCard(int pId) {

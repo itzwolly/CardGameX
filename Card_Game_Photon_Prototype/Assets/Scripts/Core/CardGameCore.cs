@@ -5,7 +5,8 @@ using Photon;
 using System;
 
 public class CardGameCore : PunBehaviour, ITurnManagerCallbacks {
-    [SerializeField] private GameHUDHandler _hud;
+    [SerializeField]
+    private GameHUDHandler _hud;
 
     private TurnManager _turnManager;
 
@@ -15,8 +16,6 @@ public class CardGameCore : PunBehaviour, ITurnManagerCallbacks {
     }
 
     private void Start() {
-        Debug.Log("Calling Start in the Game's Core..");
-
         StartGame();
     }
 
@@ -28,16 +27,9 @@ public class CardGameCore : PunBehaviour, ITurnManagerCallbacks {
 
     private void StartGame() {
         if (PhotonNetwork.player.IsMasterClient && _turnManager.CurrentTurn == 0) {
+            Debug.Log("Calling Start in the Game's Core..");
             Debug.Log("Current master client is: " + PhotonNetwork.player.ID);
             _turnManager.StartGame();
-        }
-    }
-
-    public void EndTurn() {
-        // Raises an onTurnEnds event.
-        if (!_turnManager.EndTurn()) {
-            // Display message that it's not your turn..
-            _turnManager.TurnManagerListener.OnNotYourTurn();
         }
     }
 
@@ -52,44 +44,49 @@ public class CardGameCore : PunBehaviour, ITurnManagerCallbacks {
         Hand.Instance.PlayCard(pCardId);
     }
 
-    public void OnTurnBegins() {
+    public void OnTurnBegins(PhotonPlayer pPlayer) {
         int handSize = Hand.Instance.GetCards().Count;
 
-        if (handSize >= Config.HAND_SIZE) {
-            Debug.Log("Sorry you've already exceeded your hand limit of " + Config.HAND_SIZE + " cards");
-            return;
-        }
-
-        Card drawn = DeckHandler.Instance.ActiveDeck.DrawCard();
-        if (drawn != null) {
-            Debug.Log("My turn just began. Drew card: " + drawn.Data.Name);
-            Hand.Instance.AddCard(drawn);
-            Events.RaiseCardDrawnEvent(handSize);
-        } else {
-            Debug.Log("Sorry pal.. Your deck is empty.");
-        }
+        Debug.Log("OnTurnBegins: " + handSize + "|" + PhotonNetwork.player.UserId);
+        Events.RaiseCardDrawnEvent(handSize);
     }
 
     public void OnCardDrawn(PhotonPlayer pSender, int pHandSize) {
-        if (pSender != PhotonNetwork.player) {
-            HandManager manager = PhotonNetwork.player.TagObject as HandManager;
-            manager.DisplayEnemyCardDrawn(pHandSize);
+        if (_turnManager.IsActivePlayer && pSender.UserId == PhotonNetwork.player.UserId) {
+            if (pHandSize >= Config.HAND_SIZE) {
+                Debug.Log("You've exceeded the limit of the amount of cards in your hand.");
+                return;
+            }
+            
+            Card drawn = DeckHandler.Instance.ActiveDeck.DrawCard();
+            if (drawn != null) {
+                Debug.Log("My turn just began. Drew card: " + drawn.Data.Name);
+                Hand.Instance.AddCard(drawn);
+            } else {
+                Debug.Log("Sorry pal.. Your deck is empty.");
+            }
+        } else {
+            if (!_turnManager.IsActivePlayer && pSender.UserId != PhotonNetwork.player.UserId) {
+                Debug.Log("Handsize inside display enemy card: " + pHandSize);
+                HandManager manager = PhotonNetwork.player.TagObject as HandManager;
+                manager.DisplayEnemyCardDrawn(pHandSize);
+            }
         }
     }
 
-    public void OnTurnEnds() {
+    public void OnTurnEnd(PhotonPlayer pPlayer) {
         // start new turn
-        Debug.Log("Calling OnTurnEnds");
+        Debug.Log("Calling OnTurnEnds" + PhotonNetwork.player.ID);
         _turnManager.BeginTurn();
     }
 
-    public void OnTurnTimeEnds() {
+    public void OnTurnTimeEnds(PhotonPlayer pPlayer) {
         // start new turn
-        Debug.Log("Calling OnTurnTimeEnds");
+        Debug.Log("Calling OnTurnTimeEnds" + PhotonNetwork.player.ID);
         _turnManager.BeginTurn();
     }
 
-    public void OnNotYourTurn() {
+    public void OnNotYourTurn(PhotonPlayer pPlayer) {
         // Display error mesage
         _hud.DisplayEndTurnError(3);
     }

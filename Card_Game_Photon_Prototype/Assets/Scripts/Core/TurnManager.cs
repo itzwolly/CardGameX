@@ -6,8 +6,7 @@ public class TurnManager : PunBehaviour {
     #region Singleton Initializing
     private static TurnManager _instance;
 
-    public static TurnManager Instance
-    {
+    public static TurnManager Instance {
         get {
             if (_instance == null) {
                 _instance = GameObject.FindObjectOfType<TurnManager>();
@@ -56,7 +55,7 @@ public class TurnManager : PunBehaviour {
 
     private void Update() {
         if (CurrentTurn > 0 && TurnTimeIsOver) {
-            TurnManagerListener.OnTurnTimeEnds();
+            TurnManagerListener.OnTurnTimeEnds(PhotonNetwork.player);
         }
     }
 
@@ -69,18 +68,21 @@ public class TurnManager : PunBehaviour {
         if (CurrentTurn > 0) {
             if (GetActivePlayer() != PhotonNetwork.player.UserId) {
                 SetActivePlayer(PhotonNetwork.player.UserId);
+                
+                Events.RaiseStartTurnEvent();
             }
         }
-        
+
         CurrentTurn = CurrentTurn + 1;
     }
 
-    public bool EndTurn() {
+    public void EndTurn() {
         if (IsActivePlayer) {
             Events.RaiseEndTurnEvent();
-            return true;
+            return;
         }
-        return false;
+
+        TurnManagerListener.OnNotYourTurn(PhotonNetwork.player);
     }
 
     // Sets which player's turn it is right now.
