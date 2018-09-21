@@ -1,0 +1,15 @@
+9428: 14:28:10.188 - ---
+9428: 14:28:10.188 - Service: "Photon Socket Server" starting
+9428: 14:28:10.188 - Config File: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK_v4-0-29-11263\deploy\bin_Win64\PhotonServer.config
+9428: 14:28:10.189 - Will produce at most: 10 crash dumps
+9428: 14:28:10.189 - Action: install service
+9428: 14:28:10.190 - Service: "Photon Socket Server: LoadBalancing" installed
+9428: 14:28:10.190 - Config File Path: "D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK_v4-0-29-11263\deploy\bin_Win64"
+9428: 14:28:10.190 - Config File Name: ""
+9428: 14:28:10.190 - MessageBox: Photon Socket Server: LoadBalancing - 4.0.28.2962
+
+Service installed
+
+Instance Name = "LoadBalancing"
+9428: 14:28:10.990 - Service shutting down
+9428: 14:28:10.992 - Service shut down complete

@@ -1,0 +1,30 @@
+9592: 14:28:05.194 - ---
+9592: 14:28:05.194 - Service: "Photon Socket Server" starting
+9592: 14:28:05.194 - Config File: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK_v4-0-29-11263\deploy\bin_Win64\PhotonServer.config
+9592: 14:28:05.194 - Will produce at most: 10 crash dumps
+9592: 14:28:05.195 - Action: install counters
+9592: 14:28:05.301 - MessageBox: Photon Socket Server - 4.0.28.2962
+
+Photon Socket Server - Performance counters installed
+9592: 14:28:06.768 - Service shutting down
+9592: 14:28:06.770 - Service shut down complete
+14060: 14:28:13.610 - ---
+14060: 14:28:13.610 - Service: "Photon Socket Server" starting
+14060: 14:28:13.610 - Config File: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK_v4-0-29-11263\deploy\bin_Win64\PhotonServer.config
+14060: 14:28:13.611 - Will produce at most: 10 crash dumps
+14060: 14:28:13.611 - Action: remove counters
+14060: 14:28:13.631 - MessageBox: Photon Socket Server - 4.0.28.2962
+
+Photon Socket Server - Performance counters removed
+14060: 14:28:14.785 - Service shutting down
+14060: 14:28:14.786 - Service shut down complete
+16604: 14:28:17.837 - ---
+16604: 14:28:17.837 - Service: "Photon Socket Server" starting
+16604: 14:28:17.837 - Config File: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK_v4-0-29-11263\deploy\bin_Win64\PhotonServer.config
+16604: 14:28:17.838 - Will produce at most: 10 crash dumps
+16604: 14:28:17.838 - Action: install counters
+16604: 14:28:17.921 - MessageBox: Photon Socket Server - 4.0.28.2962
+
+Photon Socket Server - Performance counters installed
+16604: 14:28:18.810 - Service shutting down
+16604: 14:28:18.812 - Service shut down complete
