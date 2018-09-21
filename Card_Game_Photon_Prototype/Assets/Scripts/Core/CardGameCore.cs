@@ -44,20 +44,13 @@ public class CardGameCore : PunBehaviour, ITurnManagerCallbacks {
         Hand.Instance.PlayCard(pCardId);
     }
 
-    public void OnTurnBegins(PhotonPlayer pPlayer) {
-        int handSize = Hand.Instance.GetCards().Count;
-
-        Debug.Log("OnTurnBegins: " + handSize + "|" + PhotonNetwork.player.UserId);
-        Events.RaiseCardDrawnEvent(handSize);
-    }
-
-    public void OnCardDrawn(PhotonPlayer pSender, int pHandSize) {
-        if (_turnManager.IsActivePlayer && pSender.UserId == PhotonNetwork.player.UserId) {
-            if (pHandSize >= Config.HAND_SIZE) {
+    public void OnTurnBegins(PhotonPlayer pSender) {
+        if (_turnManager.IsActivePlayer && pSender.UserId == PhotonNetwork.player.UserId) { // Check if whoever recieved this event is the one who send it (aka the player)
+            if (Hand.Instance.GetCards().Count >= Config.HAND_SIZE) {
                 Debug.Log("You've exceeded the limit of the amount of cards in your hand.");
                 return;
             }
-            
+
             Card drawn = DeckHandler.Instance.ActiveDeck.DrawCard();
             if (drawn != null) {
                 Debug.Log("My turn just began. Drew card: " + drawn.Data.Name);
@@ -65,12 +58,16 @@ public class CardGameCore : PunBehaviour, ITurnManagerCallbacks {
             } else {
                 Debug.Log("Sorry pal.. Your deck is empty.");
             }
-        } else {
-            if (!_turnManager.IsActivePlayer && pSender.UserId != PhotonNetwork.player.UserId) {
-                Debug.Log("Handsize inside display enemy card: " + pHandSize);
-                HandManager manager = PhotonNetwork.player.TagObject as HandManager;
-                manager.DisplayEnemyCardDrawn(pHandSize);
-            }
+        }
+        
+        Events.RaiseCardDrawnEvent(Hand.Instance.GetCards().Count);
+    }
+
+    public void OnCardDrawn(PhotonPlayer pSender, int pHandSize) {
+        if (!_turnManager.IsActivePlayer && pSender.UserId != PhotonNetwork.player.UserId) { // Check if whoever recieved this event is not the one who send it (aka the enemy)
+            Debug.Log("Handsize inside display enemy card: " + pHandSize);
+            HandManager manager = PhotonNetwork.player.TagObject as HandManager;
+            manager.DisplayEnemyCardDrawn(pHandSize);
         }
     }
 

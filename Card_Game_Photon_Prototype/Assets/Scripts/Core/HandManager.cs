@@ -51,6 +51,8 @@ public class HandManager : MonoBehaviour {
             Vector3 globalPosition = new Vector3(_enemyHand.transform.position.x, _enemyHand.transform.position.y, _enemyHand.transform.position.z + ((pHandSize - 1) * (gameCardSize.z * offset)));
             gameCard.transform.position = globalPosition;
             gameCard.GetComponent<Renderer>().material.color = Color.cyan;
+
+            _enemyHandSize = pHandSize;
         }
     }
 }
