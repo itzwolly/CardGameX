@@ -4,6 +4,7 @@
     public const string MAIN_SCENE = "Networking";
     public const string CARD_COLLECTION_SCENE = "CardCollection";
     public const string PLAYER_PREFAB = "Player";
+    public static string[] PLUGINS_NAME = new string[] { "CardGameBehaviour" };
     public const int MAX_PLAYERS = 2;
     public const int PLAYER_TTL = 20000;
     public const int EMPTY_ROOM_TTL = 0; // Possibly change to 3000, if there is issues with rooms not existing or w.e

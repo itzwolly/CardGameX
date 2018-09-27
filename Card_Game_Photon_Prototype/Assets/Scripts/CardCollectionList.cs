@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -32,6 +33,14 @@ public class CardCollectionList : MonoBehaviour {
         if (_cardEntryParent == null) {
             _cardEntryParent = Instantiate(_cardEntryContainerPrefab);
             _cardEntryParent.transform.SetParent(_hud.transform, false);
+
+            //StartCoroutine(WebServer.GetDeckFromDB("user_1"));
+            //StartCoroutine(GetDeck("user_1"));
+
+            for (int i = 0; i < DeckHandler.Instance.ActiveDeck.GetCards().Count; i++) {
+                Card card = DeckHandler.Instance.ActiveDeck.GetCards()[i];
+                AddCardEntry(card, DeckHandler.Instance.ActiveDeck.GetDuplicateCardCount(card) );
+            }
         }
     }
 

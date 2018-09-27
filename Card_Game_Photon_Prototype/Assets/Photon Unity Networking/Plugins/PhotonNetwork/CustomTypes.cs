@@ -15,6 +15,7 @@
 
 
 using ExitGames.Client.Photon;
+using System.IO;
 using UnityEngine;
 
 
@@ -31,11 +32,11 @@ internal static class CustomTypes
         PhotonPeer.RegisterType(typeof(Vector3), (byte)'V', SerializeVector3, DeserializeVector3);
         PhotonPeer.RegisterType(typeof(Quaternion), (byte)'Q', SerializeQuaternion, DeserializeQuaternion);
         PhotonPeer.RegisterType(typeof(PhotonPlayer), (byte)'P', SerializePhotonPlayer, DeserializePhotonPlayer);
+        PhotonPeer.RegisterType(typeof(GameState), (byte) 'R', null, DeserializeGameState);
     }
 
 
     #region Custom De/Serializer Methods
-
 
     public static readonly byte[] memVector3 = new byte[3 * 4];
     private static short SerializeVector3(StreamBuffer outStream, object customobject)
@@ -171,6 +172,17 @@ internal static class CustomTypes
         {
             return null;
         }
+    }
+
+    private static object DeserializeGameState(byte[] bytes) {
+        GameState gameState = new GameState();
+        using (var s = new MemoryStream(bytes)) {
+            using (var br = new BinaryReader(s)) {
+                gameState.Player1Health = br.ReadInt32();
+                gameState.Player2Health = br.ReadInt32();
+            }
+        }
+        return gameState;
     }
 
     #endregion

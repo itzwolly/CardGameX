@@ -2390,8 +2390,62 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
             //}
         }
 
+        Debug.Log("[Received] Event from the server: " + photonEvent.ToString());
+
         switch (photonEvent.Code)
         {
+            case EventCode.RoomFull: {
+                    PhotonNetwork.LoadLevel(1);
+                break;
+            }
+            case EventCode.BeginTurn: {
+                string activePlayer = (string) photonEvent.Parameters[ParameterCode.CustomEventContent];
+                TurnManager.Instance.SetActivePlayer(activePlayer);
+                GameHUDHandler.Instance.ActivePlayerText.text = "Active player: " + activePlayer;
+
+                Debug.Log(EventCode.BeginTurn + " => [BeginTurn] event recieved from server on: " + PhotonNetwork.player.ID + " with data: " + activePlayer);
+                break;
+            }
+            case EventCode.DrawCard: {
+                    object obj = photonEvent.Parameters[ParameterCode.CustomEventContent];
+
+                    if (obj is Hashtable) {
+                        Hashtable data = (Hashtable) obj;
+                        int id = (int) data["id"];
+                        string name = (string) data["name"];
+                        string description = (string) data["description"];
+                        int handCount = (int) data["handsize"];
+                        
+                        Hand.Instance.DisplayCard(id, handCount);
+                        Debug.Log(EventCode.DrawCard + " => [DrawCard] event recieved from server on: " + PhotonNetwork.player.ID + " with data: " + data["id"] + "," + data["name"] + ", " + data["description"]);
+                    } else if (obj is int) {
+                        int handSize = (int) obj;
+                       
+                        HandManager manager = PhotonNetwork.player.TagObject as HandManager;
+                        manager.DisplayEnemyCardDrawn(handSize);
+                        Debug.Log(EventCode.DrawCard + " => [DrawCard] event recieved from server on: " + PhotonNetwork.player.ID + " with data: " + handSize);
+                    }
+                break;
+            }
+            case EventCode.UpdateGameState: {
+                    int[] data = (int[]) photonEvent.Parameters[ParameterCode.CustomEventContent];
+                    int activePlayer = (int) photonEvent.Parameters[ParameterCode.ActorNr];
+                    int index = data[2];
+
+                    if (activePlayer == PhotonNetwork.player.ID) {
+                        GameHUDHandler.Instance.PlayerHealth.text = data[0].ToString();
+                        GameHUDHandler.Instance.EnemyHealth.text = data[1].ToString();
+                    } else {
+                        GameHUDHandler.Instance.PlayerHealth.text = data[1].ToString();
+                        GameHUDHandler.Instance.EnemyHealth.text = data[0].ToString();
+                    }
+
+                    HandManager manager = PhotonNetwork.player.TagObject as HandManager;
+                    manager.DestroyCard(activePlayer, index);
+
+                    Debug.Log(EventCode.UpdateGameState + " => [UpdateGameState] event received from server with: " + data[0] + " and " + data[1]);
+                    break;
+            }
             case PunEvent.OwnershipRequest:
             {
                 int[] requestValues = (int[]) photonEvent.Parameters[ParameterCode.CustomEventContent];
@@ -2490,7 +2544,6 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
                     SendMonoMessage(PhotonNetworkingMessage.OnReceivedRoomListUpdate);
                     break;
                 }
-
             case EventCode.GameListUpdate:
                 {
                     Hashtable games = (Hashtable)photonEvent[ParameterCode.GameList];
@@ -2728,13 +2781,13 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
 
 
             default:
-                if (photonEvent.Code < 200)
-                {
-					if (!PhotonNetwork.CallEvent(photonEvent.Code, photonEvent [ParameterCode.Data], actorNr))
-					{
-						Debug.LogWarning("Warning: Unhandled event " + photonEvent + ". Set PhotonNetwork.OnEventCall.");
-					}
-                }
+     //           if (photonEvent.Code < 200)
+     //           {
+					//if (!PhotonNetwork.CallEvent(photonEvent.Code, photonEvent [ParameterCode.Data], actorNr))
+					//{
+					//	Debug.LogWarning("Warning: Unhandled event " + photonEvent + ". Set PhotonNetwork.OnEventCall.");
+					//}
+     //           }
                 break;
         }
 
@@ -4633,6 +4686,9 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
 
         // if loaded level is not the one defined my master in props, load that level
         object sceneId = PhotonNetwork.room.CustomProperties[NetworkingPeer.CurrentSceneProperty];
+
+        
+
         if (sceneId is int)
         {
             if (SceneManagerHelper.ActiveSceneBuildIndex != (int)sceneId)

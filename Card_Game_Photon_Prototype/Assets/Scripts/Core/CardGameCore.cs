@@ -37,11 +37,15 @@ public class CardGameCore : PunBehaviour, ITurnManagerCallbacks {
         // when a player made a move
         Debug.Log(pPlayer.ID + " played card: " + pCardId + " | Card index: " + pCardIndex);
 
-        HandManager handManager = PhotonNetwork.player.TagObject as HandManager;
-        handManager.DestroyCard(pPlayer.ID, pCardIndex);
+        //HandManager handManager = PhotonNetwork.player.TagObject as HandManager;
+        //handManager.DestroyCard(pPlayer.ID, pCardIndex);
 
         // Execute whatever card: pCardId is..
         Hand.Instance.PlayCard(pCardId);
+    }
+
+    private void Update() {
+        
     }
 
     public void OnTurnBegins(PhotonPlayer pSender) {

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using ExitGames.Client.Photon;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class OnClickMainMenu : MonoBehaviour {
@@ -7,9 +8,11 @@ public class OnClickMainMenu : MonoBehaviour {
 
     public void onClickQuickPlay() {
         // Currently completely random, will add a filter later.
-        // returns bool, to check if it couldn't find a room (i.e
-        // If A is looking for a room, but decides to stop looking and B tries to join using quick play Error: OperationResponse 226: Returncode: 32758 is thrown)
-        if (!PhotonNetwork.JoinRandomRoom()) {
+        OpJoinRandomRoomParams roomParams = new OpJoinRandomRoomParams();
+        roomParams.MatchingType = MatchmakingMode.RandomMatching;
+        //roomParams.ExpectedMaxPlayers = Config.MAX_PLAYERS;
+
+        if (!PhotonNetwork.networkingPeer.OpJoinRandomRoom(roomParams)) {
             Debug.Log("No random room found!" + PhotonNetwork.room);
         } else {
             Debug.Log("Joined Existing room: " + PhotonNetwork.room);
@@ -17,7 +20,7 @@ public class OnClickMainMenu : MonoBehaviour {
     }
 
     public void onClickCreateRoom() {
-        PhotonNetwork.CreateRoom(_creatRoom.text, new RoomOptions() { MaxPlayers = Config.MAX_PLAYERS, PlayerTtl = Config.PLAYER_TTL, EmptyRoomTtl = Config.EMPTY_ROOM_TTL, CleanupCacheOnLeave = Config.CLEANUP_CACHE_ON_LEAVE }, null);
+        PhotonNetwork.CreateRoom(_creatRoom.text, new RoomOptions() { MaxPlayers = Config.MAX_PLAYERS, PlayerTtl = Config.PLAYER_TTL, EmptyRoomTtl = Config.EMPTY_ROOM_TTL, CleanupCacheOnLeave = Config.CLEANUP_CACHE_ON_LEAVE, Plugins = Config.PLUGINS_NAME }, null);
     }
 
     public void onClickJoinRoom() {

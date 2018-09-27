@@ -5,6 +5,9 @@ using UnityEngine.UI;
 public class GameHUDHandler : MonoBehaviour {
     [SerializeField] private Text _txtPlayerData;
     [SerializeField] private Text _turnTimer;
+    [SerializeField] private Text _activePlayerText;
+    [SerializeField] private Text _playerHealth;
+    [SerializeField] private Text _enemyHealth;
     [SerializeField] private GameObject _endTurnPopUp;
     [SerializeField] private GameObject _winPopUp;
     [SerializeField] private GameObject _losePopUp;
@@ -15,8 +18,33 @@ public class GameHUDHandler : MonoBehaviour {
     public Button btnEndTurn {
         get { return _btnEndTurn; }
     }
+    public Text ActivePlayerText {
+        get { return _activePlayerText; }
+    }
+    public Text PlayerHealth {
+        get { return _playerHealth; }
+    }
+    public Text EnemyHealth {
+        get { return _enemyHealth; }
+    }
 
-    private void Start() {
+    private static GameHUDHandler _instance;
+    public static GameHUDHandler Instance {
+        get {
+            if (!_instance) {
+                _instance = FindObjectOfType(typeof(GameHUDHandler)) as GameHUDHandler;
+
+                if (!_instance) {
+                    Debug.Log("There should be an active object with the component Hand");
+                } else {
+                    _instance.Init();
+                }
+            }
+            return _instance;
+        }
+    }
+
+    public void Init() {
         _btnEndTurn.onClick.AddListener(TurnManager.Instance.EndTurn);
 
         _txtPlayerData.text = "Player Data => Amount of players: " + PhotonNetwork.room.PlayerCount.ToString() + " | Room name: " + PhotonNetwork.room.Name + " | Player ID: " + PhotonNetwork.player.ID;

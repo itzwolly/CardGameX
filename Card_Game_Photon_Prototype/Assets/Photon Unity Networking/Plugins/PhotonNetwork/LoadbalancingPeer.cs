@@ -1168,6 +1168,18 @@ using ExitGames.Client.Photon;
 
         /// <summary>(223) Sent by Photon to update a token before it times out.</summary>
         public const byte AuthEvent = 223;
+
+        public const byte RoomFull = 99;
+
+        /// <summary>
+        /// (100) Sent by Photon containing who's turn it is.
+        /// </summary>
+        public const byte BeginTurn = 100;
+
+        public const byte DrawCard = 101;
+
+        public const byte UpdateGameState = 102;
+
     }
 
 

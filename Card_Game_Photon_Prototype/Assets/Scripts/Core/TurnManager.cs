@@ -26,6 +26,8 @@ public class TurnManager : PunBehaviour {
     public ITurnManagerCallbacks TurnManagerListener;
     public float TurnDuration = 5f;
 
+    private string _activePlayer;
+
     public bool IsActivePlayer {
         get { return (PhotonNetwork.player.UserId == GetActivePlayer()); }
     }
@@ -73,6 +75,7 @@ public class TurnManager : PunBehaviour {
             }
         }
 
+        Events.RaiseStartTurnEvent();
         CurrentTurn = CurrentTurn + 1;
     }
 
@@ -87,25 +90,11 @@ public class TurnManager : PunBehaviour {
 
     // Sets which player's turn it is right now.
     public void SetActivePlayer(string pUserId) {
-        Room room = PhotonNetwork.room;
-        if (room == null || room.CustomProperties == null) {
-            return;
-        }
-
-        string propKey = ACTIVE_PLAYER_KEY;
-        Hashtable playerData = new Hashtable();
-        playerData[propKey] = pUserId;
-
-        room.SetCustomProperties(playerData);
+        _activePlayer = pUserId;
     }
 
     // Gets which player's turn it is right now.
     public string GetActivePlayer() {
-        Room room = PhotonNetwork.room;
-        if (room == null || room.CustomProperties == null || !room.CustomProperties.ContainsKey(ACTIVE_PLAYER_KEY)) {
-            return null;
-        }
-
-        return (string) room.CustomProperties[ACTIVE_PLAYER_KEY];
+        return _activePlayer;
     }
 }

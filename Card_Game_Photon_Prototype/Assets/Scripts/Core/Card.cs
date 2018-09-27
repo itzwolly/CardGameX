@@ -20,11 +20,11 @@ public class Card {
         _data = pCardData;
         _actions = new List<Action>();
 
-        ConvertActions(_data.ActionsToString);
+        //ConvertActions(_data.ActionsToString);
     }
 
     private void ConvertActions(string pActions) {
-        if (pActions == "") {
+        if (pActions == "" || pActions == null) {
             return;
         }
         

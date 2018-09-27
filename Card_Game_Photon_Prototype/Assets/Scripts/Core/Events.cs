@@ -13,6 +13,7 @@ public class Events {
     public const byte END_GAME = 3;
     public const byte CARD_DRAWN = 4;
     public const byte START_TURN = 5;
+    public const byte ADD_CARD_TO_DECK = 6;
 
     public static void RaiseCardPlayedEvent(int pCardId, int pCardIndex) {
         object[] content = new object[] { pCardId, pCardIndex };
@@ -27,8 +28,8 @@ public class Events {
         PhotonNetwork.RaiseEvent(END_TURN, null, reliable, raiseEventOptions);
     }
 
-    public static void RaiseJoinGameEvent(int pPlayerId) {
-        object[] content = new object[] { pPlayerId };
+    public static void RaiseJoinGameEvent(string pUserId) {
+        object[] content = new object[] { pUserId };
         bool reliable = true;
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All }; // You would have to set the Receivers to All in order to receive this event on the local client as well
         PhotonNetwork.RaiseEvent(JOIN_GAME, content, reliable, raiseEventOptions);
@@ -55,5 +56,12 @@ public class Events {
         bool reliable = true;
         RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.All, CachingOption = EventCaching.AddToRoomCache }; // You would have to set the Receivers to All in order to receive this event on the local client as well
         PhotonNetwork.RaiseEvent(START_TURN, null, reliable, raiseEventOptions);
+    }
+
+    public static void RaiseAddCardToDeckEvent(int pId, string pName, string pDescription, string pActionsString) {
+        object[] content = new object[] { pId, pName, pDescription, pActionsString };
+        bool reliable = true;
+        //RaiseEventOptions raiseEventOptions = new RaiseEventOptions { }; // You would have to set the Receivers to All in order to receive this event on the local client as well
+        PhotonNetwork.RaiseEvent(ADD_CARD_TO_DECK, content, reliable, RaiseEventOptions.Default);
     }
 }

@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿
+using ExitGames.Client.Photon;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -44,7 +46,8 @@ public class CardCollectionBehaviour : MonoBehaviour {
         }
 
         Card card = new Card(pCardData);
-        DeckHandler.Instance.ActiveDeck.AddCard(card);
+        StartCoroutine(WebServer.AddCardToDeck("user_1", card.Data.Id, "Dummy_deck_name"));
+        //DeckHandler.Instance.ActiveDeck.AddCard(card);
     }
 
     private void RemoveCardFromDeck(CardData pCardData) {
