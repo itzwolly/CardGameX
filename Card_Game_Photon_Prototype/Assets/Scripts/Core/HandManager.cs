@@ -21,13 +21,18 @@ public class HandManager : MonoBehaviour {
         if (pPlayerId == PhotonNetwork.player.ID) {
             Destroy(_playerHand.transform.GetChild(pIndex).gameObject);
 
-            foreach (Transform child in _playerHand.transform) {
-                child.transform.position = new Vector3(child.transform.position.x, child.transform.position.y, child.transform.position.z + offset);
+            if (pIndex < _playerHand.transform.childCount - 1) {
+                foreach (Transform child in _playerHand.transform) {
+                    child.transform.position = new Vector3(child.transform.position.x, child.transform.position.y, child.transform.position.z + offset);
+                }
             }
         } else {
             Destroy(_enemyHand.transform.GetChild(pIndex).gameObject);
-            foreach (Transform child in _enemyHand.transform) {
-                child.transform.position = new Vector3(child.transform.position.x, child.transform.position.y, child.transform.position.z - offset);
+
+            if (pIndex < _enemyHand.transform.childCount - 1) {
+                foreach (Transform child in _enemyHand.transform) {
+                    child.transform.position = new Vector3(child.transform.position.x, child.transform.position.y, child.transform.position.z - offset);
+                }
             }
         }
     }

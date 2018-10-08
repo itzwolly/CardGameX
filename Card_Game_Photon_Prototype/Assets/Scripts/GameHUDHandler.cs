@@ -47,7 +47,7 @@ public class GameHUDHandler : MonoBehaviour {
     public void Init() {
         _btnEndTurn.onClick.AddListener(TurnManager.Instance.EndTurn);
 
-        _txtPlayerData.text = "Player Data => Amount of players: " + PhotonNetwork.room.PlayerCount.ToString() + " | Room name: " + PhotonNetwork.room.Name + " | Player ID: " + PhotonNetwork.player.ID;
+        _txtPlayerData.text = "Data => Amount of players: " + PhotonNetwork.room.PlayerCount.ToString() + " | Room name: " + PhotonNetwork.room.Name + " | Player UserId: " + PhotonNetwork.player.UserId;
     }
 
     private void Update() {
