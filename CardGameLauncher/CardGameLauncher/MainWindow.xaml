@@ -1,0 +1,16 @@
+﻿<Window x:Class="CardGameLauncher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CardGameLauncher"
+        mc:Ignorable="d"
+        Title="Card Game Launcher" Height="350" Width="525" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Label Margin="92,75,362,215" RenderTransformOrigin="0.456,0.919">Username</Label>
+        <TextBox x:Name="txtUsername" Margin="160,75,160,215"></TextBox>
+        <Label Margin="92,109,362,181">Password</Label> 
+        <PasswordBox x:Name="pbPassword" Margin="160,109,160,181"/>
+        <Button x:Name="btnLogin" Margin="160,167,160,128" Click="btnLogin_Click">Login</Button>
+    </Grid>
+</Window>
