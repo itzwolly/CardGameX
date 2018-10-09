@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,16 +16,23 @@ using System.Windows.Shapes;
 
 namespace CardGameLauncher {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AdminWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, IView {
-        public MainWindow() {
+    [PrincipalPermission(SecurityAction.Demand, Role = "Administrator")]
+    public partial class AdminWindow : Window, IView {
+        public AdminWindow() {
             InitializeComponent();
         }
 
-        public IViewModel ViewModel  {
-            get { return DataContext as IViewModel; }
-            set { DataContext = value; }
+        #region IView Members
+        public IViewModel ViewModel {
+            get {
+                return DataContext as IViewModel;
+            }
+            set {
+                DataContext = value;
+            }
         }
+        #endregion
     }
 }

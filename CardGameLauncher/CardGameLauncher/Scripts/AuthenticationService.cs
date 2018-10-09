@@ -9,20 +9,19 @@ using System.Threading.Tasks;
 namespace CardGameLauncher.Scripts {
     public class AuthenticationService : IAuthenticationService {
         
-        public User AuthenticateUser(string pUsername, string pClearTextPassword, out string pResult) {
+        public User AuthenticateUser(string pUsername, string pClearTextPassword) {
             Task<string> task = Task.Run(async () => {
                 return await WebServer.RetrieveAuthenticationResultJson(pUsername, pClearTextPassword);
             });
-
             string phpResultJson = task.Result;
+
             AuthenticationResult result = JsonConvert.DeserializeObject<AuthenticationResult>(phpResultJson);
-            pResult = result.Status;
 
             if (result.Status.ToLower() == "success") {
-                return new User(pUsername, "", result.Roles); // E-mail empty for now.. TODO: Add later..
+                return new User(pUsername, "", result.Roles); // E-mail empty for now.. TODO: Add later maybe..
+            } else {
+                throw new UnauthorizedAccessException(result.Status);
             }
-
-            return null;
         }
 
         //private string CalculateHash(string clearTextPassword, string salt) {
@@ -36,3 +35,4 @@ namespace CardGameLauncher.Scripts {
         //}
     }
 }
+

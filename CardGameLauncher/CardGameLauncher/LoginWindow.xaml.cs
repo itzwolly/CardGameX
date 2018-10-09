@@ -15,16 +15,19 @@ using System.Windows.Shapes;
 
 namespace CardGameLauncher {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for SecretWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window, IView {
-        public MainWindow() {
+    public partial class LoginWindow : Window, IView {
+        public LoginWindow() {
             InitializeComponent();
         }
 
-        public IViewModel ViewModel  {
+        #region IView Members
+        public IViewModel ViewModel {
             get { return DataContext as IViewModel; }
             set { DataContext = value; }
         }
+        #endregion
     }
+
 }

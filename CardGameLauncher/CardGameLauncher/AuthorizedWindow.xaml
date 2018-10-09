@@ -1,0 +1,18 @@
+﻿<Window x:Class="CardGameLauncher.AuthorizedWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CardGameLauncher"
+        mc:Ignorable="d"
+        Title="AuthorizedWindow" Height="350" Width="525" WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"/>
+    </Window.Resources>
+    <Grid>
+        <TextBlock Text="Welcome %s% to the Card Game Launcher."/>
+        <Button Content="Log out" Command="{Binding LogoutRelayCommand, Mode=OneTime}"
+            Visibility="{Binding IsAuthenticated, Converter={StaticResource booleanToVisibilityConverter}}"
+            HorizontalAlignment="Center" Width="105" Margin="10,284,402,10"/>
+    </Grid>
+</Window>
