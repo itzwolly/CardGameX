@@ -20,8 +20,6 @@ namespace CardGameLauncher.Scripts {
         private readonly RelayCommand _loginRelayCommand;
         private readonly RelayCommand _logoutRelayCommand;
 
-        private IView _view;
-
         private string _username;
         private string _status;
 
@@ -38,7 +36,7 @@ namespace CardGameLauncher.Scripts {
 
             _logoutRelayCommand = new RelayCommand(o => {
                 Logout(o);
-                ShowView(null);
+                ShowView(o);
             }, o => CanLogout(o));
         }
 
@@ -47,7 +45,6 @@ namespace CardGameLauncher.Scripts {
             get { return _username; }
             set { _username = value; NotifyPropertyChanged("Username"); }
         }
-
         public string AuthenticatedUser {
             get {
                 if (IsAuthenticated) {
@@ -59,12 +56,10 @@ namespace CardGameLauncher.Scripts {
                 return "Not authenticated!";
             }
         }
-
         public string Status {
             get { return _status; }
             set { _status = value; NotifyPropertyChanged("Status"); }
         }
-
         public string Name {
             get { return "AuthenticationViewModel"; }
         }
@@ -143,8 +138,10 @@ namespace CardGameLauncher.Scripts {
             try {
                 Status = string.Empty;
 
+                Window parentWindow = Window.GetWindow(parameter as DependencyObject);
+
                 IView view;
-                if (parameter == null) { // occurs when you're logging out..
+                if (parentWindow.Name == "winAuthorized") { // occurs when you're logging out..
                     view = new LoginWindow();
                     view.ViewModel = this;
                 } else {
@@ -152,6 +149,8 @@ namespace CardGameLauncher.Scripts {
                     view.ViewModel = this;
                 }
                 view.Show();
+
+                parentWindow.Close();
             } catch (SecurityException) {
                 Status = "You are not authorized!";
             }

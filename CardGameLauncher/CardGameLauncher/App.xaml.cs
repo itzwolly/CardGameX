@@ -25,6 +25,7 @@ namespace CardGameLauncher {
             IView loginWindow = new LoginWindow();
             loginWindow.ViewModel = viewModel;
             loginWindow.Show();
+            App.Current.MainWindow = (loginWindow as Window);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace CardGameLauncher {
     /// <summary>
     /// Interaction logic for SecretWindow.xaml
     /// </summary>
-    public partial class LoginWindow : Window, IView {
+    public partial class LoginWindow : Window, IView, IClosable {
         public LoginWindow() {
             InitializeComponent();
         }

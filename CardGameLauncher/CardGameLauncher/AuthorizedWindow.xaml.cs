@@ -19,7 +19,7 @@ namespace CardGameLauncher {
     /// Interaction logic for SecretWindow.xaml
     /// </summary>
     [PrincipalPermission(SecurityAction.Demand)]
-    public partial class AuthorizedWindow : Window, IView {
+    public partial class AuthorizedWindow : Window, IView, IClosable {
         public AuthorizedWindow() {
             InitializeComponent();
         }
