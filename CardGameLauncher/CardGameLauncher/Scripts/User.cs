@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace CardGameLauncher.Scripts {
     public class User {
-        public User(string username, string email, string[] roles) {
-            Username = username;
-            Email = email;
-            Roles = roles;
+        public User(string pUsername, string pEmail, string[] pRoles) {
+            Username = pUsername;
+            Email = pEmail;
+            Roles = pRoles;
         }
 
         public string Username {

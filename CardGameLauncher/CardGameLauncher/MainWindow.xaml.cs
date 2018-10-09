@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CardGameLauncher.Scripts;
+using System.Diagnostics;
 
 namespace CardGameLauncher {
     /// <summary>
@@ -22,8 +24,14 @@ namespace CardGameLauncher {
             InitializeComponent();
         }
 
-        private void btnLogin_Click(object sender, RoutedEventArgs e) {
+        private void btnLogin_Click(object pSender, RoutedEventArgs pEvent) {
+            // Do something
+            AuthenticationService service = new AuthenticationService();
+            //User user = service.AuthenticateUser("user_1", "kappa");
+            string result;
+            User user = service.AuthenticateUser(txtUsername.Text, pbPassword.Password, out result);
 
+            lblResult.Content = result;
         }
     }
 }

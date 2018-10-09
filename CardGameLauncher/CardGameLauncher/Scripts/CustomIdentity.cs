@@ -3,10 +3,10 @@ using System.Security.Principal;
 
 namespace CardGameLauncher.Scripts {
     public class CustomIdentity : IIdentity {
-        public CustomIdentity(string name, string email, string[] roles) {
-            Name = name;
-            Email = email;
-            Roles = roles;
+        public CustomIdentity(string pName, string pEmail, string[] pRoles) {
+            Name = pName;
+            Email = pEmail;
+            Roles = pRoles;
         }
 
         public string Name { get; private set; }
