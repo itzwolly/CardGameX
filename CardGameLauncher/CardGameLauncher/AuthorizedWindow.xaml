@@ -17,6 +17,7 @@
                 Command="{Binding LogoutRelayCommand, Mode=OneTime}"
                 CommandParameter="{Binding ElementName=winAuthorized}"
                 Visibility="{Binding IsAuthenticated, Converter={StaticResource booleanToVisibilityConverter}}"
-                HorizontalAlignment="Center" Width="105" Margin="10,284,402,10"/>
+                Margin="10,283,402,10" VerticalContentAlignment="Center"/>
+        <Button x:Name="btnPlay" Content="Play" Margin="162,108,153,129"/>
     </Grid>
 </Window>

@@ -13,9 +13,6 @@ using System.Windows.Interop;
 namespace CardGameLauncher.Scripts {
     public class AuthenticationViewModel : ObservableObject, IViewModel {
         private readonly IAuthenticationService _authenticationService;
-        //private readonly DelegateCommand _loginCommand;
-        //private readonly DelegateCommand _logoutCommand;
-        //private readonly DelegateCommand _showViewCommand;
 
         private readonly RelayCommand _loginRelayCommand;
         private readonly RelayCommand _logoutRelayCommand;
@@ -25,9 +22,6 @@ namespace CardGameLauncher.Scripts {
 
         public AuthenticationViewModel(IAuthenticationService authenticationService) {
             _authenticationService = authenticationService;
-            //_loginCommand = new DelegateCommand(Login, CanLogin);
-            //_logoutCommand = new DelegateCommand(Logout, CanLogout);
-            //_showViewCommand = new DelegateCommand(ShowView, null);
 
             _loginRelayCommand = new RelayCommand(o => {
                 Login(o);
@@ -63,6 +57,9 @@ namespace CardGameLauncher.Scripts {
         public string Name {
             get { return "AuthenticationViewModel"; }
         }
+        public bool IsAuthenticated {
+            get { return Thread.CurrentPrincipal.Identity.IsAuthenticated; }
+        }
         #endregion
 
         #region Commands
@@ -92,8 +89,6 @@ namespace CardGameLauncher.Scripts {
                 //Update UI
                 NotifyPropertyChanged("AuthenticatedUser");
                 NotifyPropertyChanged("IsAuthenticated");
-                //_loginCommand.RaiseCanExecuteChanged();
-                //_logoutCommand.RaiseCanExecuteChanged();
                 _loginRelayCommand.RaiseCanExecuteChanged();
                 _logoutRelayCommand.RaiseCanExecuteChanged();
 
@@ -107,31 +102,17 @@ namespace CardGameLauncher.Scripts {
             }
         }
 
-        private bool CanLogin(object parameter) {
-            return !IsAuthenticated;
-        }
-
         private void Logout(object parameter) {
             CustomPrincipal customPrincipal = Thread.CurrentPrincipal as CustomPrincipal;
             if (customPrincipal != null) {
                 customPrincipal.Identity = new AnonymousIdentity();
                 NotifyPropertyChanged("AuthenticatedUser");
                 NotifyPropertyChanged("IsAuthenticated");
-                //_loginCommand.RaiseCanExecuteChanged();
-                //_logoutCommand.RaiseCanExecuteChanged();
                 _loginRelayCommand.RaiseCanExecuteChanged();
                 _logoutRelayCommand.RaiseCanExecuteChanged();
 
                 Status = string.Empty;
             }
-        }
-
-        private bool CanLogout(object parameter) {
-            return IsAuthenticated;
-        }
-
-        public bool IsAuthenticated {
-            get { return Thread.CurrentPrincipal.Identity.IsAuthenticated; }
         }
 
         private void ShowView(object parameter) {
@@ -154,6 +135,24 @@ namespace CardGameLauncher.Scripts {
             } catch (SecurityException) {
                 Status = "You are not authorized!";
             }
+        }
+
+        private void Play() {
+            // check if you have the files at X location
+            // If you don't -> download the files from the server
+            // If you do -> make sure they're up-to-date and valid
+            // If they aren't -> download the files from the server
+            // if they are -> open the game.
+
+
+        }
+
+        private bool CanLogin(object parameter) {
+            return !IsAuthenticated;
+        }
+
+        private bool CanLogout(object parameter) {
+            return IsAuthenticated;
         }
     }
 }
