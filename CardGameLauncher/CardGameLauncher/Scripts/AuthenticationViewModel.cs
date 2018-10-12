@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Net;
 using System.Security;
 using System.Text;
 using System.Threading;
@@ -16,12 +17,15 @@ namespace CardGameLauncher.Scripts {
 
         private readonly RelayCommand _loginRelayCommand;
         private readonly RelayCommand _logoutRelayCommand;
+        private readonly DelegateCommand _playCommand;
 
         private string _username;
         private string _status;
 
         public AuthenticationViewModel(IAuthenticationService authenticationService) {
             _authenticationService = authenticationService;
+
+            _playCommand = new DelegateCommand(o => { Play(); });
 
             _loginRelayCommand = new RelayCommand(o => {
                 Login(o);
@@ -65,9 +69,10 @@ namespace CardGameLauncher.Scripts {
         #region Commands
         //public DelegateCommand LoginCommand { get { return _loginCommand; } }
         //public DelegateCommand LogoutCommand { get { return _logoutCommand; } }
-        //public DelegateCommand ShowViewCommand { get { return _showViewCommand; } }
+        public DelegateCommand PlayCommand { get { return _playCommand; } }
         public RelayCommand LoginRelayCommand { get { return _loginRelayCommand; } }
         public RelayCommand LogoutRelayCommand { get { return _logoutRelayCommand; } }
+        public int Progress { get; set; }
         #endregion
 
         private void Login(object parameter) {
@@ -144,7 +149,31 @@ namespace CardGameLauncher.Scripts {
             // If they aren't -> download the files from the server
             // if they are -> open the game.
 
+            /*
+                $receivedParent = $_POST["parent"];
+	            $receivedFileName = $_POST["fullfilename"];
+	            $receivedHash = $_POST["hash"];
+             */
+            //@"D:\School\Year 3\Minor\Card_Game_Repository\Card_Game_Photon_Prototype\Builds\Build_v1.67\UnityPlayer.dll"
 
+            //string location = @"D:\School\Year 3\Minor\Card_Game_Repository\CardGameLauncher\Game";
+            //string hash = WebServer.GetMD5HashToString(fileName);
+
+            WebServer.DownloadGameFiles(this);
+        }
+
+        public void Client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e) {
+            double bytesIn = double.Parse(e.BytesReceived.ToString());
+            double totalBytes = double.Parse(e.TotalBytesToReceive.ToString());
+            double percentage = bytesIn / totalBytes * 100;
+
+            Console.WriteLine(e.BytesReceived + " | " + e.TotalBytesToReceive);
+            Console.WriteLine(e.ProgressPercentage);
+
+            Progress = e.ProgressPercentage;
+
+            //label2.Text = "Downloaded " + e.BytesReceived + " of " + e.TotalBytesToReceive;
+            //progressBar1.Value = int.Parse(Math.Truncate(percentage).ToString());
         }
 
         private bool CanLogin(object parameter) {
