@@ -13,11 +13,12 @@
         <TextBlock Text="{Binding AuthenticatedUser}"
                FontSize="14" TextWrapping="Wrap" FontWeight="Bold"
                Margin="0,10,10,269" RenderTransformOrigin="0.5,0.5" Width="499" HorizontalAlignment="Right" TextAlignment="Right" />
-        <Button x:Name="btnLogOut" Content="Log out" 
+        <Button x:Name="btnLogOut" Content="Log out" Margin="10,283,402,10" VerticalContentAlignment="Center" 
                 Command="{Binding LogoutRelayCommand, Mode=OneTime}"
                 CommandParameter="{Binding ElementName=winAuthorized}"
-                Visibility="{Binding IsAuthenticated, Converter={StaticResource booleanToVisibilityConverter}}"
-                Margin="10,283,402,10" VerticalContentAlignment="Center"/>
-        <Button x:Name="btnPlay" Content="Play" Margin="162,108,153,129"/>
+                Visibility="{Binding IsAuthenticated, Converter={StaticResource booleanToVisibilityConverter}}" />
+        <Button x:Name="btnPlay" Content="Play" Margin="162,108,153,129"
+                Command="{Binding PlayCommand, Mode=OneTime}" />
+        <TextBlock Text="{Binding Progress}" Margin="333,283,10,10" />
     </Grid>
 </Window>
