@@ -159,7 +159,7 @@ namespace CardGameLauncher.Scripts {
             //string location = @"D:\School\Year 3\Minor\Card_Game_Repository\CardGameLauncher\Game";
             //string hash = WebServer.GetMD5HashToString(fileName);
 
-            WebServer.DownloadGameFiles(this);
+            //WebServer.DownloadGameFiles(this);
         }
 
         public void Client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e) {
