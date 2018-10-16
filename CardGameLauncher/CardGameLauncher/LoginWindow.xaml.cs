@@ -20,6 +20,8 @@ namespace CardGameLauncher {
     public partial class LoginWindow : Window, IView, IClosable {
         public LoginWindow() {
             InitializeComponent();
+
+            HashSet<string> data = FileHandler.GetLocalFileHashes();
         }
 
         #region IView Members

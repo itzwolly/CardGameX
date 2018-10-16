@@ -1,4 +1,5 @@
 ﻿using HtmlAgilityPack;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,6 +13,7 @@ namespace CardGameLauncher.Scripts {
         private static readonly HttpClient client = new HttpClient();
         private const string AUTH_USER_URL = "http://card-game.gearhostpreview.com/authenticate.php";
         private const string DOWNLOAD_GAME_FILES = "http://card-game.gearhostpreview.com/checkfiles.php/";
+        private const string GET_FILE_HASHES = "http://card-game.gearhostpreview.com/getfilehashes.php/";
         private const string GAME_FOLDER = "http://card-game.gearhostpreview.com/game/";
         private const string SERVER_URL = "http://card-game.gearhostpreview.com";
 
@@ -27,36 +29,59 @@ namespace CardGameLauncher.Scripts {
             return responseString;
         }
 
-        public static async void DownloadGameFiles(AuthenticationViewModel pVm) {
-            HttpWebRequest request = (HttpWebRequest) WebRequest.Create(GAME_FOLDER);
-            using (HttpWebResponse response = (HttpWebResponse) request.GetResponse()) {
-                using (StreamReader reader = new StreamReader(response.GetResponseStream())) {
-                    string html = reader.ReadToEnd();
-                    HtmlDocument doc = new HtmlDocument();
-                    doc.LoadHtml(html);
+        public static async Task<string> RetrieveFileHashesJson() {
+            HttpResponseMessage response = await client.GetAsync(GET_FILE_HASHES);
+            string json = await response.Content.ReadAsStringAsync();
+            
+            return json;
+        }
 
-                    using (var client = new WebClient()) {
-                        client.DownloadProgressChanged += pVm.Client_DownloadProgressChanged;
-                        foreach (HtmlNode link in doc.DocumentNode.SelectNodes("//a")) {
-                            string href = link.Attributes["href"].Value;
-                            if (href != "/") {
-                                string path = SERVER_URL + href;
-                                string location = "D:/School/Year 3/Minor" + href;
-                                string extension = Path.GetExtension(path);
-                                Uri uri = new Uri(path);
+        public static async void DownloadGameFiles(AuthenticationViewModel pVm, HashSet<string> pHashesToDownload) {
+            using (WebClient client = new WebClient()) {
+                //string path = SERVER_URL + href;
+                //string location = "D:/School/Year 3/Minor" + href;
+                //string extension = Path.GetExtension(path);
+                //Uri uri = new Uri(path);
 
-                                if (extension == "") {
-                                    Directory.CreateDirectory(location);
-                                } else {
-                                    byte[] data = await client.DownloadDataTaskAsync(uri);
-                                    File.WriteAllBytes(location, data);
-                                }
-                            }
-                        }
-                    }
-                }
+                //if (extension == "") {
+                //    Directory.CreateDirectory(location);
+                //} else {
+                //    byte[] data = await client.DownloadDataTaskAsync(uri);
+                //    File.WriteAllBytes(location, data);
+                //}
             }
         }
+
+        //public static async void DownloadGameFiles(AuthenticationViewModel pVm) {
+        //    HttpWebRequest request = (HttpWebRequest) WebRequest.Create(GAME_FOLDER);
+        //    using (HttpWebResponse response = (HttpWebResponse) request.GetResponse()) {
+        //        using (StreamReader reader = new StreamReader(response.GetResponseStream())) {
+        //            string html = reader.ReadToEnd();
+        //            HtmlDocument doc = new HtmlDocument();
+        //            doc.LoadHtml(html);
+
+        //            using (var client = new WebClient()) {
+        //                client.DownloadProgressChanged += pVm.Client_DownloadProgressChanged;
+        //                foreach (HtmlNode link in doc.DocumentNode.SelectNodes("//a")) {
+        //                    string href = link.Attributes["href"].Value;
+        //                    if (href != "/") {
+        //                        string path = SERVER_URL + href;
+        //                        string location = "D:/School/Year 3/Minor" + href;
+        //                        string extension = Path.GetExtension(path);
+        //                        Uri uri = new Uri(path);
+
+        //                        if (extension == "") {
+        //                            Directory.CreateDirectory(location);
+        //                        } else {
+        //                            byte[] data = await client.DownloadDataTaskAsync(uri);
+        //                            File.WriteAllBytes(location, data);
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
 
         //public static async void DownloadGameFiles(string pLocation) {
         //    Dictionary<string, string> postData = new Dictionary<string, string>();
@@ -85,33 +110,7 @@ namespace CardGameLauncher.Scripts {
 
         //    Console.WriteLine(file);
         //}
-
-        public static string GetMD5HashToString(string pFileName) {
-            if (pFileName != "") {
-                byte[] hash = WebServer.MD5Hash(pFileName);
-                string s = "";
-                foreach (byte bit in hash) {
-                    s += bit.ToString("x2");
-                }
-                return s;
-            }
-            return "";
-        }
-
-        private static byte[] SHA256Hash(string pFilePath) {
-            using (SHA256 SHA256 = SHA256Managed.Create()) {
-                using (FileStream fileStream = File.OpenRead(pFilePath))
-                    return SHA256.ComputeHash(fileStream);
-            }
-        }
-
-        private static byte[] MD5Hash(string pFilePath) {
-            using (var md5 = MD5.Create()) {
-                using (var stream = File.OpenRead(pFilePath)) {
-                    return md5.ComputeHash(stream);
-                }
-            }
-        }
+        
     }
 }
 
