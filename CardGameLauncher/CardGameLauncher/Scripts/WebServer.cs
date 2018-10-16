@@ -13,9 +13,9 @@ namespace CardGameLauncher.Scripts {
         private static readonly HttpClient client = new HttpClient();
         private const string AUTH_USER_URL = "http://card-game.gearhostpreview.com/authenticate.php";
         private const string DOWNLOAD_GAME_FILES = "http://card-game.gearhostpreview.com/checkfiles.php/";
-        private const string GET_FILE_HASHES = "http://card-game.gearhostpreview.com/getfilehashes.php/";
+        private const string GET_FILE_HASHES = "http://card-game.gearhostpreview.com/getfiledata.php/";
         private const string GAME_FOLDER = "http://card-game.gearhostpreview.com/game/";
-        private const string SERVER_URL = "http://card-game.gearhostpreview.com";
+        private const string SERVER_URL = "http://card-game.gearhostpreview.com/";
 
         public static async Task<string> RetrieveAuthenticationResultJson(string pUserName, string pPassword) {
             Dictionary<string, string> postData = new Dictionary<string, string>();
@@ -36,19 +36,30 @@ namespace CardGameLauncher.Scripts {
             return json;
         }
 
-        public static async void DownloadGameFiles(AuthenticationViewModel pVm, HashSet<string> pHashesToDownload) {
+        public static async Task<bool> DownloadGameFiles(AuthenticationViewModel pVm, IEnumerable<FileData> pFilesToDownload) {
             using (WebClient client = new WebClient()) {
-                //string path = SERVER_URL + href;
-                //string location = "D:/School/Year 3/Minor" + href;
-                //string extension = Path.GetExtension(path);
-                //Uri uri = new Uri(path);
+                client.DownloadProgressChanged += pVm.Client_DownloadProgressChanged;
 
-                //if (extension == "") {
-                //    Directory.CreateDirectory(location);
-                //} else {
-                //    byte[] data = await client.DownloadDataTaskAsync(uri);
-                //    File.WriteAllBytes(location, data);
-                //}
+                foreach (FileData file in pFilesToDownload) {
+                    string extension = Path.GetExtension(file.FileName);
+                    string location = FileHandler.FolderLocation;
+                    Uri uri = new Uri(SERVER_URL + file.FileName);
+
+                    if (file.ParentFolder != "") {
+                        Directory.CreateDirectory(location + file.ParentFolder);
+                    }
+
+                    try {
+                        byte[] data = await client.DownloadDataTaskAsync(uri);
+                        File.WriteAllBytes(location + file.FileName, data);
+                    } catch (WebException pWe) {
+                        Console.WriteLine(pWe.Message + " : " + file.FileName);
+                    } catch (Exception pE) {
+                        Console.WriteLine(pE.Message + " : " + file.FileName);
+                    }
+                }
+
+                return true;
             }
         }
 
@@ -110,7 +121,7 @@ namespace CardGameLauncher.Scripts {
 
         //    Console.WriteLine(file);
         //}
-        
+
     }
 }
 

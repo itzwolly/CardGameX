@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Security;
@@ -72,7 +73,6 @@ namespace CardGameLauncher.Scripts {
         public DelegateCommand PlayCommand { get { return _playCommand; } }
         public RelayCommand LoginRelayCommand { get { return _loginRelayCommand; } }
         public RelayCommand LogoutRelayCommand { get { return _logoutRelayCommand; } }
-        public int Progress { get; set; }
         #endregion
 
         private void Login(object parameter) {
@@ -94,6 +94,7 @@ namespace CardGameLauncher.Scripts {
                 //Update UI
                 NotifyPropertyChanged("AuthenticatedUser");
                 NotifyPropertyChanged("IsAuthenticated");
+
                 _loginRelayCommand.RaiseCanExecuteChanged();
                 _logoutRelayCommand.RaiseCanExecuteChanged();
 
@@ -113,6 +114,7 @@ namespace CardGameLauncher.Scripts {
                 customPrincipal.Identity = new AnonymousIdentity();
                 NotifyPropertyChanged("AuthenticatedUser");
                 NotifyPropertyChanged("IsAuthenticated");
+
                 _loginRelayCommand.RaiseCanExecuteChanged();
                 _logoutRelayCommand.RaiseCanExecuteChanged();
 
@@ -149,31 +151,18 @@ namespace CardGameLauncher.Scripts {
             // If they aren't -> download the files from the server
             // if they are -> open the game.
 
-            /*
-                $receivedParent = $_POST["parent"];
-	            $receivedFileName = $_POST["fullfilename"];
-	            $receivedHash = $_POST["hash"];
-             */
-            //@"D:\School\Year 3\Minor\Card_Game_Repository\Card_Game_Photon_Prototype\Builds\Build_v1.67\UnityPlayer.dll"
+            bool isDone = FileHandler.CheckGameFilesAndDownloadIfNotExist(this);
 
-            //string location = @"D:\School\Year 3\Minor\Card_Game_Repository\CardGameLauncher\Game";
-            //string hash = WebServer.GetMD5HashToString(fileName);
-
-            //WebServer.DownloadGameFiles(this);
+            if (isDone) {
+                // Open the game..
+                //D:\Saxion\Minor\Game\Game
+                Process.Start(FileHandler.FolderLocation + @"\Game\Card_Game_Photon_Prototype.exe"); // TODO: UN-HARDCODE
+            }
         }
 
         public void Client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e) {
-            double bytesIn = double.Parse(e.BytesReceived.ToString());
-            double totalBytes = double.Parse(e.TotalBytesToReceive.ToString());
-            double percentage = bytesIn / totalBytes * 100;
-
-            Console.WriteLine(e.BytesReceived + " | " + e.TotalBytesToReceive);
-            Console.WriteLine(e.ProgressPercentage);
-
-            Progress = e.ProgressPercentage;
-
-            //label2.Text = "Downloaded " + e.BytesReceived + " of " + e.TotalBytesToReceive;
-            //progressBar1.Value = int.Parse(Math.Truncate(percentage).ToString());
+            //Console.WriteLine(e.BytesReceived + " | " + e.TotalBytesToReceive);
+            //Console.WriteLine(e.ProgressPercentage);
         }
 
         private bool CanLogin(object parameter) {

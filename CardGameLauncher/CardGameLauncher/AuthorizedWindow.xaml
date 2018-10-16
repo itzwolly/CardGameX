@@ -19,6 +19,5 @@
                 Visibility="{Binding IsAuthenticated, Converter={StaticResource booleanToVisibilityConverter}}" />
         <Button x:Name="btnPlay" Content="Play" Margin="162,108,153,129"
                 Command="{Binding PlayCommand, Mode=OneTime}" />
-        <TextBlock Text="{Binding Progress}" Margin="333,283,10,10" />
     </Grid>
 </Window>
