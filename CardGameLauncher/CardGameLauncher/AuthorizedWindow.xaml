@@ -1,0 +1,23 @@
+﻿<Window x:Name="winAuthorized" x:Class="CardGameLauncher.AuthorizedWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CardGameLauncher"
+        mc:Ignorable="d"
+        Title="AuthorizedWindow" Height="350" Width="525" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"/>
+    </Window.Resources>
+    <Grid>
+        <TextBlock Text="{Binding AuthenticatedUser}"
+               FontSize="14" TextWrapping="Wrap" FontWeight="Bold"
+               Margin="0,10,10,269" RenderTransformOrigin="0.5,0.5" Width="499" HorizontalAlignment="Right" TextAlignment="Right" />
+        <Button x:Name="btnLogOut" Content="Log out" Margin="10,283,402,10" VerticalContentAlignment="Center" 
+                Command="{Binding LogoutRelayCommand, Mode=OneTime}"
+                CommandParameter="{Binding ElementName=winAuthorized}"
+                Visibility="{Binding IsAuthenticated, Converter={StaticResource booleanToVisibilityConverter}}" />
+        <Button x:Name="btnPlay" Content="Play" Margin="162,108,153,129"
+                Command="{Binding PlayCommand, Mode=OneTime}" />
+    </Grid>
+</Window>
