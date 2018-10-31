@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 224488238467130456}
   - component: {fileID: 222116738195291006}
   - component: {fileID: 114855391839536612}
+  - component: {fileID: 114879178257532188}
   m_Layer: 5
   m_Name: Card Entry
   m_TagString: Untagged
@@ -72,6 +73,27 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114879178257532188
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1145209296564438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8df469c007055f47b3042b8bd35dec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnLeftClick:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnRightClick:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114979019285433474
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -153,6 +175,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 140, y: -40}
-  m_SizeDelta: {x: 250, y: 50}
+  m_AnchoredPosition: {x: 180.985, y: -40}
+  m_SizeDelta: {x: 331.97, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}

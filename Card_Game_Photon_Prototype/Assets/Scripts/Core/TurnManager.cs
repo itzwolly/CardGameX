@@ -70,18 +70,14 @@ public class TurnManager : PunBehaviour {
         if (CurrentTurn > 0) {
             if (GetActivePlayer() != PhotonNetwork.player.UserId) {
                 SetActivePlayer(PhotonNetwork.player.UserId);
-                
-                Events.RaiseStartTurnEvent();
             }
         }
 
-        Events.RaiseStartTurnEvent();
         CurrentTurn = CurrentTurn + 1;
     }
 
     public void EndTurn() {
         if (IsActivePlayer) {
-            Events.RaiseEndTurnEvent();
             return;
         }
 

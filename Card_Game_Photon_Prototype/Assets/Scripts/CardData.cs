@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using System;
 
 public class CardData {
     private int _id;
     private string _name;
     private string _description;
-    private string _actions;
+    private int _regCost;
+    private int _turboCost;
 
     public int Id {
         get { return _id; }
@@ -21,15 +19,39 @@ public class CardData {
         get { return _description; }
         set { _description = value; }
     }
-    public string ActionsToString {
-        get { return _actions; }
-        set { _actions = value; }
+    public int RegCost {
+        get { return _regCost; }
+        set { _regCost = value; }
+    }
+    public int TurboCost {
+        get { return _turboCost; }
+        set { _turboCost = value; }
     }
 
-    public CardData(int pId, string pName, string pDescription, string pActions) {
+    public enum CardType {
+        None,
+        Spell,
+        Monster
+    }
+
+    public CardData(int pId,
+                    string pName,
+                    string pDescription,
+                    int pRegCost,
+                    int pTurboCost)
+    {
         _id = pId;
         _name = pName;
         _description = pDescription;
-        _actions = pActions;
+        _regCost = pRegCost;
+        _turboCost = pTurboCost;
+    }
+
+    public static CardType ValidateType(string pCardType) {
+        CardType type = (CardType) Enum.Parse(typeof(CardType), pCardType);
+        if (Enum.IsDefined(typeof(CardType), pCardType)) {
+            return type;
+        }
+        return CardType.None;
     }
 }

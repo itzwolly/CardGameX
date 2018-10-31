@@ -12,25 +12,11 @@ public class Hand : MonoBehaviour {
                 if (!_instance) {
                     Debug.Log("There should be an active object with the component Hand");
                 } else {
-                    _instance.Init();
+                    //_instance.Init();
                 }
             }
             return _instance;
         }
-    }
-
-    private List<Card> _hand;
-
-    private void Init() {
-        if (_hand == null) {
-            _hand = new List<Card>();
-        }
-    }
-
-    public void AddCard(Card pCard) {
-        _hand.Add(pCard);
-
-        //DisplayCard(pCard);
     }
 
     public GameObject DisplayCard(int pCardId, int pHandSize) {
@@ -39,20 +25,5 @@ public class Hand : MonoBehaviour {
         gameCard.GetComponent<CardGameBehaviour>().CardId = pCardId;
 
         return gameCard;
-    }
-
-    public void PlayCard(int pId) {
-        Card card = GetCard(pId);
-        card.ExecuteOnEnter();
-
-        _hand.Remove(card);
-    }
-
-    public Card GetCard(int pId) {
-        return _hand.Find(o => o.Data.Id == pId);
-    }
-
-    public List<Card> GetCards() {
-        return _hand;
     }
 }

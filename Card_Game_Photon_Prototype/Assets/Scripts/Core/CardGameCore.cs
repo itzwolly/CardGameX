@@ -41,30 +41,18 @@ public class CardGameCore : PunBehaviour, ITurnManagerCallbacks {
         //handManager.DestroyCard(pPlayer.ID, pCardIndex);
 
         // Execute whatever card: pCardId is..
-        Hand.Instance.PlayCard(pCardId);
-    }
-
-    private void Update() {
-        
+        //Hand.Instance.PlayCard(pCardId);
     }
 
     public void OnTurnBegins(PhotonPlayer pSender) {
-        if (_turnManager.IsActivePlayer && pSender.UserId == PhotonNetwork.player.UserId) { // Check if whoever recieved this event is the one who send it (aka the player)
-            if (Hand.Instance.GetCards().Count >= Config.HAND_SIZE) {
-                Debug.Log("You've exceeded the limit of the amount of cards in your hand.");
-                return;
-            }
+        //if (_turnManager.IsActivePlayer && pSender.UserId == PhotonNetwork.player.UserId) { // Check if whoever recieved this event is the one who send it (aka the player)
+        //    if (Hand.Instance.GetCards().Count >= Config.HAND_SIZE) {
+        //        Debug.Log("You've exceeded the limit of the amount of cards in your hand.");
+        //        return;
+        //    }
 
-            Card drawn = DeckHandler.Instance.ActiveDeck.DrawCard();
-            if (drawn != null) {
-                Debug.Log("My turn just began. Drew card: " + drawn.Data.Name);
-                Hand.Instance.AddCard(drawn);
-            } else {
-                Debug.Log("Sorry pal.. Your deck is empty.");
-            }
-        }
-        
-        Events.RaiseCardDrawnEvent(Hand.Instance.GetCards().Count);
+
+        //}
     }
 
     public void OnCardDrawn(PhotonPlayer pSender, int pHandSize) {

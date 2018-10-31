@@ -23,7 +23,8 @@ public class NetworkManager : UnityEngine.MonoBehaviour {
             PhotonNetwork.AuthValues = new AuthenticationValues(/*SystemInfo.deviceUniqueIdentifier*/ Guid.NewGuid().ToString()); // swap with Guid.NewGuid().ToString() if you want to be able to play on the same device.
             Debug.Log("UserId: " + PhotonNetwork.AuthValues.UserId);
 
-            PhotonNetwork.networkingPeer.Connect("25.11.213.108:4530", ServerConnection.MasterServer);
+            //PhotonNetwork.networkingPeer.Connect("25.11.213.108:4530", ServerConnection.MasterServer);
+            PhotonNetwork.networkingPeer.Connect("127.0.0.1", ServerConnection.MasterServer);
         }
     }
 
@@ -63,7 +64,6 @@ public class NetworkManager : UnityEngine.MonoBehaviour {
 
     private void OnPhotonPlayerDisconnected(PhotonPlayer pOther) {
         Debug.Log("Player " + pOther.ID + " Disconnected.");
-        Events.RaiseEndGameEvent();
     }
 
     private void OnConnectionFail(DisconnectCause pCause) {
