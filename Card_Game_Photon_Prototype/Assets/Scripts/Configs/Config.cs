@@ -16,6 +16,6 @@
     public const int DECK_REG_CARD_LIMIT = 3;
     public const int MAX_DECK_SIZE = 6;
     public const int DECK_TURBO_CARD_LIMIT = 1;
-    public const int HAND_SIZE = 5;
+    public const int MAX_HAND_SIZE = 5;
     public const int START_CARD_AMOUNT = 2;
 }

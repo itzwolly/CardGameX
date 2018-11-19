@@ -14,17 +14,24 @@ public class NetworkManager : UnityEngine.MonoBehaviour {
         if (FindObjectsOfType(GetType()).Length > 1) {
             Destroy(gameObject);
         }
-        
-        PhotonNetwork.automaticallySyncScene = true;
-        PhotonNetwork.autoJoinLobby = false;
 
-        if (PhotonNetwork.connectionState == ConnectionState.Disconnected) {
-            // TODO: This is temporary, switching to custom authentication using the custom launcher.
-            PhotonNetwork.AuthValues = new AuthenticationValues(/*SystemInfo.deviceUniqueIdentifier*/ Guid.NewGuid().ToString()); // swap with Guid.NewGuid().ToString() if you want to be able to play on the same device.
-            Debug.Log("UserId: " + PhotonNetwork.AuthValues.UserId);
+        string cmdUsername = GetCommandLineArgs("-username");
+        string username = (cmdUsername == null) ? "user_1" : cmdUsername;
 
-            //PhotonNetwork.networkingPeer.Connect("25.11.213.108:4530", ServerConnection.MasterServer);
-            PhotonNetwork.networkingPeer.Connect("127.0.0.1", ServerConnection.MasterServer);
+        Debug.Log("CMDUsername: " + cmdUsername + " | " + " Username: " + username);
+
+        if (username != null && username != "") {
+            PhotonNetwork.automaticallySyncScene = true;
+            PhotonNetwork.autoJoinLobby = false;
+
+            if (PhotonNetwork.connectionState == ConnectionState.Disconnected) {
+                PhotonNetwork.AuthValues = new AuthenticationValues(username);
+
+                //PhotonNetwork.networkingPeer.Connect("25.11.213.108:4530", ServerConnection.MasterServer);
+                PhotonNetwork.networkingPeer.Connect("127.0.0.1:4530", ServerConnection.MasterServer);
+            }
+        } else {
+            Debug.Log("Username NOT set");
         }
     }
 
@@ -37,7 +44,7 @@ public class NetworkManager : UnityEngine.MonoBehaviour {
     }
 
     private void OnConnectedToMaster() {
-        Debug.Log("Connected to master.");
+        Debug.Log("Connected to master: " + PhotonNetwork.player.ID + " | " + PhotonNetwork.player.UserId);
         InvokeRepeating("Service", 0.001f, 0.05f); // 20x per second
     }
 
@@ -46,20 +53,7 @@ public class NetworkManager : UnityEngine.MonoBehaviour {
     }
 
     private void OnJoinedRoom() {
-        //Debug.Log("Joined room. Currently: " + PhotonNetwork.room.PlayerCount + " player(s) waiting. UserId: " + PhotonNetwork.player.UserId);
-
-        //if (SceneManagerHelper.ActiveSceneName != Config.GAME_SCENE) {
-        //    if (PhotonNetwork.room.PlayerCount == Config.MAX_PLAYERS) {
-        //        Debug.Log("Player limit reached. Starting game...");
-
-        //        if (PhotonNetwork.automaticallySyncScene) {
-        //            for (int i = 0; i < PhotonNetwork.room.PlayerCount; i++) {
-        //                Events.RaiseJoinGameEvent(PhotonNetwork.playerList[i].ID);
-        //                Debug.Log("Raised join game event..");
-        //            }
-        //        }
-        //    }
-        //}
+        //
     }
 
     private void OnPhotonPlayerDisconnected(PhotonPlayer pOther) {
@@ -87,7 +81,7 @@ public class NetworkManager : UnityEngine.MonoBehaviour {
 
         if (SceneManagerHelper.ActiveSceneName != Config.MAIN_SCENE) {
             Debug.Log("Changing back to the main scene.");
-            LevelManager.Instance.PhotonLoadLevelASync(Config.MAIN_SCENE);
+            LevelManager.Instance.LoadLevelASync(Config.MAIN_SCENE);
         }
     }
 
@@ -95,7 +89,16 @@ public class NetworkManager : UnityEngine.MonoBehaviour {
         Debug.Log("Failed to join a random room. Creating a new one...");
         EnterRoomParams roomParams = new EnterRoomParams();
         roomParams.RoomOptions = new RoomOptions() { MaxPlayers = Config.MAX_PLAYERS, PlayerTtl = Config.PLAYER_TTL, EmptyRoomTtl = Config.EMPTY_ROOM_TTL, CleanupCacheOnLeave = Config.CLEANUP_CACHE_ON_LEAVE, Plugins = Config.PLUGINS_NAME };
-
         PhotonNetwork.networkingPeer.OpCreateGame(roomParams);
+    }
+
+    private static string GetCommandLineArgs(string pArgumentName) {
+        string[] args = Environment.GetCommandLineArgs();
+        for (int i = 0; i < args.Length; i++) {
+            if (args[i] == pArgumentName && args.Length > i + 1) {
+                return args[i + 1];
+            }
+        }
+        return null;
     }
 }

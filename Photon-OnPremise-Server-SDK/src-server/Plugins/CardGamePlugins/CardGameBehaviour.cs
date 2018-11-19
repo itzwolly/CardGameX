@@ -7,70 +7,50 @@ using System.Collections.Generic;
 using System.IO;
 using CardGame.Events;
 using System.Collections;
+using System.Threading;
 
 namespace CardGamePlugins {
 
     public class CardGameBehaviour : PluginBase {
         public const string NAME = "CardGameBehaviour";
         private const int MAX_PLAYERS = 2;
-        private const int TURN_TIME_IN_MS = 10000;
-
-        private static Random _rnd = new Random();
+        private const int TURN_TIME_IN_MS = 10000; // 60000
 
         public override string Name {
-            get {
-                return NAME;
-            }
+            get { return NAME; }
         }
 
-        private Player[] _players;
-
-        public Player ActivePlayer {
-            get;
-            set;
-        }
-        public Player Opponent {
-            get { return (ActivePlayer == _players[0] ? _players[1] : _players[0]); }
-        }
-
-        public override bool SetupInstance(IPluginHost host, Dictionary<string, string> config, out string errorMsg) {
-            host.TryRegisterType(typeof(SerializableGameState), (byte) 'R', SerializeGameState, DeserializeGameState);
-
-            return base.SetupInstance(host, config, out errorMsg);
-        }
+        private Game _game = null;
 
         public override void OnCreateGame(ICreateGameCallInfo info) {
-            Deck deck = GetDeck("user_1" /*info.UserId*/);
+            string deckCode = info.OperationRequest.Parameters[189] as string;
+            string turboCode = info.OperationRequest.Parameters[190] as string;
+            Deck deck = GetDeck(deckCode, turboCode);
 
             if (deck == null) {
                 info.Fail("No (valid) deck can be found on the server. If you haven't made one, don't forget to do so first.");
                 return;
             }
 
-            _players = new Player[MAX_PLAYERS];
-            _players[0] = new Player(1, info.UserId, deck);
-
-            SerializableGameState gamestate = PluginHost.GetSerializableGameState();
-            gamestate.Players = new SerializablePlayer[MAX_PLAYERS];
-            gamestate.Players[0] = PlayerHelper.Serialize(_players[0]);
-            SetGameState(gamestate);
+            _game = new Game(MAX_PLAYERS);
+            _game.AddPlayer(1, info.UserId, deck);
 
             base.OnCreateGame(info);
+
+            //InitiateFullRoomSequence();
         }
 
         public override void OnJoin(IJoinGameCallInfo info) {
-            Deck deck = GetDeck("user_1" /*info.UserId*/);
+            string deckCode = info.OperationRequest.Parameters[189] as string;
+            string turboCode = info.OperationRequest.Parameters[190] as string;
+            Deck deck = GetDeck(deckCode, turboCode);
 
             if (deck == null) {
                 info.Fail("No (valid) deck can be found on the server. If you haven't made one, don't forget to do so first.");
                 return;
             }
 
-            _players[1] = new Player(info.ActorNr, info.UserId, deck);
-
-            SerializableGameState gameState = PluginHost.GetSerializableGameState();
-            gameState.Players[1] = PlayerHelper.Serialize(_players[1]);
-            SetGameState(gameState);
+            _game.AddPlayer(info.ActorNr, info.UserId, deck);
 
             base.OnJoin(info);
 
@@ -78,87 +58,139 @@ namespace CardGamePlugins {
         }
 
         public override void OnRaiseEvent(IRaiseEventCallInfo info) {
-            if (info.Request.EvCode == PlayCardEvent.EVENT_CODE) { // PLAY_CARD
+            if (info.Request.EvCode == PlaySpellCardEvent.EVENT_CODE) {
+                PlayerState state = _game.PlayerState;
+                PlaySpellCardEvent playSCEvent = new PlaySpellCardEvent(state);
 
-                PlayCardEvent ev = new PlayCardEvent(ActivePlayer, Opponent);
-                if (!ev.Handle(info)) {
+                List<EventResponse> responses;
+                bool handled = playSCEvent.Handle(info, out responses);
+                if (handled) {
+                    Player activePlayer = state.GetActivePlayer();
+
+                    // raise card played event.. //
+                    Hashtable data = (Hashtable) info.Request.Data;
+                    data.Add("mana", activePlayer.CurrentMana);
+
+                    int cardId = (int) data["cardid"];
+                    int index = (int) data["cardindex"];
+                    
+                    RaiseEvent(106, data, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
+                    // end raise card played event //
+
+                    foreach (EventResponse response in responses) {
+                        RaiseEvent(response.EventCode, response.Data, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
+                    }
+                }
+                info.Cancel();
+                return;
+            } else if (info.Request.EvCode == PlayMonsterCardEvent.EVENT_CODE) {
+                BoardState state = _game.BoardState;
+                PlayMonsterCardEvent playMCEvent = new PlayMonsterCardEvent(state);
+
+                List<EventResponse> responses;
+                bool handled = playMCEvent.Handle(info, out responses);
+                if (handled) {
+                    Player activePlayer = state.PlayerState.GetActivePlayer();
+
+                    // raise card played event.. //
+                    Hashtable data = (Hashtable) info.Request.Data;
+                    data.Add("mana", activePlayer.CurrentMana);
+                    data.Add("totalmana", activePlayer.TotalMana);
+
+                    int cardId = (int) data["cardid"];
+                    int index = (int) data["cardindex"];
+
+                    RaiseEvent(106, data, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
+                    // end raise card played event //
+
+                    foreach (EventResponse response in responses) {
+                        RaiseEvent(response.EventCode, response.Data, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
+                    }
+                }
+                info.Cancel();
+                return;
+            } else if (info.Request.EvCode == 98) { // LoadedGameplayScene.EVENT_CODE
+                if (!_game.Started) {
+                    PluginHost.CreateTimer(SendStartTurnEvent, 200, TURN_TIME_IN_MS);
+                    PluginHost.CreateTimer(DrawCard, 300, TURN_TIME_IN_MS + 300); // small delay.. as to not spam the client with events
+
+                    _game.Started = true;
+
                     info.Cancel();
                     return;
                 }
-
-                //SerializableGameState gameState = PluginHost.GetSerializableGameState();
-                //gameState.ActivePlayer = PlayerHelper.Serialize(ActivePlayer);
-                //gameState.Opponent = PlayerHelper.Serialize(Opponent);
-
-                //gameState.ActivePlayer.Health = ActivePlayer.Health;
-                //gameState.Opponent.Health = Opponent.Health;
-
-                //SetGameState(gameState, true);
-
-                //Hashtable data = new Hashtable();
-                //data.Add("activeHealth", _players[0].Health);
-                //data.Add("opponentHealth", _players[1].Health);
-                
-                Hashtable data = (Hashtable) info.Request.Parameters[245];
-                int index = (int) data["cardindex"];
-
-                info.Cancel();
-                RaiseEvent(102, new int[] { ActivePlayer.Health, Opponent.Health, index }, ReciverGroup.All, ActivePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
-                return;
             }
 
-            base.OnRaiseEvent(info); // process this event..
+            // TODO: only process the neccessary events a.k.a: ignore out of context events raised by the client.
+            base.OnRaiseEvent(info); // process this event.. 
         }
 
         private void InitiateFullRoomSequence() {
             SerializableGameState gameState = PluginHost.GetSerializableGameState();
-            List<int> receivers = new List<int>();
+            int[] receivers = new int[gameState.ActorList.Count];
+            string[] userIds = new string[gameState.ActorList.Count];
 
             for (int i = 0; i < gameState.ActorList.Count; i++) {
-                receivers.Add(gameState.ActorList[i].ActorNr);
-                RaiseEvent(99, "", receivers);
+                SerializableActor actor = gameState.ActorList[i];
+                receivers[i] = actor.ActorNr;
+                userIds[i] = actor.UserId;
             }
 
-            PluginHost.CreateTimer(SendStartTurnEvent, 100, TURN_TIME_IN_MS);
-            PluginHost.CreateTimer(DrawCard, 200, TURN_TIME_IN_MS + 200);
+            Hashtable data = new Hashtable();
+            data.Add("playeractorids", receivers);
+            data.Add("playeruserids", userIds);
+            data.Add("startinghealth", Player.STARTING_HEALTH);
+            
+            RaiseEvent(99, data, receivers);
         }
 
         private void SendStartTurnEvent() {
-            SetActivePlayer();
+            // TODO: Before starting new turn, check if there are any events waiting to be executed.
+            Player activePlayer = _game.PlayerState.SetActivePlayer(); 
+            activePlayer.TotalMana++;
+            activePlayer.TotalTurbo++;
 
-            RaiseEvent(100, ActivePlayer.UserId, ReciverGroup.All, ActivePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
-        }
-
-        private void SetActivePlayer() {
-            if (ActivePlayer == null) {
-                ActivePlayer = _players[_rnd.Next(0, 2)]; // pick random player to start with
-                return;
-            }
-
-            ActivePlayer = Opponent; // once the active player has been set, alternate between players...
+            Hashtable data = new Hashtable();
+            data.Add("userid", activePlayer.UserId);
+            data.Add("mana", 1);
+            data.Add("turbo", 1);
+            data.Add("turntimelimit", TURN_TIME_IN_MS / 1000);
+            
+            RaiseEvent(100, data, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
         }
 
         private void DrawCard() {
-            if (ActivePlayer.Hand == null) {
-                ActivePlayer.Hand = new Hand();
-            }
-
-            Card drawn = ActivePlayer.Deck.DrawCard();
-            ActivePlayer.Hand.Cards.Add(drawn);
+            Player activePlayer = _game.PlayerState.GetActivePlayer();
+            Card drawn = activePlayer.Deck.DrawCard();
 
             Hashtable data = new Hashtable();
-            data.Add("id", drawn.Id);
+            data.Add("cardid", drawn.Id);
             data.Add("name", drawn.Name);
+            data.Add("type", drawn.GetCardType().Name);
+            data.Add("regcost", drawn.RegCost);
             data.Add("description", drawn.Description);
-            data.Add("handsize", ActivePlayer.Hand.Cards.Count);
 
-            RaiseEvent(101, data, new int[] { ActivePlayer.ActorNr }); // sending a draw card event to the activeplayer, including the actual data.
-            RaiseEvent(101, ActivePlayer.Hand.Cards.Count, new int[] { Opponent.ActorNr }); // sending a draw card event to the opponent, but without the actual data.
+            if (drawn.IsMonster()) {
+                MonsterCard monster = drawn as MonsterCard;
+                data.Add("attack", monster.Attack);
+                data.Add("health", monster.Health);
+            }
+
+            if (activePlayer.Hand.Cards.Count >= Hand.MAX_CARDS) {
+                RaiseEvent(102, data, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
+                return;
+            }
+
+            activePlayer.Hand.Cards.Add(drawn);
+            data.Add("handsize", activePlayer.Hand.Cards.Count);
+
+            RaiseEvent(101, data, new int[] { activePlayer.ActorNr }); // sending a draw card event to the activeplayer, including the actual data.
+            RaiseEvent(101, activePlayer.Hand.Cards.Count, new int[] { _game.PlayerState.Opponent.ActorNr }); // sending a draw card event to the opponent, but without the actual data.
         }
 
-        private Deck GetDeck(string pUsername) {
+        private Deck GetDeck(string pDeckCode, string pTurboCode) {
             Task<Deck> task = Task.Run(async () => {
-                return await WebServer.GetDeckAsync(pUsername);
+                return await WebServer.GetCardsUsingCodes(pDeckCode, pTurboCode);
             });
 
             Deck deck = task.Result;
@@ -166,40 +198,6 @@ namespace CardGamePlugins {
                 return deck;
             }
             return null;
-        }
-
-        private void SetGameState(SerializableGameState pGameState, bool pBroadcast = false) {
-            if (pBroadcast) {
-                RaiseEvent(102, pGameState, ReciverGroup.All, pGameState.ActivePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache); // Update the players about this new gamestate..
-            }
-
-            PluginHost.SetGameState(pGameState); // Set gamestate
-        }
-
-        private byte[] SerializeGameState(object pObj) {
-            SerializableGameState gameState = pObj as SerializableGameState;
-
-            if (gameState == null) {
-                return null;
-            }
-
-            using (var s = new MemoryStream()) {
-                using (var bw = new BinaryWriter(s)) {
-                    bw.Write(_players[0].Health);
-                    bw.Write(_players[1].Health);
-                    return s.ToArray();
-                }
-            }
-        }
-
-        private object DeserializeGameState(byte[] bytes) {
-            SerializableGameState gameState = PluginHost.GetSerializableGameState();
-            //using (var s = new MemoryStream(bytes)) {
-            //    using (var br = new BinaryReader(s)) {
-            //        //
-            //    }
-            //}
-            return gameState;
         }
     }
 }

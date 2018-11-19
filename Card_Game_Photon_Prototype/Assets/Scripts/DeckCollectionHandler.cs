@@ -34,7 +34,7 @@ public class DeckCollectionHandler : MonoBehaviour {
         }
 
         CreateDeckCollectionParent();
-        StartCoroutine(GetPlayerDecksFromDB("user_1"));
+        StartCoroutine(GetPlayerDecksFromDB(PhotonNetwork.AuthValues.UserId));
     }
 
     private void CreateDeckCollectionParent() {
@@ -81,15 +81,19 @@ public class DeckCollectionHandler : MonoBehaviour {
                 Debug.Log(hs_get.error);
             } else {
                 //Debug.Log(hs_get.text);
-                DeckInfoList infoArray = DeckInfoList.CreateFromJSON(hs_get.text);
-                foreach (DeckInfo info in infoArray.Decks) {
-                    //Debug.Log(info.DeckName + "," + info.DeckCode + "," + info.TurboCode);
-                    DeckData data = new DeckData(info.Id, info.DeckName, info.DeckCode, info.TurboCode);
-                    CreateDeckContainer(data);
-                }
+                try {
+                    DeckInfoList infoArray = DeckInfoList.CreateFromJSON(hs_get.text);
+                    foreach (DeckInfo info in infoArray.Decks) {
+                        //Debug.Log(info.DeckName + "," + info.DeckCode + "," + info.TurboCode);
+                        DeckData data = new DeckData(info.Id, info.DeckName, info.DeckCode, info.TurboCode);
+                        CreateDeckContainer(data);
+                    }
 
-                if (MaxContainerCountReached) {
-                    _addDeckButton.SetActive(false);
+                    if (MaxContainerCountReached) {
+                        _addDeckButton.SetActive(false);
+                    }
+                } catch {
+                    // No decks found..
                 }
             }
         }

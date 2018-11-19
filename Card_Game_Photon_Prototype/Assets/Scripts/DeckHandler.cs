@@ -23,10 +23,15 @@ public class DeckHandler : MonoBehaviour {
     }
 
     private Deck _deckToEdit;
+    private Deck _selectedDeck;
 
     public Deck DeckToEdit {
         get { return _deckToEdit; }
         set { _deckToEdit = value; }
+    }
+    public Deck SelectedDeck {
+        get { return _selectedDeck; }
+        set { _selectedDeck = value; }
     }
 
     private void Awake() {

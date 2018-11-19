@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -35,15 +36,9 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
-    public void PhotonLoadLevelASync(int pLevel) {
-        if (SceneManagerHelper.ActiveSceneBuildIndex != pLevel) {
-            StartCoroutine(CRPhotonLoadLevelAsync(pLevel));
-        }
-    }
-
-    public void PhotonLoadLevelASync(string pLevel) {
-        if (SceneManagerHelper.ActiveSceneName != pLevel) {
-            StartCoroutine(CRPhotonLoadLevelAsync(pLevel));
+    public void LoadGameplaySceneAsync(Action pCallBack) {
+        if (SceneManagerHelper.ActiveSceneBuildIndex != 1) {
+            StartCoroutine(CRLoadGameplaySceneAsync(pCallBack));
         }
     }
 
@@ -65,21 +60,14 @@ public class LevelManager : MonoBehaviour {
         }
     }
 
-    private IEnumerator CRPhotonLoadLevelAsync(int pLevel) {
-        AsyncOperation operation = PhotonNetwork.LoadLevelAsync(pLevel);
+    private IEnumerator CRLoadGameplaySceneAsync(Action pCallBack) {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(1);
 
         while (!operation.isDone) {
-            Debug.Log("Loading.. scene: " + pLevel + " progress: " + operation.progress);
+            Debug.Log("Loading.. scene: " + 1 + " progress: " + operation.progress);
             yield return null;
         }
-    }
 
-    private IEnumerator CRPhotonLoadLevelAsync(string pLevel) {
-        AsyncOperation operation = PhotonNetwork.LoadLevelAsync(pLevel);
-
-        while (!operation.isDone) {
-            Debug.Log("Loading.. scene: " + pLevel + " progress: " + operation.progress);
-            yield return null;
-        }
+        pCallBack();
     }
 }

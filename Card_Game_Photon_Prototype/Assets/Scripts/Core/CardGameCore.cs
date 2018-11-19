@@ -1,94 +1,100 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using Photon;
+using System.Linq;
+using System.Timers;
 using System;
+using System.Collections;
 
-public class CardGameCore : PunBehaviour, ITurnManagerCallbacks {
-    [SerializeField]
-    private GameHUDHandler _hud;
+public class CardGameCore : MonoBehaviour {
+    #region Singleton
+    private static CardGameCore _instance;
+    public static CardGameCore Instance {
+        get {
+            if (!_instance) {
+                _instance = FindObjectOfType(typeof(CardGameCore)) as CardGameCore;
 
-    private TurnManager _turnManager;
+                if (!_instance) {
+                    Debug.Log("There should be an active object with the component CardGameCore");
+                } else {
+                    _instance.Init();
+                }
+            }
+            return _instance;
+        }
+    }
+    #endregion
 
-    private void Awake() {
-        Debug.Log("Initializing Turn manager in the Game's core.");
-        InitializeTurnManager();
+    [SerializeField] private GameHUDHandler _hud;
+
+    private List<Player> _players = null;
+    private Player _activePlayer = null;
+
+    private Coroutine _turnTimer;
+
+    public void Init() {
+        _players = new List<Player>();
     }
 
-    private void Start() {
-        StartGame();
+    public void AddPlayer(int pActorId, string pUserId, int pStartingHealth) {
+        Player player = new Player(pActorId, pUserId, pStartingHealth);
+
+        Debug.Log("Adding player...");
+        _players.Add(player);
     }
 
-    private void InitializeTurnManager() {
-        _turnManager = TurnManager.Instance;
-        _turnManager.TurnManagerListener = this;
-        _turnManager.TurnDuration = Config.TURN_DURATION;
+    public void SetActivePlayer(Player pPlayer) {
+        _activePlayer = pPlayer;
+        _hud.ActivePlayerText.text = _activePlayer.UserId;
     }
 
-    private void StartGame() {
-        if (PhotonNetwork.player.IsMasterClient && _turnManager.CurrentTurn == 0) {
-            Debug.Log("Calling Start in the Game's Core..");
-            Debug.Log("Current master client is: " + PhotonNetwork.player.ID);
-            _turnManager.StartGame();
+    public void UpdateResources(Player pPlayer) {
+        if (pPlayer.UserId == PhotonNetwork.player.UserId) {
+            _hud.PlayerMana.text = "Mana: " + pPlayer.CurrentMana.ToString() + "/" + pPlayer.TotalMana.ToString();
+            _hud.PlayerTurbo.text = "Turbo: " + pPlayer.CurrentTurbo.ToString() + "/" + pPlayer.TotalTurbo.ToString();
+        } else {
+            _hud.EnemyMana.text = "Mana: " + pPlayer.CurrentMana.ToString() + "/" + pPlayer.TotalMana.ToString();
+            _hud.EnemyTurbo.text = "Turbo: " + pPlayer.CurrentTurbo.ToString() + "/" + pPlayer.TotalTurbo.ToString();
         }
     }
 
-    public void OnPlayerMove(PhotonPlayer pPlayer, int pCardId, int pCardIndex) {
-        // when a player made a move
-        Debug.Log(pPlayer.ID + " played card: " + pCardId + " | Card index: " + pCardIndex);
+    public void UpdatePlayerHealth(Player pPlayer, int pAmount) {
+        pPlayer.Health += pAmount;
 
-        //HandManager handManager = PhotonNetwork.player.TagObject as HandManager;
-        //handManager.DestroyCard(pPlayer.ID, pCardIndex);
-
-        // Execute whatever card: pCardId is..
-        //Hand.Instance.PlayCard(pCardId);
-    }
-
-    public void OnTurnBegins(PhotonPlayer pSender) {
-        //if (_turnManager.IsActivePlayer && pSender.UserId == PhotonNetwork.player.UserId) { // Check if whoever recieved this event is the one who send it (aka the player)
-        //    if (Hand.Instance.GetCards().Count >= Config.HAND_SIZE) {
-        //        Debug.Log("You've exceeded the limit of the amount of cards in your hand.");
-        //        return;
-        //    }
-
-
-        //}
-    }
-
-    public void OnCardDrawn(PhotonPlayer pSender, int pHandSize) {
-        if (!_turnManager.IsActivePlayer && pSender.UserId != PhotonNetwork.player.UserId) { // Check if whoever recieved this event is not the one who send it (aka the enemy)
-            Debug.Log("Handsize inside display enemy card: " + pHandSize);
-            HandManager manager = PhotonNetwork.player.TagObject as HandManager;
-            manager.DisplayEnemyCardDrawn(pHandSize);
+        int id = pPlayer.ActorNr;
+        if (id == PhotonNetwork.player.ID) {
+            _hud.PlayerHealth.text = pPlayer.Health.ToString();
+        } else {
+            _hud.EnemyHealth.text = pPlayer.Health.ToString();
         }
     }
 
-    public void OnTurnEnd(PhotonPlayer pPlayer) {
-        // start new turn
-        Debug.Log("Calling OnTurnEnds" + PhotonNetwork.player.ID);
-        _turnManager.BeginTurn();
-    }
-
-    public void OnTurnTimeEnds(PhotonPlayer pPlayer) {
-        // start new turn
-        Debug.Log("Calling OnTurnTimeEnds" + PhotonNetwork.player.ID);
-        _turnManager.BeginTurn();
-    }
-
-    public void OnNotYourTurn(PhotonPlayer pPlayer) {
-        // Display error mesage
-        _hud.DisplayEndTurnError(3);
-    }
-
-    public void OnGameEnd(PhotonPlayer pWinner) {
-        Debug.Log("OnGameEnd called.");
-
-        if (pWinner.ID == PhotonNetwork.player.ID) {
-            Debug.Log("Displaying win message and changing back to main scene after 3 seconds.");
-            _hud.EngageWinSequence(3);
-        } else if (pWinner.ID == PhotonNetwork.otherPlayers[0].ID) {
-            Debug.Log("Displaying loss message and changing back to main scene after 3 seconds..");
-            _hud.EngageLoseSequence(5);
+    public void StartTurnTimer(int pTurnTimeLimit) {
+        if (_turnTimer != null) {
+            StopCoroutine(_turnTimer);
         }
+        _turnTimer = StartCoroutine(StartTimer(pTurnTimeLimit));
+    }
+
+    private IEnumerator StartTimer(int pStartTime) {
+        int counter = pStartTime;
+        _hud.UpdateTurnTimer(counter);
+
+        while (counter >= 0) {
+            yield return new WaitForSeconds(1);
+            counter--;
+            _hud.UpdateTurnTimer(counter);
+        }
+    }
+
+    public Player GetActivePlayer() {
+        return _activePlayer;
+    }
+
+    public Player GetPlayerByUserId(string pUserId) {
+        return _players.FirstOrDefault(o => o.UserId == pUserId);
+    }
+
+    public Player GetPlayerByActorNr(int pActorNr) {
+        return _players.FirstOrDefault(o => o.ActorNr == pActorNr);
     }
 }

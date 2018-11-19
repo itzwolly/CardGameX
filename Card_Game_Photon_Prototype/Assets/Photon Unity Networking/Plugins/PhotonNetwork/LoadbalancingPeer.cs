@@ -226,6 +226,16 @@ using ExitGames.Client.Photon;
                 this.RoomOptionsToOpParameters(op, opParams.RoomOptions);
             }
 
+            string deckCode = DeckHandler.Instance.SelectedDeck.Data.DeckCode;
+            string turboCode = DeckHandler.Instance.SelectedDeck.Data.TurboCode;
+            
+            if (deckCode != null) {
+                op[ParameterCode.RegDeckCode] = deckCode;
+            }
+            if (turboCode != null) {
+                op[ParameterCode.TurboDeckCode] = turboCode;
+            }
+
             //UnityEngine.Debug.Log("CreateRoom: " + SupportClassPun.DictionaryToString(op));
             return this.OpCustom(OperationCode.CreateGame, op, true);
         }
@@ -289,6 +299,16 @@ using ExitGames.Client.Photon;
                 }
             }
 
+            string deckCode = DeckHandler.Instance.SelectedDeck.Data.DeckCode;
+            string turboCode = DeckHandler.Instance.SelectedDeck.Data.TurboCode;
+            
+            if (deckCode != null) {
+                op[ParameterCode.RegDeckCode] = deckCode;
+            }
+            if (turboCode != null) {
+                op[ParameterCode.TurboDeckCode] = turboCode;
+            }
+
             // UnityEngine.Debug.Log("JoinRoom: " + SupportClassPun.DictionaryToString(op));
             return this.OpCustom(OperationCode.JoinGame, op, true);
         }
@@ -342,7 +362,17 @@ using ExitGames.Client.Photon;
                 opParameters[ParameterCode.Add] = opJoinRandomRoomParams.ExpectedUsers;
             }
 
-            // UnityEngine.Debug.LogWarning("OpJoinRandom: " + opParameters.ToStringFull());
+            string deckCode = DeckHandler.Instance.SelectedDeck.Data.DeckCode;
+            string turboCode = DeckHandler.Instance.SelectedDeck.Data.TurboCode;
+
+            if (deckCode != null) {
+                opParameters[ParameterCode.RegDeckCode] = deckCode;
+            }
+            if (turboCode != null) {
+                opParameters[ParameterCode.TurboDeckCode] = turboCode;
+            }
+
+            //UnityEngine.Debug.LogWarning("OpJoinRandom: " + opParameters.ToStringFull());
             return this.OpCustom(OperationCode.JoinRandomGame, opParameters, true);
         }
 
@@ -1169,16 +1199,28 @@ using ExitGames.Client.Photon;
         /// <summary>(223) Sent by Photon to update a token before it times out.</summary>
         public const byte AuthEvent = 223;
 
+        // Custom //
+        public const byte JoinedGameplayScene = 98;
+
         public const byte RoomFull = 99;
 
-        /// <summary>
-        /// (100) Sent by Photon containing who's turn it is.
-        /// </summary>
         public const byte BeginTurn = 100;
 
         public const byte DrawCard = 101;
 
-        public const byte UpdateGameState = 102;
+        public const byte CardBurned = 102;
+
+        public const byte PlaySpellCard = 103;
+
+        public const byte UpdatePlayerHealth = 104;
+
+        public const byte PlayMonsterCard = 105;
+
+        public const byte CardPlayed = 106;
+
+        public const byte AddMonsterToBoard = 107;
+
+        public const byte TurnTimeLimit = 108;
 
     }
 
@@ -1405,6 +1447,10 @@ using ExitGames.Client.Photon;
 
         /// <summary>(191) An int parameter summarizing several boolean room-options with bit-flags.</summary>
         public const byte RoomOptionFlags = 191;
+
+        public const byte TurboDeckCode = 190;
+
+        public const byte RegDeckCode = 189;
     }
 
 

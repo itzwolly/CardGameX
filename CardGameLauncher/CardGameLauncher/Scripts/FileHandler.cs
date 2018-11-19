@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace CardGameLauncher.Scripts {
     public class FileHandler {
-        public static string FolderLocation = @"D:\Saxion\Minor\Game\"; //"D:/School/Year 3/Minor/Game/"; 
+        public static string FolderLocation = @"D:/School/Year 3/Minor/Game/";
 
         public static bool CheckGameFilesAndDownloadIfNotExist(AuthenticationViewModel pVm) {
             Task<string> retrieve = Task.Run(async () => {

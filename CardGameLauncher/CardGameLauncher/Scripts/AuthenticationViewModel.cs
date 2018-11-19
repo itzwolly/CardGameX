@@ -151,13 +151,18 @@ namespace CardGameLauncher.Scripts {
             // If they aren't -> download the files from the server
             // if they are -> open the game.
 
-            bool isDone = FileHandler.CheckGameFilesAndDownloadIfNotExist(this);
+            //bool isDone = FileHandler.CheckGameFilesAndDownloadIfNotExist(this);
 
-            if (isDone) {
-                // Open the game..
-                //D:\Saxion\Minor\Game\Game
-                Process.Start(FileHandler.FolderLocation + @"\Game\Card_Game_Photon_Prototype.exe"); // TODO: UN-HARDCODE
-            }
+            //if (isDone) {
+            // Open the game..
+            //Process.Start(FileHandler.FolderLocation + @"\Game\Card_Game_Photon_Prototype.exe", "-username " + Username);
+            CustomPrincipal customPrincipal = Thread.CurrentPrincipal as CustomPrincipal;
+
+            Process game = new Process();
+            game.StartInfo.FileName = FileHandler.FolderLocation + @"\Game\Card_Game_Photon_Prototype.exe";
+            game.StartInfo.Arguments = String.Format("-username {0}", customPrincipal.Identity.Name);
+            game.Start();
+            //}
         }
 
         public void Client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e) {

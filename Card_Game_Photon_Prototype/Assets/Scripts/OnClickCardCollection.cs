@@ -78,7 +78,7 @@ public class OnClickCardCollection : MonoBehaviour {
         string turboDeckCode = DeckHandler.Instance.DeckToEdit.UpdateTurboCode();
         string newDeckName = _inputFieldHandler.DeckNameInput.text;
 
-        StartCoroutine(WebServer.SaveCardsUsingDeckCode(id, newDeckName, "user_1", prevDeckCode, newDeckCode, turboDeckCode, (IsDone) => {
+        StartCoroutine(WebServer.SaveCardsUsingDeckCode(id, newDeckName, PhotonNetwork.AuthValues.UserId, prevDeckCode, newDeckCode, turboDeckCode, (IsDone) => {
             if (IsDone) {
                 _deckCollection.UpdateDeckName(DeckHandler.Instance.DeckToEdit.Data.Id, newDeckName);
 
@@ -108,7 +108,7 @@ public class OnClickCardCollection : MonoBehaviour {
     public void OnClickYesToRemoveDeck() {
         Debug.Log("Clicked to remove deck");
 
-        StartCoroutine(WebServer.RemoveDeck("user_1", _deckToRemove.Data.Id));
+        StartCoroutine(WebServer.RemoveDeck(PhotonNetwork.AuthValues.UserId, _deckToRemove.Data.Id));
         _deckCollection.RemoveContainer(_deckGameObjectToRemove);
         
         if (!_deckCollection.MaxContainerCountReached) {
@@ -133,7 +133,7 @@ public class OnClickCardCollection : MonoBehaviour {
     }
 
     public void OnClickAddDeck() {
-        StartCoroutine(WebServer.AddDeck("user_1", (deckData) => {
+        StartCoroutine(WebServer.AddDeck(PhotonNetwork.AuthValues.UserId, (deckData) => {
             _deckCollection.CreateDeckContainer(deckData);
 
             if (_deckCollection.MaxContainerCountReached) {

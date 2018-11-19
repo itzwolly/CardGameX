@@ -997,9 +997,11 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
     {
         enterRoomParamsCache = new EnterRoomParams();   // this is used when the client arrives on the GS and joins the room
         enterRoomParamsCache.Lobby = opJoinRandomRoomParams.TypedLobby;
+
         this.enterRoomParamsCache.ExpectedUsers = opJoinRandomRoomParams.ExpectedUsers;
 
         this.lastJoinType = JoinType.JoinRandomRoom;
+
         return base.OpJoinRandomRoom(opJoinRandomRoomParams);
     }
 
@@ -2390,20 +2392,52 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
             //}
         }
 
-        Debug.Log("[Received] Event from the server: " + photonEvent.ToString());
+        //Debug.Log("[Received] Event from the server: " + photonEvent.ToString());
 
         switch (photonEvent.Code)
         {
             case EventCode.RoomFull: {
-                    PhotonNetwork.LoadLevel(1);
+                LevelManager.Instance.LoadGameplaySceneAsync(() => {
+                    Hashtable data = (Hashtable) photonEvent.Parameters[ParameterCode.CustomEventContent];
+
+                    int[] playerIds = (int[]) data["playeractorids"];
+                    string[] playerUserIds = (string[]) data["playeruserids"];
+                    int startingHealth = (int) data["startinghealth"];
+
+                    for (int i = 0; i < playerIds.Length; i++) {
+                        int playerId = playerIds[i];
+                        string userId = playerUserIds[i];
+                        
+                        CardGameCore.Instance.AddPlayer(playerId, userId, startingHealth);
+                    }
+
+                    // Tell the server that we're in the game scene and have created both player objects (which we need during the game).
+                    OpRaiseEvent(EventCode.JoinedGameplayScene, "", true, RaiseEventOptions.Default);
+                });
                 break;
             }
             case EventCode.BeginTurn: {
-                string activePlayer = (string) photonEvent.Parameters[ParameterCode.CustomEventContent];
-                TurnManager.Instance.SetActivePlayer(activePlayer);
-                GameHUDHandler.Instance.ActivePlayerText.text = "Active player: " + activePlayer;
+                Hand.Instance.SelectedCardBehaviour = null;
 
-                Debug.Log(EventCode.BeginTurn + " => [BeginTurn] event recieved from server on: " + PhotonNetwork.player.ID + " with data: " + activePlayer);
+                Hashtable data = (Hashtable) photonEvent.Parameters[ParameterCode.CustomEventContent];
+                string activePlayerUserId = (string) data["userid"];
+                int mana = (int) data["mana"];
+                int turbo = (int) data["turbo"];
+                int turnTimeLimit = (int) data["turntimelimit"];
+                CardGameCore.Instance.StartTurnTimer(turnTimeLimit);
+
+                Player player = CardGameCore.Instance.GetPlayerByUserId(activePlayerUserId);
+                if (player != null) {
+                    player.TotalMana += mana;
+                    player.TotalTurbo += turbo;
+
+                    CardGameCore.Instance.SetActivePlayer(player);
+                    CardGameCore.Instance.UpdateResources(player);
+                } else {
+                     Debug.LogError("Player with given UserId: " + activePlayerUserId + " hasn't been created (yet)");
+                }
+                
+                Debug.Log(EventCode.BeginTurn + " => [BeginTurn] event recieved from server on: " + PhotonNetwork.player.ID + " with data: " + activePlayerUserId + "," + mana + "," + turbo);
                 break;
             }
             case EventCode.DrawCard: {
@@ -2411,13 +2445,28 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
 
                     if (obj is Hashtable) {
                         Hashtable data = (Hashtable) obj;
-                        int id = (int) data["id"];
+
+                        int id = (int) data["cardid"];
                         string name = (string) data["name"];
+                        string type = (string) data["type"];
                         string description = (string) data["description"];
-                        int handCount = (int) data["handsize"];
-                        
-                        Hand.Instance.DisplayCard(id, handCount);
-                        Debug.Log(EventCode.DrawCard + " => [DrawCard] event recieved from server on: " + PhotonNetwork.player.ID + " with data: " + data["id"] + "," + data["name"] + ", " + data["description"]);
+                        int regCost = (int) data["regcost"];
+                        int handSize = (int) data["handsize"];
+
+                        CardData cardData = null;
+                        if (type == "MonsterCard") {
+                            int attack = (int) data["attack"];
+                            int health = (int) data["health"];
+
+                            cardData = new MonsterCardData(id, name, description, regCost, -1, attack, health);
+                        } else {
+                            cardData = new SpellCardData(id, name, description, regCost, -1);
+                        }
+
+                        Card drawn = new Card(cardData);
+                        Hand.Instance.AddCard(drawn, handSize);
+
+                        Debug.Log(EventCode.DrawCard + " => [DrawCard] event recieved from server on: " + PhotonNetwork.player.ID + " with data: " + id + "," + name + "," + type + "," + regCost + "," + description + "," + handSize);
                     } else if (obj is int) {
                         int handSize = (int) obj;
                        
@@ -2427,25 +2476,93 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
                     }
                 break;
             }
-            case EventCode.UpdateGameState: {
-                    int[] data = (int[]) photonEvent.Parameters[ParameterCode.CustomEventContent];
-                    int activePlayer = (int) photonEvent.Parameters[ParameterCode.ActorNr];
-                    int index = data[2];
+            case EventCode.CardBurned: {
+                object obj = photonEvent.Parameters[ParameterCode.CustomEventContent];
 
-                    if (activePlayer == PhotonNetwork.player.ID) {
-                        GameHUDHandler.Instance.PlayerHealth.text = data[0].ToString();
-                        GameHUDHandler.Instance.EnemyHealth.text = data[1].ToString();
+                if (obj is Hashtable) {
+                    Hashtable data = (Hashtable) obj;
+                    int id = (int) data["cardid"];
+                    string name = (string) data["name"];
+                    int regCost = (int) data["regcost"];
+                    string description = (string) data["description"];
+
+                    if (PhotonNetwork.player.ID == originatingPlayer.ID) {
+                        // burned card is mine.
+
                     } else {
-                        GameHUDHandler.Instance.PlayerHealth.text = data[1].ToString();
-                        GameHUDHandler.Instance.EnemyHealth.text = data[0].ToString();
+                        // burned card is opponents.
+
                     }
+                    Debug.Log(EventCode.CardBurned + " => [CardBurned] event recieved from server on: " + PhotonNetwork.player.ID + " with data: " + id + "," + name + "," + regCost + "," + description);
+                }
+                break;
+            }
+            case EventCode.UpdatePlayerHealth: {
+                Hashtable data = (Hashtable) photonEvent.Parameters[ParameterCode.CustomEventContent];
+                int[] targetIds = (int[]) data["targets"];
+                int amount = (int) data["amount"];
+
+                foreach (int targets in targetIds) {
+                    Player player = CardGameCore.Instance.GetPlayerByActorNr(targets);
+                    CardGameCore.Instance.UpdatePlayerHealth(player, amount);
+                }
+                break;
+            }
+            case EventCode.CardPlayed: {
+                    Hashtable data = (Hashtable) photonEvent.Parameters[ParameterCode.CustomEventContent];
+                    int id = (int) data["cardid"];
+                    int index = (int) data["cardindex"];
+                    int mana = (int) data["mana"];
+
+                    Player player = CardGameCore.Instance.GetPlayerByActorNr(originatingPlayer.ID);
+                    player.CurrentMana = mana;
+                    CardGameCore.Instance.UpdateResources(player);
 
                     HandManager manager = PhotonNetwork.player.TagObject as HandManager;
-                    manager.DestroyCard(activePlayer, index);
+                    manager.DestroyCard(originatingPlayer.ID, id, index);
 
-                    Debug.Log(EventCode.UpdateGameState + " => [UpdateGameState] event received from server with: " + data[0] + " and " + data[1]);
+                    Debug.Log(EventCode.CardPlayed + " => [CardPlayed] event recieved from server on: " + PhotonNetwork.player.ID + " with data: " + id + "," + index);
                     break;
-            }
+                }
+            case EventCode.AddMonsterToBoard: {
+                    Hashtable data = (Hashtable) photonEvent.Parameters[ParameterCode.CustomEventContent];
+                    
+                    int boardIndex = (int) data["boardindex"];
+                    int cardIndex = (int) data["cardindex"];
+                    
+                    int cardId = (int) data["cardid"];
+                    string cardName = (string) data["name"];
+                    string cardDescription = (string) data["description"];
+                    int cardRegCost = (int) data["regcost"];
+                    int cardTurboCost = (int) data["turbocost"];
+                    int cardAttack = (int) data["attack"];
+                    int cardHealth = (int) data["health"];
+
+                    Debug.Log(EventCode.AddMonsterToBoard + " => [MonsterPlayed] event recieved from server on: " + PhotonNetwork.player.ID + " with data: " + cardId + "," + cardName + " AND MORE");
+
+                    Card card = null;
+                    if (originatingPlayer.ID == PhotonNetwork.player.ID) {
+                        card = Hand.Instance.Cards[cardIndex];
+                    } else {
+                        MonsterCardData monsterData = new MonsterCardData(cardId, cardName, cardDescription, cardRegCost, cardTurboCost, cardAttack, cardHealth);
+                        card = new Card(monsterData);
+                    }
+
+                    if (card.Data is MonsterCardData) {
+                        MonsterCardData cardData = card.Data as MonsterCardData;
+
+                        GameObject[] slots = BoardManager.Instance.GetBoardSlots(originatingPlayer.ID);
+                        GameObject slot = slots[(originatingPlayer.ID == PhotonNetwork.player.ID) ? boardIndex : (slots.Length - 1) - boardIndex];
+
+                        if (cardData != null) {
+                            BoardManager.Instance.PlaceMonster(slot, cardData);
+                            Hand.Instance.Cards.Remove(card);
+                        } else {
+                            Debug.Log("Card not found...");
+                        }
+                    }
+                    break;
+                }
             case PunEvent.OwnershipRequest:
             {
                 int[] requestValues = (int[]) photonEvent.Parameters[ParameterCode.CustomEventContent];

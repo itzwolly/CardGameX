@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Hand : MonoBehaviour {
+    
+
     private static Hand _instance;
     public static Hand Instance {
         get {
@@ -12,17 +14,34 @@ public class Hand : MonoBehaviour {
                 if (!_instance) {
                     Debug.Log("There should be an active object with the component Hand");
                 } else {
-                    //_instance.Init();
+                    _instance.Init();
                 }
             }
             return _instance;
         }
     }
 
-    public GameObject DisplayCard(int pCardId, int pHandSize) {
+    public List<Card> Cards = null;
+    public CardGameBehaviour SelectedCardBehaviour = null;
+
+    public void Init() {
+        Cards = new List<Card>();
+    }
+
+    public GameObject AddCard(Card pCard, int pHandSize) {
+        int count = Cards.Count;
+        if (count >= Config.MAX_HAND_SIZE) {
+            return null;
+        }
+
+        //Debug.Log("Adding card: " + pCard.Data.Id);
+        Cards.Add(pCard);
+
         HandManager manager = PhotonNetwork.player.TagObject as HandManager;
         GameObject gameCard = manager.DisplayPlayerCardDrawn(pHandSize);
-        gameCard.GetComponent<CardGameBehaviour>().CardId = pCardId;
+        CardGameBehaviour cgb = gameCard.GetComponent<CardGameBehaviour>();
+        cgb.CardId = pCard.Data.Id;
+        cgb.SetCardText(pCard.Data);
 
         return gameCard;
     }

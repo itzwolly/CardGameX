@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DeckEntryHandler : MonoBehaviour {
-    private OnClickCardCollection _onClick;
     private Deck _deck;
+    private OnClickCardCollection _onClick;
+    private OnPointerHoverHandler _onHover;
 
     private void Start() {
         _onClick = GameObject.FindGameObjectWithTag("OnClickHandler").GetComponent<OnClickCardCollection>();
+        _onHover = GetComponent<OnPointerHoverHandler>();
     }
 
     public void SetDeckData(DeckData pData) {
@@ -40,5 +42,15 @@ public class DeckEntryHandler : MonoBehaviour {
                 }
             }
         }));
+    }
+
+    private void Update() {
+        if (_onHover.Hover) {
+            if (Input.GetKeyUp(KeyCode.Space)) {
+                if (_deck != null) {
+                    DeckHandler.Instance.SelectedDeck = _deck;
+                }
+            }
+        }
     }
 }

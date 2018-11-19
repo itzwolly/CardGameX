@@ -103,6 +103,14 @@ public class Deck {
         return _turbo;
     }
 
+    public Card GetRegCardById(int pId) {
+        return _deck.FirstOrDefault(o => o.Data.Id == pId);
+    }
+
+    public Card GetTurboCardById(int pId) {
+        return _turbo.FirstOrDefault(o => o.Data.Id == pId);
+    }
+
     public int GetRegularDeckDuplicateCardCount(Card pCard) {
         if (pCard == null) {
             Debug.Log("The card you are trying to get the duplicate of is null. Returning 0...");

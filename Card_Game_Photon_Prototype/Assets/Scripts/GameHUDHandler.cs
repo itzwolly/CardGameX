@@ -8,6 +8,10 @@ public class GameHUDHandler : MonoBehaviour {
     [SerializeField] private Text _activePlayerText;
     [SerializeField] private Text _playerHealth;
     [SerializeField] private Text _enemyHealth;
+    [SerializeField] private Text _playerMana;
+    [SerializeField] private Text _playerTurbo;
+    [SerializeField] private Text _enemyMana;
+    [SerializeField] private Text _enemyTurbo;
     [SerializeField] private GameObject _endTurnPopUp;
     [SerializeField] private GameObject _winPopUp;
     [SerializeField] private GameObject _losePopUp;
@@ -27,38 +31,23 @@ public class GameHUDHandler : MonoBehaviour {
     public Text EnemyHealth {
         get { return _enemyHealth; }
     }
-
-    private static GameHUDHandler _instance;
-    public static GameHUDHandler Instance {
-        get {
-            if (!_instance) {
-                _instance = FindObjectOfType(typeof(GameHUDHandler)) as GameHUDHandler;
-
-                if (!_instance) {
-                    Debug.Log("There should be an active object with the component Hand");
-                } else {
-                    _instance.Init();
-                }
-            }
-            return _instance;
-        }
+    public Text PlayerMana {
+        get { return _playerMana; }
+    }
+    public Text PlayerTurbo {
+        get { return _playerTurbo; }
+    }
+    public Text EnemyMana {
+        get { return _enemyMana; }
+    }
+    public Text EnemyTurbo {
+        get { return _enemyTurbo; }
     }
 
     public void Init() {
         _btnEndTurn.onClick.AddListener(TurnManager.Instance.EndTurn);
 
         _txtPlayerData.text = "Data => Amount of players: " + PhotonNetwork.room.PlayerCount.ToString() + " | Room name: " + PhotonNetwork.room.Name + " | Player UserId: " + PhotonNetwork.player.UserId;
-    }
-
-    private void Update() {
-        int timeLeft = (int) (Config.TURN_DURATION - TurnManager.Instance.ElapsedTimeInTurn);
-
-        if (timeLeft > 0) {
-            //int currentTurn = TurnManager.Instance.CurrentTurn;
-            /*string activeUserId = TurnManager.Instance.GetActivePlayer();*/
-
-            _turnTimer.text = " Time Left: " + timeLeft;
-        }
     }
 
     public void DisplayEndTurnError(float pTimeToWait) {
@@ -69,6 +58,10 @@ public class GameHUDHandler : MonoBehaviour {
         }
 
         _endTurnError = StartCoroutine(EnableFadeOut(_endTurnPopUp, pTimeToWait));
+    }
+
+    public void UpdateTurnTimer(int pTimeLeft) {
+        _turnTimer.text = "Timeleft: " + pTimeLeft;
     }
 
     public void EngageWinSequence(int pTimeToWait) {
