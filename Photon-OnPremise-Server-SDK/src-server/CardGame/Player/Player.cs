@@ -2,7 +2,7 @@
 
 namespace CardGame {
 
-    public class Player {
+    public class Player : IInteractable {
         public const int STARTING_HEALTH = 10;
         public const int STARTING_MANA = 0; // It's 0 because the very first turn you get +1 mana
         public const int STARTING_TURBO = 0; // It's 0 because the very first turn you get +1 turbo
@@ -22,6 +22,7 @@ namespace CardGame {
         public readonly Deck Deck;
         public readonly Hand Hand;
         public readonly BoardSide BoardSide;
+        public bool IsDead = false;
 
         public int Health {
             get { return _health; }
@@ -66,7 +67,7 @@ namespace CardGame {
             get { return _totalTurbo; }
             set {
                 if (_totalTurbo >= MAX_TURBO) {
-                    _currentTurbo = MAX_MANA;
+                    _currentTurbo = MAX_TURBO;
                     return;
                 }
                 _totalTurbo = value;
@@ -80,7 +81,32 @@ namespace CardGame {
             UserId = pUserId;
             Deck = pCurrentDeck;
             Hand = new Hand();
-            BoardSide = new BoardSide();
+            BoardSide = new BoardSide(this);
+        }
+        
+        public int GetId() {
+            return ActorNr;
+        }
+
+        public int? GetHealth() {
+            return Health;
+        }
+
+        // TODO: Maybe add later when we have weapons or smthing idk.
+        public int? GetAttack() {
+            return 0;
+        }
+
+        public void SetHealth(int pAmount) {
+            if (pAmount < 0) {
+                Health = 0;
+                return;
+            }
+            Health = pAmount;
+        }
+
+        public void SetAttack(int pAmount) {
+            // TODO: Implement at some point..
         }
     }
 }

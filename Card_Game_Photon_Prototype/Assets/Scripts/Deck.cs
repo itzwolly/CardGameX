@@ -133,7 +133,7 @@ public class Deck {
         string code = "";
 
         for (int i = 0; i < _deck.Count; i++) {
-            code += _deck[i].Data.Id + ((i == _deck.Count - 1) ? "" : ",");
+            code += _deck[i].Data.Id + ",";
         }
         _data.DeckCode = Serialize(code);
         return _data.DeckCode;
@@ -143,7 +143,7 @@ public class Deck {
         string code = "";
 
         for (int i = 0; i < _turbo.Count; i++) {
-            code += _turbo[i].Data.Id + ((i == _turbo.Count - 1) ? "" : ",");
+            code += _turbo[i].Data.Id + ",";
         }
         _data.TurboCode = Serialize(code);
         return _data.TurboCode;
@@ -151,7 +151,10 @@ public class Deck {
 
     private static string Serialize(string pPlainTextDeckCode) {
         byte[] plainTextBytes = Encoding.UTF8.GetBytes(pPlainTextDeckCode);
+        Debug.Log(pPlainTextDeckCode);
         string result = Convert.ToBase64String(plainTextBytes);
+        Debug.Log(result);
+
         return result;
     }
 }

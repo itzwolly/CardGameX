@@ -47,7 +47,7 @@ public class CardBehaviour : MonoBehaviour {
             return;
         }
         
-        Card card = new Card(pCardData);
+        Card card = new Card(pCardData, false);
         DeckHandler.Instance.DeckToEdit.AddRegCard(card);
     }
 
@@ -57,7 +57,7 @@ public class CardBehaviour : MonoBehaviour {
             return;
         }
 
-        Card card = new Card(pCardData);
+        Card card = new Card(pCardData, true);
         DeckHandler.Instance.DeckToEdit.AddTurboCard(card);
     }
 }

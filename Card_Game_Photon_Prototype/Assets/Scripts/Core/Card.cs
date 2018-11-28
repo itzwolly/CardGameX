@@ -1,20 +1,18 @@
 ﻿using UnityEngine;
 
 public class Card {
-    private CardData _data;
+    public CardData Data;
+    public bool IsTurbo;
 
-    public CardData Data {
-        get { return _data; }
-    }
-
-    public Card(CardData pCardData) {
-        _data = pCardData;
+    public Card(CardData pCardData, bool pIsTurbo) {
+        Data = pCardData;
+        IsTurbo = pIsTurbo;
     }
 
     public bool IsMonster() {
-        bool isMonster = _data is MonsterCardData;
+        bool isMonster = Data is MonsterCardData;
         //bool isMonster = typeof(MonsterCardData).IsAssignableFrom(_data.GetType());
-        Debug.Log("IsMonster equals: " + isMonster + " for: " + Data.Id + " | " + Data.Name);
+        Debug.Log("IsMonster equals: " + isMonster + " for: " + Data.Id + " | " + Data.Name + " is turbo: " + IsTurbo);
 
         return isMonster;
     }

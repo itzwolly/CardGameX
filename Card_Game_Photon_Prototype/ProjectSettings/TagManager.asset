@@ -16,6 +16,8 @@ TagManager:
   - CardContainerData
   - OnClickHandler
   - OnInputFieldHandler
+  - Targetable
+  - EnemyPlayer
   layers:
   - Default
   - TransparentFX

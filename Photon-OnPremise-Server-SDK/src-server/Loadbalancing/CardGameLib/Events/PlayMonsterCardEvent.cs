@@ -24,17 +24,25 @@ namespace CardGame.Events {
 
                         MonsterCard playedCard = _owner.Hand.GetCard(cardId) as MonsterCard;
                         if (playedCard != null && _owner.CurrentMana >= playedCard.RegCost) {
-                            if (_owner.BoardSide.Occupy(boardIndex, cardId)) {
+                            if (_owner.BoardSide.Occupy(boardIndex, playedCard)) {
                                 data.Add("name", playedCard.Name);
                                 data.Add("description", playedCard.Description);
                                 data.Add("regcost", playedCard.RegCost);
                                 data.Add("turbocost", playedCard.TurboCost);
                                 data.Add("attack", playedCard.Attack);
                                 data.Add("health", playedCard.Health);
+                                data.Add("isturbo", playedCard.IsTurbo);
 
                                 List<EventResponse> responses = new List<EventResponse>();
                                 responses.Add(new EventResponse(107, data));
                                 pResponses = responses;
+
+                                playedCard.BoardIndex = boardIndex;
+                                playedCard.OwnerId = _owner.GetId();
+
+                                //InitializeEnhancements(playedCard);
+
+                                _boardState.Interpret(playedCard, playedCard.Actions);
 
                                 _owner.CurrentMana -= playedCard.RegCost;
                                 _owner.Hand.Cards.Remove(playedCard);
@@ -47,6 +55,9 @@ namespace CardGame.Events {
             pResponses = null;
             return false;
         }
-    }
 
+        private void InitializeEnhancements(MonsterCard pCard) {
+            _owner.BoardSide.AddOrModifyEnhancement(pCard.Id, pCard.BoardIndex, BoardSide.BoardEnhancements.Can_Attack, 0, 0);
+        }
+    }
 }

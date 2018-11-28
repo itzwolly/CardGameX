@@ -41,7 +41,7 @@ public class Hand : MonoBehaviour {
         GameObject gameCard = manager.DisplayPlayerCardDrawn(pHandSize);
         CardGameBehaviour cgb = gameCard.GetComponent<CardGameBehaviour>();
         cgb.CardId = pCard.Data.Id;
-        cgb.SetCardText(pCard.Data);
+        cgb.SetCardText(pCard);
 
         return gameCard;
     }

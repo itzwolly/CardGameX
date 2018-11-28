@@ -5,31 +5,27 @@ using UnityEngine.UI;
 public class BoardSlotBehaviour : MonoBehaviour {
     
     private int _boardIndex = 0;
-    private bool _occupied = false;
+    [HideInInspector] public bool Occupied = false;
 
     private void Start() {
         _boardIndex = transform.GetSiblingIndex();   
     }
 
     private void SendPlayMonsterCardEvent(int pCardId, int pIndex, int pBoardIndex) {
-        RaiseEventOptions options = new RaiseEventOptions();
-        options.Receivers = ReceiverGroup.All;
-        options.TargetActors = null;
-        options.InterestGroup = 0;
-        options.CachingOption = EventCaching.AddToRoomCache;
-
         Hashtable data = new Hashtable();
         data.Add("cardid", pCardId); // what card
         data.Add("cardindex", pIndex); // the index of the card in your hand (so the other player knows which card will be removed)
         data.Add("boardindex", pBoardIndex); // the board slot that the player selected.
 
-        PhotonNetwork.networkingPeer.OpRaiseEvent(EventCode.PlayMonsterCard, data, true, options);
+        Debug.Log(PhotonNetwork.player.ID + " | " + pBoardIndex);
+
+        PhotonNetwork.networkingPeer.OpRaiseEvent(EventCode.PlayMonsterCard, data, true, RaiseEventOptions.Default);
     }
 
     private void OnMouseOver() {
         if (Input.GetMouseButtonUp(0)) {
             if (CardGameCore.Instance.GetActivePlayer().UserId == PhotonNetwork.player.UserId) { // Only allowed to play cards if it's your turn.
-                if (!_occupied) {
+                if (!Occupied) {
                     CardGameBehaviour selectedCard = Hand.Instance.SelectedCardBehaviour;
                     if (selectedCard != null) {
                         int cardIndex = selectedCard.Index;
@@ -38,7 +34,7 @@ public class BoardSlotBehaviour : MonoBehaviour {
                             SendPlayMonsterCardEvent(card.Data.Id, cardIndex, _boardIndex);
 
                             Hand.Instance.SelectedCardBehaviour = null;
-                            _occupied = true;
+                            Occupied = true;
                         }
                     }
                 } else {

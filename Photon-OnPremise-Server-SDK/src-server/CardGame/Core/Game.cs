@@ -15,9 +15,9 @@ namespace CardGame {
         }
 
         public Player AddPlayer(int pActorNr, string pUserId, Deck pDeck) {
-            return PlayerState.AddPlayer(pActorNr, pUserId, pDeck);
+            Player player = PlayerState.AddPlayer(pActorNr, pUserId, pDeck);
+            return player;
         }
     }
-
 }
 

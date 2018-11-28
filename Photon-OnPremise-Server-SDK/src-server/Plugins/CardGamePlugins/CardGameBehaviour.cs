@@ -54,11 +54,76 @@ namespace CardGamePlugins {
 
             base.OnJoin(info);
 
-            InitiateFullRoomSequence();
+            if (info.IsSucceeded) {
+                InitiateFullRoomSequence();
+            } else {
+                // failed to call continue();
+            }
         }
 
         public override void OnRaiseEvent(IRaiseEventCallInfo info) {
-            if (info.Request.EvCode == PlaySpellCardEvent.EVENT_CODE) {
+            if (info.Request.EvCode == 117) { // ATTACK
+                Hashtable data = (Hashtable) info.Request.Data;
+                PlayerState playerState = _game.PlayerState;
+                BoardState boardState = _game.BoardState;
+
+                int targetId = (int) data["targetid"];
+                int targetOwnerId = 0;
+                int targetIndex = 0;
+
+                if (!playerState.IsPlayerId(targetId)) {
+                    targetOwnerId = (int) data["targetownerid"];
+                    targetIndex = (int) data["targetindex"];
+                }
+
+                int attackerId = (int) data["attackerid"];
+                int attackerOwnerId = (int) data["attackerownerid"];
+                int attackerIndex = (int) data["attackerindex"];
+
+                Player activePlayer = playerState.GetActivePlayer();
+                Player opponent = playerState.Opponent;
+
+                object canAttack = activePlayer.BoardSide.GetEnhancementValue(attackerId, BoardSide.BoardEnhancements.Can_Attack);
+                if (canAttack != null && (int) canAttack == 1) {
+                    boardState.DamageCalculation(targetId, targetOwnerId, targetIndex, attackerId, attackerOwnerId, attackerIndex);
+                    boardState.DamageCalculation(attackerId, attackerOwnerId, attackerIndex, targetId, targetOwnerId, targetIndex);
+
+                    // send health of both attacker and target back to client..
+                    MonsterCard attacker = activePlayer.BoardSide.Slots[attackerIndex];
+                    activePlayer.BoardSide.AddOrModifyEnhancement(attacker.Id, attacker.BoardIndex, BoardSide.BoardEnhancements.Can_Attack, 0, canAttack);
+
+                    IInteractable target;
+                    int attackerHealth = (int) attacker.GetHealth();
+                    int targetHealth = 0;
+
+                    if (!playerState.IsPlayerId(targetId)) {
+                        target = opponent.BoardSide.Slots[targetIndex];
+                        targetHealth = (int) target.GetHealth();
+                    } else {
+                        target = opponent;
+                        targetHealth = (int) target.GetHealth();
+                    }
+
+                    data.Add("attackerhealth", attackerHealth);
+                    data.Add("targethealth", targetHealth);
+
+                    RaiseEvent(118, data, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
+
+                    if (attackerHealth <= 0) {
+                        activePlayer.BoardSide.KillMonster(attacker.Id, attackerIndex);
+                    }
+                    if (targetHealth <= 0) {
+                        if (!playerState.IsPlayerId(target.GetId())) {
+                            opponent.BoardSide.KillMonster(target.GetId(), targetIndex);
+                        } else {
+                            // hey.. player died here, but the client already knows his/her hp is 0 so its aware if its dead.
+                        }
+                    }
+                }
+
+                info.Cancel();
+                return;
+            } else if (info.Request.EvCode == PlaySpellCardEvent.EVENT_CODE) {
                 PlayerState state = _game.PlayerState;
                 PlaySpellCardEvent playSCEvent = new PlaySpellCardEvent(state);
 
@@ -73,7 +138,7 @@ namespace CardGamePlugins {
 
                     int cardId = (int) data["cardid"];
                     int index = (int) data["cardindex"];
-                    
+
                     RaiseEvent(106, data, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
                     // end raise card played event //
 
@@ -81,6 +146,7 @@ namespace CardGamePlugins {
                         RaiseEvent(response.EventCode, response.Data, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
                     }
                 }
+
                 info.Cancel();
                 return;
             } else if (info.Request.EvCode == PlayMonsterCardEvent.EVENT_CODE) {
@@ -99,6 +165,7 @@ namespace CardGamePlugins {
 
                     int cardId = (int) data["cardid"];
                     int index = (int) data["cardindex"];
+                    int boardIndex = (int) data["boardindex"];
 
                     RaiseEvent(106, data, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
                     // end raise card played event //
@@ -107,9 +174,10 @@ namespace CardGamePlugins {
                         RaiseEvent(response.EventCode, response.Data, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
                     }
                 }
+
                 info.Cancel();
                 return;
-            } else if (info.Request.EvCode == 98) { // LoadedGameplayScene.EVENT_CODE
+            } else if (info.Request.EvCode == 98) { // LoadedGameplayScene.EVENT_CODE a.k.a very start of the game
                 if (!_game.Started) {
                     PluginHost.CreateTimer(SendStartTurnEvent, 200, TURN_TIME_IN_MS);
                     PluginHost.CreateTimer(DrawCard, 300, TURN_TIME_IN_MS + 300); // small delay.. as to not spam the client with events
@@ -119,6 +187,83 @@ namespace CardGamePlugins {
                     info.Cancel();
                     return;
                 }
+            } else if (info.Request.EvCode == RequestTurboCardsEvent.EVENT_CODE) {
+                PlayerState state = _game.PlayerState;
+                RequestTurboCardsEvent requestTurboEvent = new RequestTurboCardsEvent(state);
+
+                List<EventResponse> responses;
+                bool handled = requestTurboEvent.Handle(info, out responses);
+                if (handled) {
+                    foreach (EventResponse response in responses) {
+                        RaiseEvent(response.EventCode, response.Data, response.Receivers);
+                    }
+                }
+
+                info.Cancel();
+                return;
+            } else if (info.Request.EvCode == RequestCloseTurboWindowEvent.EVENT_CODE) {
+                PlayerState state = _game.PlayerState;
+                RequestCloseTurboWindowEvent requestTurboCloseEvent = new RequestCloseTurboWindowEvent(state);
+
+                List<EventResponse> responses;
+                bool handled = requestTurboCloseEvent.Handle(info, out responses);
+                if (handled) {
+                    foreach (EventResponse response in responses) {
+                        RaiseEvent(response.EventCode, response.Data, response.Receivers);
+                    }
+                }
+
+                info.Cancel();
+                return;
+            } else if (info.Request.EvCode == AddTurboCardEvent.EVENT_CODE) {
+                PlayerState state = _game.PlayerState;
+                AddTurboCardEvent addTurboCardEvent = new AddTurboCardEvent(state);
+
+                List<EventResponse> responses;
+                bool handled = addTurboCardEvent.Handle(info, out responses);
+                if (handled) {
+                    Player activePlayer = state.GetActivePlayer();
+                    Hashtable data = (Hashtable) info.Request.Data;
+                    
+                    int cardId = (int) data["cardid"];
+                    int cardIndex = (int) data["cardindex"];
+
+                    Card card = activePlayer.Deck.GetTurboCard(cardId);
+
+                    if (card != null && activePlayer.CurrentTurbo >= card.TurboCost) {
+                        Hashtable fullTableData = new Hashtable();
+                        fullTableData.Add("cardid", card.Id);
+                        fullTableData.Add("name", card.Name);
+                        fullTableData.Add("type", card.GetCardType().Name);
+                        fullTableData.Add("turbocost", card.TurboCost);
+                        fullTableData.Add("description", card.Description);
+
+                        if (card.IsMonster()) {
+                            MonsterCard monster = card as MonsterCard;
+                            fullTableData.Add("attack", monster.Attack);
+                            fullTableData.Add("health", monster.Health);
+                        }
+
+                        card.RegCost = 0; // change regular cost of turbo cards to 0
+                        activePlayer.CurrentTurbo -= card.TurboCost;
+
+                        activePlayer.Hand.Cards.Add(card);
+                        activePlayer.Deck.RemoveTurboCard(card);
+
+                        fullTableData.Add("regcost", card.RegCost);
+                        fullTableData.Add("handsize", activePlayer.Hand.Cards.Count);
+                        
+                        Hashtable partialTableData = new Hashtable();
+                        partialTableData.Add("handsize", activePlayer.Hand.Cards.Count);
+                        partialTableData.Add("cardindex", cardIndex);
+                        partialTableData.Add("turbo", activePlayer.CurrentTurbo);
+
+                        RaiseEvent(115, partialTableData, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
+                        RaiseEvent(116, fullTableData, new int[] { activePlayer.ActorNr }); // sending a draw card event to the activeplayer, including the actual data.
+                    }
+                }
+                info.Cancel();
+                return;
             }
 
             // TODO: only process the neccessary events a.k.a: ignore out of context events raised by the client.
@@ -145,10 +290,18 @@ namespace CardGamePlugins {
         }
 
         private void SendStartTurnEvent() {
+            CloseTurboWindow();
+
             // TODO: Before starting new turn, check if there are any events waiting to be executed.
             Player activePlayer = _game.PlayerState.SetActivePlayer(); 
             activePlayer.TotalMana++;
             activePlayer.TotalTurbo++;
+
+            foreach (MonsterCard monster in activePlayer.BoardSide.Slots) {
+                if (monster != null) {
+                    activePlayer.BoardSide.AddOrModifyEnhancement(monster.Id, monster.BoardIndex, BoardSide.BoardEnhancements.Can_Attack, 1, 0);
+                }
+            }
 
             Hashtable data = new Hashtable();
             data.Add("userid", activePlayer.UserId);
@@ -186,6 +339,18 @@ namespace CardGamePlugins {
 
             RaiseEvent(101, data, new int[] { activePlayer.ActorNr }); // sending a draw card event to the activeplayer, including the actual data.
             RaiseEvent(101, activePlayer.Hand.Cards.Count, new int[] { _game.PlayerState.Opponent.ActorNr }); // sending a draw card event to the opponent, but without the actual data.
+        }
+
+        private void CloseTurboWindow() {
+            PlayerState state = _game.PlayerState;
+            
+            if (state.Data.ContainsKey((byte) PlayerState.PlayerStateKeys.TURBO_VIEWING_KEY)) {
+                int ownerNr = state.Data[(byte) PlayerState.PlayerStateKeys.TURBO_VIEWING_KEY];
+
+                RaiseEvent(113, null, ReciverGroup.All, ownerNr, (byte) CacheOperation.AddToRoomCache);
+
+                state.Data.Remove((byte) PlayerState.PlayerStateKeys.TURBO_VIEWING_KEY);
+            }
         }
 
         private Deck GetDeck(string pDeckCode, string pTurboCode) {

@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using ExitGames.Client.Photon;
 using System.Collections.Generic;
+using System.Text;
 
 public class NetworkManager : UnityEngine.MonoBehaviour {
     private Coroutine _crService;
@@ -33,6 +34,22 @@ public class NetworkManager : UnityEngine.MonoBehaviour {
         } else {
             Debug.Log("Username NOT set");
         }
+        
+        //byte[] byteCode = new byte[] {
+        //    0x01,
+        //    1,
+        //    0x13
+        //};
+        
+        //string byteCodeString = Convert.ToBase64String(byteCode);
+        //Debug.Log(byteCodeString);
+
+        //var base64EncodedBytes = Convert.FromBase64String(byteCodeString);
+        //string s = "";
+        //foreach (byte b in base64EncodedBytes) {
+        //    s += b + ",";
+        //}
+        //Debug.Log(s);
     }
 
     private void Service() {

@@ -29,6 +29,10 @@ public class CardGameCore : MonoBehaviour {
     private List<Player> _players = null;
     private Player _activePlayer = null;
 
+    public Player Opponent {
+        get { return (_activePlayer == _players[0] ? _players[1] : _players[0]); }
+    }
+
     private Coroutine _turnTimer;
 
     public void Init() {
@@ -51,9 +55,11 @@ public class CardGameCore : MonoBehaviour {
         if (pPlayer.UserId == PhotonNetwork.player.UserId) {
             _hud.PlayerMana.text = "Mana: " + pPlayer.CurrentMana.ToString() + "/" + pPlayer.TotalMana.ToString();
             _hud.PlayerTurbo.text = "Turbo: " + pPlayer.CurrentTurbo.ToString() + "/" + pPlayer.TotalTurbo.ToString();
+            _hud.PlayerHealth.text = pPlayer.Health.ToString();
         } else {
             _hud.EnemyMana.text = "Mana: " + pPlayer.CurrentMana.ToString() + "/" + pPlayer.TotalMana.ToString();
             _hud.EnemyTurbo.text = "Turbo: " + pPlayer.CurrentTurbo.ToString() + "/" + pPlayer.TotalTurbo.ToString();
+            _hud.EnemyHealth.text = pPlayer.Health.ToString();
         }
     }
 

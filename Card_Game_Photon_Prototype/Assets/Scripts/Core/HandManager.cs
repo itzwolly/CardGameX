@@ -23,7 +23,7 @@ public class HandManager : MonoBehaviour {
         PhotonNetwork.player.TagObject = this;
 	}
 
-    public void DestroyCard(int pPlayerId, int pCardId, int pIndex) {
+    public void DestroyCard(int pPlayerId, int pIndex) {
         if (pPlayerId == PhotonNetwork.player.ID) {
             if (pIndex != _playerHandSlots.Count - 1) {
                 for (int i = 0; i < _playerHandSlots.Count; i++) {

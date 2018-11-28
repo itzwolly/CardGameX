@@ -40,10 +40,10 @@
 
                 switch (type) {
                     case Card.CardType.Spell:
-                        card = new SpellCard(info.id, info.name, (info.description == null) ? "" : info.description, info.regcost, info.turbocost, (info.actions == null) ? "" : info.actions);
+                        card = new SpellCard(info.id, info.name, (info.description == null) ? "" : info.description, info.regcost, info.turbocost, info.GetActions(), false);
                         break;
                     case Card.CardType.Monster:
-                        card = new MonsterCard(info.id, info.name, info.attack, info.health, (info.description == null) ? "" : info.description, info.regcost, info.turbocost, (info.actions == null) ? "" : info.actions);
+                        card = new MonsterCard(info.id, info.name, info.attack, info.health, (info.description == null) ? "" : info.description, info.regcost, info.turbocost, info.GetActions(), false);
                         break;
                     case Card.CardType.None:
                     default:
@@ -65,10 +65,10 @@
 
                 switch (type) {
                     case Card.CardType.Spell:
-                        card = new SpellCard(info.id, info.name, (info.description == null) ? "" : info.description, info.regcost, info.turbocost, (info.actions == null) ? "" : info.actions);
+                        card = new SpellCard(info.id, info.name, (info.description == null) ? "" : info.description, info.regcost, info.turbocost, info.GetActions(), true);
                         break;
                     case Card.CardType.Monster:
-                        card = new MonsterCard(info.id, info.name, info.attack, info.health, (info.description == null) ? "" : info.description, info.regcost, info.turbocost, (info.actions == null) ? "" : info.actions);
+                        card = new MonsterCard(info.id, info.name, info.attack, info.health, (info.description == null) ? "" : info.description, info.regcost, info.turbocost, info.GetActions(), true);
                         break;
                     case Card.CardType.None:
                     default:
@@ -112,6 +112,7 @@
 
             Card clone = pCard;
             _deck.Remove(pCard);
+            // return clone;
         }
 
         public void RemoveTurboCard(Card pCard) {
@@ -121,6 +122,7 @@
 
             Card clone = pCard;
             _turbo.Remove(pCard);
+            // return clone;
         }
 
         public Card DrawCard() {
@@ -183,6 +185,10 @@
 
         public List<Card> GetCards(Type pType) {
             return _deck.Where(o => o.GetType() == pType).ToList();
+        }
+
+        public List<Card> GetTurboCards() {
+            return _turbo;
         }
 
         public int GetDuplicateCardCount(Card pCard) {

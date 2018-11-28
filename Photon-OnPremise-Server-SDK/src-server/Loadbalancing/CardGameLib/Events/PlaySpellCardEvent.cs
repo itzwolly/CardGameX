@@ -2,10 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 
-//options.Receivers = ReceiverGroup.All;
-//options.TargetActors = null;
-//options.InterestGroup = 0;
-//options.CachingOption = EventCaching.AddToRoomCache;
 namespace CardGame.Events {
     public class PlaySpellCardEvent : GameEvent {
         public const int EVENT_CODE = 103;
@@ -27,11 +23,12 @@ namespace CardGame.Events {
 
                         Card playedCard = _owner.Hand.GetCard(cardId);
                         if (playedCard != null && _owner.CurrentMana >= playedCard.RegCost) {
-                            List<EventResponse> responses = playedCard.Execute(_playerState);
-                            pResponses = responses;
-
+                            //List<EventResponse> responses = playedCard.Execute(_playerState);
+                            
                             _owner.CurrentMana -= playedCard.RegCost;
                             _owner.Hand.Cards.Remove(playedCard);
+
+                            pResponses = null;
                             return true;
                         }
                     }

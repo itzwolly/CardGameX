@@ -31,13 +31,13 @@ public class DeckEntryHandler : MonoBehaviour {
         StartCoroutine(WebServer.GetCardsUsingDeckCode(pDeck.Data.DeckCode, pDeck.Data.TurboCode, (regCardsList, turboCardsList) => {
             if (regCardsList != null) {
                 foreach (CardData data in regCardsList) {
-                    Card card = new Card(data);
+                    Card card = new Card(data, false);
                     pDeck.Cards.Add(card);
                 }
             }
             if (turboCardsList != null) {
                 foreach (CardData data in turboCardsList) {
-                    Card card = new Card(data);
+                    Card card = new Card(data, true);
                     pDeck.Turbo.Add(card);
                 }
             }

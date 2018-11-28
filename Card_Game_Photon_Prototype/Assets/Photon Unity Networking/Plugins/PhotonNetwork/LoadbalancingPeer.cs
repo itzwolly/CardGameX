@@ -1222,6 +1222,25 @@ using ExitGames.Client.Photon;
 
         public const byte TurnTimeLimit = 108;
 
+        public const byte RequestTurboCards = 109;
+
+        public const byte GetTurboCards = 110;
+
+        public const byte RequestCloseTurboWindow = 111;
+
+        public const byte CloseEnemyTurboWindow = 112;
+
+        public const byte CloseTurboWindow = 113;
+
+        public const byte AddTurboCard = 114;
+
+        public const byte TurboCardAdded = 115;
+
+        public const byte TurboCardRecieved = 116;
+
+        public const byte Attack = 117;
+
+        public const byte UpdateHealth = 118;
     }
 
 

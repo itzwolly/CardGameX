@@ -25,15 +25,17 @@ public class CardGameBehaviour : MonoBehaviour {
         get { return _txtName.text; }
     }
 
-    public void SetCardText(CardData pCardData) {
-        _txtName.text = pCardData.Name;
-        _txtDescription.text = pCardData.Description;
-        _txtCost.text = pCardData.RegCost.ToString();
+    public void SetCardText(Card pCard) {
+        CardData data = pCard.Data;
+
+        _txtName.text = data.Name;
+        _txtDescription.text = data.Description;
+        _txtCost.text = data.RegCost.ToString();
         _txtAttack.text = "";
         _txtHealth.text = "";
 
-        if (pCardData is MonsterCardData) {
-            MonsterCardData mcd = pCardData as MonsterCardData;
+        if (data is MonsterCardData) {
+            MonsterCardData mcd = data as MonsterCardData;
 
             _txtAttack.text = mcd.Attack.ToString();
             _txtHealth.text = mcd.Health.ToString();
