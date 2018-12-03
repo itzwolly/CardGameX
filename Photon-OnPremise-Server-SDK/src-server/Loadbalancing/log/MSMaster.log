@@ -8271,3 +8271,445 @@
 2018-11-28 22:03:38,247 [14] INFO  Photon.LoadBalancing.MasterServer.GameServer.IncomingGameServerPeer - game server connection from 127.0.0.1:58948 established (id=2)
 2018-11-28 22:03:38,981 [10] WARN  Photon.LoadBalancing.Common.NodesReader - Internal address for node 0 unknown; using loop back
 2018-11-28 22:03:38,996 [10] INFO  Photon.LoadBalancing.Common.NodesReader - Node added: 0 = 127.0.0.1
+2018-11-30 03:22:27,665 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-11-30 03:22:28,021 [1] INFO  Photon.SocketServer.Diagnostics.HttpQueuePerformanceCounters - User has no Admin rights. HttpQueuePerformanceCounters initialization skipped
+2018-11-30 03:22:28,031 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - Start to initialize Photon: Custom Authentication Results performance counters
+2018-11-30 03:22:28,041 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - User has no Admin rights. CustomAuthResultCounters initialization skipped
+2018-11-30 03:22:28,060 [1] INFO  Photon.Common.LoadBalancer.LoadBalancer`1 - Initialized Load Balancer from configuration file: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancer.config
+2018-11-30 03:22:28,092 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-11-30 03:22:28,112 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Plugin configured: name=CardGamePlugins
+2018-11-30 03:22:28,193 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Application {Default}/{Default} starts without Redis
+2018-11-30 03:22:28,244 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Import nodes
+2018-11-30 03:22:28,253 [1] WARN  Photon.LoadBalancing.Common.NodesReader - D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt does not exist, CurrentNodeId = 0
+2018-11-30 03:22:28,253 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Watching D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt
+2018-11-30 03:22:28,264 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - Current Node (nodeId=0) is the active master (leader)
+2018-11-30 03:22:28,295 [1] INFO  Photon.SocketServer.ApplicationBase - Application start: AppId=Master; AppPath=D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancing, Type=Photon.LoadBalancing.MasterServer.MasterApplication 
+2018-11-30 03:22:28,336 [1] INFO  Photon.SocketServer.Diagnostics.CounterPublisher - CounterPublisher started publishing ExitGames.Diagnostics.Monitoring.CounterSamplePublisher to ExitGames.Diagnostics.Monitoring.CounterSampleSender
+2018-11-30 03:22:28,357 [12] INFO  Photon.LoadBalancing.MasterServer.GameServer.IncomingGameServerPeer - game server connection from 127.0.0.1:60417 established (id=2)
+2018-11-30 03:22:28,864 [11] WARN  Photon.LoadBalancing.Common.NodesReader - Internal address for node 0 unknown; using loop back
+2018-11-30 03:22:28,874 [11] INFO  Photon.LoadBalancing.Common.NodesReader - Node added: 0 = 127.0.0.1
+2018-11-30 03:40:05,414 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-11-30 03:40:05,442 [1] INFO  Photon.SocketServer.Diagnostics.HttpQueuePerformanceCounters - User has no Admin rights. HttpQueuePerformanceCounters initialization skipped
+2018-11-30 03:40:05,451 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - Start to initialize Photon: Custom Authentication Results performance counters
+2018-11-30 03:40:05,461 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - User has no Admin rights. CustomAuthResultCounters initialization skipped
+2018-11-30 03:40:05,478 [1] INFO  Photon.Common.LoadBalancer.LoadBalancer`1 - Initialized Load Balancer from configuration file: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancer.config
+2018-11-30 03:40:05,516 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-11-30 03:40:05,532 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Plugin configured: name=CardGamePlugins
+2018-11-30 03:40:05,595 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Application {Default}/{Default} starts without Redis
+2018-11-30 03:40:05,642 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Import nodes
+2018-11-30 03:40:05,651 [1] WARN  Photon.LoadBalancing.Common.NodesReader - D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt does not exist, CurrentNodeId = 0
+2018-11-30 03:40:05,660 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Watching D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt
+2018-11-30 03:40:05,668 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - Current Node (nodeId=0) is the active master (leader)
+2018-11-30 03:40:05,677 [1] INFO  Photon.SocketServer.ApplicationBase - Application start: AppId=Master; AppPath=D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancing, Type=Photon.LoadBalancing.MasterServer.MasterApplication 
+2018-11-30 03:40:05,705 [1] INFO  Photon.SocketServer.Diagnostics.CounterPublisher - CounterPublisher started publishing ExitGames.Diagnostics.Monitoring.CounterSamplePublisher to ExitGames.Diagnostics.Monitoring.CounterSampleSender
+2018-11-30 03:40:05,730 [13] INFO  Photon.LoadBalancing.MasterServer.GameServer.IncomingGameServerPeer - game server connection from 127.0.0.1:60725 established (id=2)
+2018-11-30 03:40:06,309 [10] WARN  Photon.LoadBalancing.Common.NodesReader - Internal address for node 0 unknown; using loop back
+2018-11-30 03:40:06,319 [10] INFO  Photon.LoadBalancing.Common.NodesReader - Node added: 0 = 127.0.0.1
+2018-11-30 03:42:10,408 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-11-30 03:42:10,437 [1] INFO  Photon.SocketServer.Diagnostics.HttpQueuePerformanceCounters - User has no Admin rights. HttpQueuePerformanceCounters initialization skipped
+2018-11-30 03:42:10,450 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - Start to initialize Photon: Custom Authentication Results performance counters
+2018-11-30 03:42:10,462 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - User has no Admin rights. CustomAuthResultCounters initialization skipped
+2018-11-30 03:42:10,483 [1] INFO  Photon.Common.LoadBalancer.LoadBalancer`1 - Initialized Load Balancer from configuration file: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancer.config
+2018-11-30 03:42:10,530 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-11-30 03:42:10,555 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Plugin configured: name=CardGamePlugins
+2018-11-30 03:42:10,596 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Application {Default}/{Default} starts without Redis
+2018-11-30 03:42:10,653 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Import nodes
+2018-11-30 03:42:10,664 [1] WARN  Photon.LoadBalancing.Common.NodesReader - D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt does not exist, CurrentNodeId = 0
+2018-11-30 03:42:10,677 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Watching D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt
+2018-11-30 03:42:10,688 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - Current Node (nodeId=0) is the active master (leader)
+2018-11-30 03:42:10,702 [1] INFO  Photon.SocketServer.ApplicationBase - Application start: AppId=Master; AppPath=D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancing, Type=Photon.LoadBalancing.MasterServer.MasterApplication 
+2018-11-30 03:42:10,741 [1] INFO  Photon.SocketServer.Diagnostics.CounterPublisher - CounterPublisher started publishing ExitGames.Diagnostics.Monitoring.CounterSamplePublisher to ExitGames.Diagnostics.Monitoring.CounterSampleSender
+2018-11-30 03:42:10,773 [12] INFO  Photon.LoadBalancing.MasterServer.GameServer.IncomingGameServerPeer - game server connection from 127.0.0.1:60876 established (id=2)
+2018-11-30 03:42:11,465 [13] WARN  Photon.LoadBalancing.Common.NodesReader - Internal address for node 0 unknown; using loop back
+2018-11-30 03:42:11,477 [13] INFO  Photon.LoadBalancing.Common.NodesReader - Node added: 0 = 127.0.0.1
+2018-11-30 03:45:31,154 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-11-30 03:45:31,178 [1] INFO  Photon.SocketServer.Diagnostics.HttpQueuePerformanceCounters - User has no Admin rights. HttpQueuePerformanceCounters initialization skipped
+2018-11-30 03:45:31,189 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - Start to initialize Photon: Custom Authentication Results performance counters
+2018-11-30 03:45:31,198 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - User has no Admin rights. CustomAuthResultCounters initialization skipped
+2018-11-30 03:45:31,219 [1] INFO  Photon.Common.LoadBalancer.LoadBalancer`1 - Initialized Load Balancer from configuration file: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancer.config
+2018-11-30 03:45:31,262 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-11-30 03:45:31,289 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Plugin configured: name=CardGamePlugins
+2018-11-30 03:45:31,329 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Application {Default}/{Default} starts without Redis
+2018-11-30 03:45:31,384 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Import nodes
+2018-11-30 03:45:31,395 [1] WARN  Photon.LoadBalancing.Common.NodesReader - D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt does not exist, CurrentNodeId = 0
+2018-11-30 03:45:31,407 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Watching D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt
+2018-11-30 03:45:31,420 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - Current Node (nodeId=0) is the active master (leader)
+2018-11-30 03:45:31,434 [1] INFO  Photon.SocketServer.ApplicationBase - Application start: AppId=Master; AppPath=D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancing, Type=Photon.LoadBalancing.MasterServer.MasterApplication 
+2018-11-30 03:45:31,478 [1] INFO  Photon.SocketServer.Diagnostics.CounterPublisher - CounterPublisher started publishing ExitGames.Diagnostics.Monitoring.CounterSamplePublisher to ExitGames.Diagnostics.Monitoring.CounterSampleSender
+2018-11-30 03:45:31,522 [12] INFO  Photon.LoadBalancing.MasterServer.GameServer.IncomingGameServerPeer - game server connection from 127.0.0.1:61020 established (id=2)
+2018-11-30 03:45:32,217 [12] WARN  Photon.LoadBalancing.Common.NodesReader - Internal address for node 0 unknown; using loop back
+2018-11-30 03:45:32,229 [12] INFO  Photon.LoadBalancing.Common.NodesReader - Node added: 0 = 127.0.0.1
+2018-11-30 04:14:34,603 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-11-30 04:14:34,624 [1] INFO  Photon.SocketServer.Diagnostics.HttpQueuePerformanceCounters - User has no Admin rights. HttpQueuePerformanceCounters initialization skipped
+2018-11-30 04:14:34,634 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - Start to initialize Photon: Custom Authentication Results performance counters
+2018-11-30 04:14:34,644 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - User has no Admin rights. CustomAuthResultCounters initialization skipped
+2018-11-30 04:14:34,664 [1] INFO  Photon.Common.LoadBalancer.LoadBalancer`1 - Initialized Load Balancer from configuration file: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancer.config
+2018-11-30 04:14:34,695 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-11-30 04:14:34,714 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Plugin configured: name=CardGamePlugins
+2018-11-30 04:14:34,745 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Application {Default}/{Default} starts without Redis
+2018-11-30 04:14:34,787 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Import nodes
+2018-11-30 04:14:34,797 [1] WARN  Photon.LoadBalancing.Common.NodesReader - D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt does not exist, CurrentNodeId = 0
+2018-11-30 04:14:34,806 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Watching D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt
+2018-11-30 04:14:34,821 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - Current Node (nodeId=0) is the active master (leader)
+2018-11-30 04:14:34,830 [1] INFO  Photon.SocketServer.ApplicationBase - Application start: AppId=Master; AppPath=D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancing, Type=Photon.LoadBalancing.MasterServer.MasterApplication 
+2018-11-30 04:14:34,857 [1] INFO  Photon.SocketServer.Diagnostics.CounterPublisher - CounterPublisher started publishing ExitGames.Diagnostics.Monitoring.CounterSamplePublisher to ExitGames.Diagnostics.Monitoring.CounterSampleSender
+2018-11-30 04:14:34,878 [13] INFO  Photon.LoadBalancing.MasterServer.GameServer.IncomingGameServerPeer - game server connection from 127.0.0.1:61379 established (id=2)
+2018-11-30 04:14:35,396 [12] WARN  Photon.LoadBalancing.Common.NodesReader - Internal address for node 0 unknown; using loop back
+2018-11-30 04:14:35,406 [12] INFO  Photon.LoadBalancing.Common.NodesReader - Node added: 0 = 127.0.0.1
+2018-11-30 04:18:12,707 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-11-30 04:18:12,734 [1] INFO  Photon.SocketServer.Diagnostics.HttpQueuePerformanceCounters - User has no Admin rights. HttpQueuePerformanceCounters initialization skipped
+2018-11-30 04:18:12,746 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - Start to initialize Photon: Custom Authentication Results performance counters
+2018-11-30 04:18:12,758 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - User has no Admin rights. CustomAuthResultCounters initialization skipped
+2018-11-30 04:18:12,781 [1] INFO  Photon.Common.LoadBalancer.LoadBalancer`1 - Initialized Load Balancer from configuration file: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancer.config
+2018-11-30 04:18:12,820 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-11-30 04:18:12,838 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Plugin configured: name=CardGamePlugins
+2018-11-30 04:18:12,910 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Application {Default}/{Default} starts without Redis
+2018-11-30 04:18:12,961 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Import nodes
+2018-11-30 04:18:12,972 [1] WARN  Photon.LoadBalancing.Common.NodesReader - D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt does not exist, CurrentNodeId = 0
+2018-11-30 04:18:12,982 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Watching D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt
+2018-11-30 04:18:12,993 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - Current Node (nodeId=0) is the active master (leader)
+2018-11-30 04:18:13,003 [1] INFO  Photon.SocketServer.ApplicationBase - Application start: AppId=Master; AppPath=D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancing, Type=Photon.LoadBalancing.MasterServer.MasterApplication 
+2018-11-30 04:18:13,035 [1] INFO  Photon.SocketServer.Diagnostics.CounterPublisher - CounterPublisher started publishing ExitGames.Diagnostics.Monitoring.CounterSamplePublisher to ExitGames.Diagnostics.Monitoring.CounterSampleSender
+2018-11-30 04:18:13,064 [14] INFO  Photon.LoadBalancing.MasterServer.GameServer.IncomingGameServerPeer - game server connection from 127.0.0.1:61534 established (id=2)
+2018-11-30 04:18:13,672 [10] WARN  Photon.LoadBalancing.Common.NodesReader - Internal address for node 0 unknown; using loop back
+2018-11-30 04:18:13,683 [10] INFO  Photon.LoadBalancing.Common.NodesReader - Node added: 0 = 127.0.0.1
+2018-11-30 04:20:50,459 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-11-30 04:20:50,484 [1] INFO  Photon.SocketServer.Diagnostics.HttpQueuePerformanceCounters - User has no Admin rights. HttpQueuePerformanceCounters initialization skipped
+2018-11-30 04:20:50,500 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - Start to initialize Photon: Custom Authentication Results performance counters
+2018-11-30 04:20:50,516 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - User has no Admin rights. CustomAuthResultCounters initialization skipped
+2018-11-30 04:20:50,545 [1] INFO  Photon.Common.LoadBalancer.LoadBalancer`1 - Initialized Load Balancer from configuration file: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancer.config
+2018-11-30 04:20:50,590 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-11-30 04:20:50,609 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Plugin configured: name=CardGamePlugins
+2018-11-30 04:20:50,647 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Application {Default}/{Default} starts without Redis
+2018-11-30 04:20:50,707 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Import nodes
+2018-11-30 04:20:50,719 [1] WARN  Photon.LoadBalancing.Common.NodesReader - D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt does not exist, CurrentNodeId = 0
+2018-11-30 04:20:50,731 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Watching D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt
+2018-11-30 04:20:50,742 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - Current Node (nodeId=0) is the active master (leader)
+2018-11-30 04:20:50,754 [1] INFO  Photon.SocketServer.ApplicationBase - Application start: AppId=Master; AppPath=D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancing, Type=Photon.LoadBalancing.MasterServer.MasterApplication 
+2018-11-30 04:20:50,787 [1] INFO  Photon.SocketServer.Diagnostics.CounterPublisher - CounterPublisher started publishing ExitGames.Diagnostics.Monitoring.CounterSamplePublisher to ExitGames.Diagnostics.Monitoring.CounterSampleSender
+2018-11-30 04:20:50,817 [13] INFO  Photon.LoadBalancing.MasterServer.GameServer.IncomingGameServerPeer - game server connection from 127.0.0.1:61673 established (id=2)
+2018-11-30 04:20:51,351 [10] WARN  Photon.LoadBalancing.Common.NodesReader - Internal address for node 0 unknown; using loop back
+2018-11-30 04:20:51,364 [10] INFO  Photon.LoadBalancing.Common.NodesReader - Node added: 0 = 127.0.0.1
+2018-12-03 21:37:48,487 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 21:37:48,508 [1] INFO  Photon.SocketServer.Diagnostics.HttpQueuePerformanceCounters - User has no Admin rights. HttpQueuePerformanceCounters initialization skipped
+2018-12-03 21:37:48,517 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - Start to initialize Photon: Custom Authentication Results performance counters
+2018-12-03 21:37:48,525 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - User has no Admin rights. CustomAuthResultCounters initialization skipped
+2018-12-03 21:37:48,541 [1] INFO  Photon.Common.LoadBalancer.LoadBalancer`1 - Initialized Load Balancer from configuration file: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancer.config
+2018-12-03 21:37:48,570 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 21:37:48,585 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Plugin configured: name=CardGamePlugins
+2018-12-03 21:37:48,619 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Application {Default}/{Default} starts without Redis
+2018-12-03 21:37:48,663 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Import nodes
+2018-12-03 21:37:48,672 [1] WARN  Photon.LoadBalancing.Common.NodesReader - D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt does not exist, CurrentNodeId = 0
+2018-12-03 21:37:48,679 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Watching D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt
+2018-12-03 21:37:48,687 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - Current Node (nodeId=0) is the active master (leader)
+2018-12-03 21:37:48,695 [1] INFO  Photon.SocketServer.ApplicationBase - Application start: AppId=Master; AppPath=D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancing, Type=Photon.LoadBalancing.MasterServer.MasterApplication 
+2018-12-03 21:37:48,719 [1] INFO  Photon.SocketServer.Diagnostics.CounterPublisher - CounterPublisher started publishing ExitGames.Diagnostics.Monitoring.CounterSamplePublisher to ExitGames.Diagnostics.Monitoring.CounterSampleSender
+2018-12-03 21:37:48,741 [13] INFO  Photon.LoadBalancing.MasterServer.GameServer.IncomingGameServerPeer - game server connection from 127.0.0.1:64476 established (id=2)
+2018-12-03 21:37:49,210 [13] WARN  Photon.LoadBalancing.Common.NodesReader - Internal address for node 0 unknown; using loop back
+2018-12-03 21:37:49,218 [13] INFO  Photon.LoadBalancing.Common.NodesReader - Node added: 0 = 127.0.0.1
+2018-12-03 21:41:58,181 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 21:41:58,204 [1] INFO  Photon.SocketServer.Diagnostics.HttpQueuePerformanceCounters - User has no Admin rights. HttpQueuePerformanceCounters initialization skipped
+2018-12-03 21:41:58,214 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - Start to initialize Photon: Custom Authentication Results performance counters
+2018-12-03 21:41:58,222 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - User has no Admin rights. CustomAuthResultCounters initialization skipped
+2018-12-03 21:41:58,238 [1] INFO  Photon.Common.LoadBalancer.LoadBalancer`1 - Initialized Load Balancer from configuration file: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancer.config
+2018-12-03 21:41:58,269 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 21:41:58,284 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Plugin configured: name=CardGamePlugins
+2018-12-03 21:41:58,313 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Application {Default}/{Default} starts without Redis
+2018-12-03 21:41:58,356 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Import nodes
+2018-12-03 21:41:58,364 [1] WARN  Photon.LoadBalancing.Common.NodesReader - D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt does not exist, CurrentNodeId = 0
+2018-12-03 21:41:58,372 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Watching D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt
+2018-12-03 21:41:58,380 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - Current Node (nodeId=0) is the active master (leader)
+2018-12-03 21:41:58,388 [1] INFO  Photon.SocketServer.ApplicationBase - Application start: AppId=Master; AppPath=D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancing, Type=Photon.LoadBalancing.MasterServer.MasterApplication 
+2018-12-03 21:41:58,414 [1] INFO  Photon.SocketServer.Diagnostics.CounterPublisher - CounterPublisher started publishing ExitGames.Diagnostics.Monitoring.CounterSamplePublisher to ExitGames.Diagnostics.Monitoring.CounterSampleSender
+2018-12-03 21:41:58,439 [13] INFO  Photon.LoadBalancing.MasterServer.GameServer.IncomingGameServerPeer - game server connection from 127.0.0.1:64678 established (id=2)
+2018-12-03 21:41:58,903 [14] WARN  Photon.LoadBalancing.Common.NodesReader - Internal address for node 0 unknown; using loop back
+2018-12-03 21:41:58,912 [14] INFO  Photon.LoadBalancing.Common.NodesReader - Node added: 0 = 127.0.0.1
+2018-12-03 21:48:51,094 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 21:48:51,116 [1] INFO  Photon.SocketServer.Diagnostics.HttpQueuePerformanceCounters - User has no Admin rights. HttpQueuePerformanceCounters initialization skipped
+2018-12-03 21:48:51,129 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - Start to initialize Photon: Custom Authentication Results performance counters
+2018-12-03 21:48:51,138 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - User has no Admin rights. CustomAuthResultCounters initialization skipped
+2018-12-03 21:48:51,156 [1] INFO  Photon.Common.LoadBalancer.LoadBalancer`1 - Initialized Load Balancer from configuration file: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancer.config
+2018-12-03 21:48:51,185 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 21:48:51,200 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Plugin configured: name=CardGamePlugins
+2018-12-03 21:48:51,257 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Application {Default}/{Default} starts without Redis
+2018-12-03 21:48:51,299 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Import nodes
+2018-12-03 21:48:51,308 [1] WARN  Photon.LoadBalancing.Common.NodesReader - D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt does not exist, CurrentNodeId = 0
+2018-12-03 21:48:51,315 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Watching D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt
+2018-12-03 21:48:51,323 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - Current Node (nodeId=0) is the active master (leader)
+2018-12-03 21:48:51,332 [1] INFO  Photon.SocketServer.ApplicationBase - Application start: AppId=Master; AppPath=D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancing, Type=Photon.LoadBalancing.MasterServer.MasterApplication 
+2018-12-03 21:48:51,358 [1] INFO  Photon.SocketServer.Diagnostics.CounterPublisher - CounterPublisher started publishing ExitGames.Diagnostics.Monitoring.CounterSamplePublisher to ExitGames.Diagnostics.Monitoring.CounterSampleSender
+2018-12-03 21:48:51,380 [12] INFO  Photon.LoadBalancing.MasterServer.GameServer.IncomingGameServerPeer - game server connection from 127.0.0.1:64890 established (id=2)
+2018-12-03 21:48:51,842 [14] WARN  Photon.LoadBalancing.Common.NodesReader - Internal address for node 0 unknown; using loop back
+2018-12-03 21:48:51,850 [14] INFO  Photon.LoadBalancing.Common.NodesReader - Node added: 0 = 127.0.0.1
+2018-12-03 21:53:26,545 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 21:53:26,570 [1] INFO  Photon.SocketServer.Diagnostics.HttpQueuePerformanceCounters - User has no Admin rights. HttpQueuePerformanceCounters initialization skipped
+2018-12-03 21:53:26,584 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - Start to initialize Photon: Custom Authentication Results performance counters
+2018-12-03 21:53:26,596 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - User has no Admin rights. CustomAuthResultCounters initialization skipped
+2018-12-03 21:53:26,614 [1] INFO  Photon.Common.LoadBalancer.LoadBalancer`1 - Initialized Load Balancer from configuration file: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancer.config
+2018-12-03 21:53:26,647 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 21:53:26,663 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Plugin configured: name=CardGamePlugins
+2018-12-03 21:53:26,694 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Application {Default}/{Default} starts without Redis
+2018-12-03 21:53:26,737 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Import nodes
+2018-12-03 21:53:26,746 [1] WARN  Photon.LoadBalancing.Common.NodesReader - D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt does not exist, CurrentNodeId = 0
+2018-12-03 21:53:26,755 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Watching D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt
+2018-12-03 21:53:26,763 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - Current Node (nodeId=0) is the active master (leader)
+2018-12-03 21:53:26,771 [1] INFO  Photon.SocketServer.ApplicationBase - Application start: AppId=Master; AppPath=D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancing, Type=Photon.LoadBalancing.MasterServer.MasterApplication 
+2018-12-03 21:53:26,800 [1] INFO  Photon.SocketServer.Diagnostics.CounterPublisher - CounterPublisher started publishing ExitGames.Diagnostics.Monitoring.CounterSamplePublisher to ExitGames.Diagnostics.Monitoring.CounterSampleSender
+2018-12-03 21:53:26,824 [12] INFO  Photon.LoadBalancing.MasterServer.GameServer.IncomingGameServerPeer - game server connection from 127.0.0.1:65069 established (id=2)
+2018-12-03 21:53:27,313 [14] WARN  Photon.LoadBalancing.Common.NodesReader - Internal address for node 0 unknown; using loop back
+2018-12-03 21:53:27,322 [14] INFO  Photon.LoadBalancing.Common.NodesReader - Node added: 0 = 127.0.0.1
+2018-12-03 21:54:51,317 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 21:54:51,349 [1] INFO  Photon.SocketServer.Diagnostics.HttpQueuePerformanceCounters - User has no Admin rights. HttpQueuePerformanceCounters initialization skipped
+2018-12-03 21:54:51,360 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - Start to initialize Photon: Custom Authentication Results performance counters
+2018-12-03 21:54:51,371 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - User has no Admin rights. CustomAuthResultCounters initialization skipped
+2018-12-03 21:54:51,392 [1] INFO  Photon.Common.LoadBalancer.LoadBalancer`1 - Initialized Load Balancer from configuration file: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancer.config
+2018-12-03 21:54:51,433 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 21:54:51,452 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Plugin configured: name=CardGamePlugins
+2018-12-03 21:54:51,547 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Application {Default}/{Default} starts without Redis
+2018-12-03 21:54:51,616 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Import nodes
+2018-12-03 21:54:51,626 [1] WARN  Photon.LoadBalancing.Common.NodesReader - D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt does not exist, CurrentNodeId = 0
+2018-12-03 21:54:51,637 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Watching D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt
+2018-12-03 21:54:51,647 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - Current Node (nodeId=0) is the active master (leader)
+2018-12-03 21:54:51,661 [1] INFO  Photon.SocketServer.ApplicationBase - Application start: AppId=Master; AppPath=D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancing, Type=Photon.LoadBalancing.MasterServer.MasterApplication 
+2018-12-03 21:54:51,702 [1] INFO  Photon.SocketServer.Diagnostics.CounterPublisher - CounterPublisher started publishing ExitGames.Diagnostics.Monitoring.CounterSamplePublisher to ExitGames.Diagnostics.Monitoring.CounterSampleSender
+2018-12-03 21:54:51,730 [12] INFO  Photon.LoadBalancing.MasterServer.GameServer.IncomingGameServerPeer - game server connection from 127.0.0.1:65206 established (id=2)
+2018-12-03 21:54:52,522 [11] WARN  Photon.LoadBalancing.Common.NodesReader - Internal address for node 0 unknown; using loop back
+2018-12-03 21:54:52,535 [11] INFO  Photon.LoadBalancing.Common.NodesReader - Node added: 0 = 127.0.0.1
+2018-12-03 21:57:18,752 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 21:57:18,779 [1] INFO  Photon.SocketServer.Diagnostics.HttpQueuePerformanceCounters - User has no Admin rights. HttpQueuePerformanceCounters initialization skipped
+2018-12-03 21:57:18,794 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - Start to initialize Photon: Custom Authentication Results performance counters
+2018-12-03 21:57:18,805 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - User has no Admin rights. CustomAuthResultCounters initialization skipped
+2018-12-03 21:57:18,828 [1] INFO  Photon.Common.LoadBalancer.LoadBalancer`1 - Initialized Load Balancer from configuration file: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancer.config
+2018-12-03 21:57:18,865 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 21:57:18,883 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Plugin configured: name=CardGamePlugins
+2018-12-03 21:57:18,956 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Application {Default}/{Default} starts without Redis
+2018-12-03 21:57:19,005 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Import nodes
+2018-12-03 21:57:19,015 [1] WARN  Photon.LoadBalancing.Common.NodesReader - D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt does not exist, CurrentNodeId = 0
+2018-12-03 21:57:19,023 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Watching D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt
+2018-12-03 21:57:19,035 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - Current Node (nodeId=0) is the active master (leader)
+2018-12-03 21:57:19,043 [1] INFO  Photon.SocketServer.ApplicationBase - Application start: AppId=Master; AppPath=D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancing, Type=Photon.LoadBalancing.MasterServer.MasterApplication 
+2018-12-03 21:57:19,076 [1] INFO  Photon.SocketServer.Diagnostics.CounterPublisher - CounterPublisher started publishing ExitGames.Diagnostics.Monitoring.CounterSamplePublisher to ExitGames.Diagnostics.Monitoring.CounterSampleSender
+2018-12-03 21:57:19,100 [12] INFO  Photon.LoadBalancing.MasterServer.GameServer.IncomingGameServerPeer - game server connection from 127.0.0.1:65343 established (id=2)
+2018-12-03 21:57:19,605 [11] WARN  Photon.LoadBalancing.Common.NodesReader - Internal address for node 0 unknown; using loop back
+2018-12-03 21:57:19,615 [11] INFO  Photon.LoadBalancing.Common.NodesReader - Node added: 0 = 127.0.0.1
+2018-12-03 21:58:25,892 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 21:58:25,921 [1] INFO  Photon.SocketServer.Diagnostics.HttpQueuePerformanceCounters - User has no Admin rights. HttpQueuePerformanceCounters initialization skipped
+2018-12-03 21:58:25,932 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - Start to initialize Photon: Custom Authentication Results performance counters
+2018-12-03 21:58:25,945 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - User has no Admin rights. CustomAuthResultCounters initialization skipped
+2018-12-03 21:58:25,972 [1] INFO  Photon.Common.LoadBalancer.LoadBalancer`1 - Initialized Load Balancer from configuration file: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancer.config
+2018-12-03 21:58:26,013 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 21:58:26,037 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Plugin configured: name=CardGamePlugins
+2018-12-03 21:58:26,128 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Application {Default}/{Default} starts without Redis
+2018-12-03 21:58:26,188 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Import nodes
+2018-12-03 21:58:26,202 [1] WARN  Photon.LoadBalancing.Common.NodesReader - D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt does not exist, CurrentNodeId = 0
+2018-12-03 21:58:26,212 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Watching D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt
+2018-12-03 21:58:26,225 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - Current Node (nodeId=0) is the active master (leader)
+2018-12-03 21:58:26,238 [1] INFO  Photon.SocketServer.ApplicationBase - Application start: AppId=Master; AppPath=D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancing, Type=Photon.LoadBalancing.MasterServer.MasterApplication 
+2018-12-03 21:58:26,272 [1] INFO  Photon.SocketServer.Diagnostics.CounterPublisher - CounterPublisher started publishing ExitGames.Diagnostics.Monitoring.CounterSamplePublisher to ExitGames.Diagnostics.Monitoring.CounterSampleSender
+2018-12-03 21:58:26,302 [12] INFO  Photon.LoadBalancing.MasterServer.GameServer.IncomingGameServerPeer - game server connection from 127.0.0.1:65452 established (id=2)
+2018-12-03 21:58:26,817 [13] WARN  Photon.LoadBalancing.Common.NodesReader - Internal address for node 0 unknown; using loop back
+2018-12-03 21:58:26,827 [13] INFO  Photon.LoadBalancing.Common.NodesReader - Node added: 0 = 127.0.0.1
+2018-12-03 21:59:21,286 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 21:59:21,309 [1] INFO  Photon.SocketServer.Diagnostics.HttpQueuePerformanceCounters - User has no Admin rights. HttpQueuePerformanceCounters initialization skipped
+2018-12-03 21:59:21,319 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - Start to initialize Photon: Custom Authentication Results performance counters
+2018-12-03 21:59:21,329 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - User has no Admin rights. CustomAuthResultCounters initialization skipped
+2018-12-03 21:59:21,346 [1] INFO  Photon.Common.LoadBalancer.LoadBalancer`1 - Initialized Load Balancer from configuration file: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancer.config
+2018-12-03 21:59:21,383 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 21:59:21,405 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Plugin configured: name=CardGamePlugins
+2018-12-03 21:59:21,475 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Application {Default}/{Default} starts without Redis
+2018-12-03 21:59:21,530 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Import nodes
+2018-12-03 21:59:21,542 [1] WARN  Photon.LoadBalancing.Common.NodesReader - D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt does not exist, CurrentNodeId = 0
+2018-12-03 21:59:21,553 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Watching D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt
+2018-12-03 21:59:21,566 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - Current Node (nodeId=0) is the active master (leader)
+2018-12-03 21:59:21,577 [1] INFO  Photon.SocketServer.ApplicationBase - Application start: AppId=Master; AppPath=D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancing, Type=Photon.LoadBalancing.MasterServer.MasterApplication 
+2018-12-03 21:59:21,618 [1] INFO  Photon.SocketServer.Diagnostics.CounterPublisher - CounterPublisher started publishing ExitGames.Diagnostics.Monitoring.CounterSamplePublisher to ExitGames.Diagnostics.Monitoring.CounterSampleSender
+2018-12-03 21:59:21,647 [13] INFO  Photon.LoadBalancing.MasterServer.GameServer.IncomingGameServerPeer - game server connection from 127.0.0.1:49170 established (id=2)
+2018-12-03 21:59:22,260 [12] WARN  Photon.LoadBalancing.Common.NodesReader - Internal address for node 0 unknown; using loop back
+2018-12-03 21:59:22,271 [12] INFO  Photon.LoadBalancing.Common.NodesReader - Node added: 0 = 127.0.0.1
+2018-12-03 22:02:57,161 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 22:02:57,183 [1] INFO  Photon.SocketServer.Diagnostics.HttpQueuePerformanceCounters - User has no Admin rights. HttpQueuePerformanceCounters initialization skipped
+2018-12-03 22:02:57,192 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - Start to initialize Photon: Custom Authentication Results performance counters
+2018-12-03 22:02:57,200 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - User has no Admin rights. CustomAuthResultCounters initialization skipped
+2018-12-03 22:02:57,217 [1] INFO  Photon.Common.LoadBalancer.LoadBalancer`1 - Initialized Load Balancer from configuration file: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancer.config
+2018-12-03 22:02:57,252 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 22:02:57,273 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Plugin configured: name=CardGamePlugins
+2018-12-03 22:02:57,338 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Application {Default}/{Default} starts without Redis
+2018-12-03 22:02:57,386 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Import nodes
+2018-12-03 22:02:57,396 [1] WARN  Photon.LoadBalancing.Common.NodesReader - D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt does not exist, CurrentNodeId = 0
+2018-12-03 22:02:57,405 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Watching D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt
+2018-12-03 22:02:57,415 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - Current Node (nodeId=0) is the active master (leader)
+2018-12-03 22:02:57,425 [1] INFO  Photon.SocketServer.ApplicationBase - Application start: AppId=Master; AppPath=D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancing, Type=Photon.LoadBalancing.MasterServer.MasterApplication 
+2018-12-03 22:02:57,462 [1] INFO  Photon.SocketServer.Diagnostics.CounterPublisher - CounterPublisher started publishing ExitGames.Diagnostics.Monitoring.CounterSamplePublisher to ExitGames.Diagnostics.Monitoring.CounterSampleSender
+2018-12-03 22:02:57,502 [14] INFO  Photon.LoadBalancing.MasterServer.GameServer.IncomingGameServerPeer - game server connection from 127.0.0.1:49366 established (id=2)
+2018-12-03 22:02:58,040 [10] WARN  Photon.LoadBalancing.Common.NodesReader - Internal address for node 0 unknown; using loop back
+2018-12-03 22:02:58,052 [10] INFO  Photon.LoadBalancing.Common.NodesReader - Node added: 0 = 127.0.0.1
+2018-12-03 22:05:12,447 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 22:05:12,471 [1] INFO  Photon.SocketServer.Diagnostics.HttpQueuePerformanceCounters - User has no Admin rights. HttpQueuePerformanceCounters initialization skipped
+2018-12-03 22:05:12,481 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - Start to initialize Photon: Custom Authentication Results performance counters
+2018-12-03 22:05:12,494 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - User has no Admin rights. CustomAuthResultCounters initialization skipped
+2018-12-03 22:05:12,520 [1] INFO  Photon.Common.LoadBalancer.LoadBalancer`1 - Initialized Load Balancer from configuration file: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancer.config
+2018-12-03 22:05:12,557 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 22:05:12,575 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Plugin configured: name=CardGamePlugins
+2018-12-03 22:05:12,652 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Application {Default}/{Default} starts without Redis
+2018-12-03 22:05:12,707 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Import nodes
+2018-12-03 22:05:12,720 [1] WARN  Photon.LoadBalancing.Common.NodesReader - D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt does not exist, CurrentNodeId = 0
+2018-12-03 22:05:12,735 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Watching D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt
+2018-12-03 22:05:12,747 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - Current Node (nodeId=0) is the active master (leader)
+2018-12-03 22:05:12,757 [1] INFO  Photon.SocketServer.ApplicationBase - Application start: AppId=Master; AppPath=D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancing, Type=Photon.LoadBalancing.MasterServer.MasterApplication 
+2018-12-03 22:05:12,793 [1] INFO  Photon.SocketServer.Diagnostics.CounterPublisher - CounterPublisher started publishing ExitGames.Diagnostics.Monitoring.CounterSamplePublisher to ExitGames.Diagnostics.Monitoring.CounterSampleSender
+2018-12-03 22:05:12,824 [12] INFO  Photon.LoadBalancing.MasterServer.GameServer.IncomingGameServerPeer - game server connection from 127.0.0.1:49518 established (id=2)
+2018-12-03 22:05:13,427 [14] WARN  Photon.LoadBalancing.Common.NodesReader - Internal address for node 0 unknown; using loop back
+2018-12-03 22:05:13,437 [14] INFO  Photon.LoadBalancing.Common.NodesReader - Node added: 0 = 127.0.0.1
+2018-12-03 22:06:59,325 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 22:06:59,351 [1] INFO  Photon.SocketServer.Diagnostics.HttpQueuePerformanceCounters - User has no Admin rights. HttpQueuePerformanceCounters initialization skipped
+2018-12-03 22:06:59,363 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - Start to initialize Photon: Custom Authentication Results performance counters
+2018-12-03 22:06:59,373 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - User has no Admin rights. CustomAuthResultCounters initialization skipped
+2018-12-03 22:06:59,391 [1] INFO  Photon.Common.LoadBalancer.LoadBalancer`1 - Initialized Load Balancer from configuration file: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancer.config
+2018-12-03 22:06:59,424 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 22:06:59,452 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Plugin configured: name=CardGamePlugins
+2018-12-03 22:06:59,532 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Application {Default}/{Default} starts without Redis
+2018-12-03 22:06:59,606 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Import nodes
+2018-12-03 22:06:59,619 [1] WARN  Photon.LoadBalancing.Common.NodesReader - D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt does not exist, CurrentNodeId = 0
+2018-12-03 22:06:59,634 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Watching D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt
+2018-12-03 22:06:59,644 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - Current Node (nodeId=0) is the active master (leader)
+2018-12-03 22:06:59,653 [1] INFO  Photon.SocketServer.ApplicationBase - Application start: AppId=Master; AppPath=D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancing, Type=Photon.LoadBalancing.MasterServer.MasterApplication 
+2018-12-03 22:06:59,690 [1] INFO  Photon.SocketServer.Diagnostics.CounterPublisher - CounterPublisher started publishing ExitGames.Diagnostics.Monitoring.CounterSamplePublisher to ExitGames.Diagnostics.Monitoring.CounterSampleSender
+2018-12-03 22:06:59,720 [12] INFO  Photon.LoadBalancing.MasterServer.GameServer.IncomingGameServerPeer - game server connection from 127.0.0.1:49637 established (id=2)
+2018-12-03 22:07:00,313 [14] WARN  Photon.LoadBalancing.Common.NodesReader - Internal address for node 0 unknown; using loop back
+2018-12-03 22:07:00,323 [14] INFO  Photon.LoadBalancing.Common.NodesReader - Node added: 0 = 127.0.0.1
+2018-12-03 22:11:32,502 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 22:11:32,525 [1] INFO  Photon.SocketServer.Diagnostics.HttpQueuePerformanceCounters - User has no Admin rights. HttpQueuePerformanceCounters initialization skipped
+2018-12-03 22:11:32,535 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - Start to initialize Photon: Custom Authentication Results performance counters
+2018-12-03 22:11:32,544 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - User has no Admin rights. CustomAuthResultCounters initialization skipped
+2018-12-03 22:11:32,563 [1] INFO  Photon.Common.LoadBalancer.LoadBalancer`1 - Initialized Load Balancer from configuration file: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancer.config
+2018-12-03 22:11:32,603 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 22:11:32,622 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Plugin configured: name=CardGamePlugins
+2018-12-03 22:11:32,690 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Application {Default}/{Default} starts without Redis
+2018-12-03 22:11:32,750 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Import nodes
+2018-12-03 22:11:32,761 [1] WARN  Photon.LoadBalancing.Common.NodesReader - D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt does not exist, CurrentNodeId = 0
+2018-12-03 22:11:32,770 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Watching D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt
+2018-12-03 22:11:32,784 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - Current Node (nodeId=0) is the active master (leader)
+2018-12-03 22:11:32,803 [1] INFO  Photon.SocketServer.ApplicationBase - Application start: AppId=Master; AppPath=D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancing, Type=Photon.LoadBalancing.MasterServer.MasterApplication 
+2018-12-03 22:11:32,838 [1] INFO  Photon.SocketServer.Diagnostics.CounterPublisher - CounterPublisher started publishing ExitGames.Diagnostics.Monitoring.CounterSamplePublisher to ExitGames.Diagnostics.Monitoring.CounterSampleSender
+2018-12-03 22:11:32,868 [12] INFO  Photon.LoadBalancing.MasterServer.GameServer.IncomingGameServerPeer - game server connection from 127.0.0.1:49783 established (id=2)
+2018-12-03 22:11:33,637 [11] WARN  Photon.LoadBalancing.Common.NodesReader - Internal address for node 0 unknown; using loop back
+2018-12-03 22:11:33,652 [11] INFO  Photon.LoadBalancing.Common.NodesReader - Node added: 0 = 127.0.0.1
+2018-12-03 22:15:43,366 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 22:15:43,392 [1] INFO  Photon.SocketServer.Diagnostics.HttpQueuePerformanceCounters - User has no Admin rights. HttpQueuePerformanceCounters initialization skipped
+2018-12-03 22:15:43,402 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - Start to initialize Photon: Custom Authentication Results performance counters
+2018-12-03 22:15:43,410 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - User has no Admin rights. CustomAuthResultCounters initialization skipped
+2018-12-03 22:15:43,427 [1] INFO  Photon.Common.LoadBalancer.LoadBalancer`1 - Initialized Load Balancer from configuration file: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancer.config
+2018-12-03 22:15:43,458 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 22:15:43,474 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Plugin configured: name=CardGamePlugins
+2018-12-03 22:15:43,538 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Application {Default}/{Default} starts without Redis
+2018-12-03 22:15:43,587 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Import nodes
+2018-12-03 22:15:43,595 [1] WARN  Photon.LoadBalancing.Common.NodesReader - D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt does not exist, CurrentNodeId = 0
+2018-12-03 22:15:43,604 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Watching D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt
+2018-12-03 22:15:43,612 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - Current Node (nodeId=0) is the active master (leader)
+2018-12-03 22:15:43,621 [1] INFO  Photon.SocketServer.ApplicationBase - Application start: AppId=Master; AppPath=D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancing, Type=Photon.LoadBalancing.MasterServer.MasterApplication 
+2018-12-03 22:15:43,647 [1] INFO  Photon.SocketServer.Diagnostics.CounterPublisher - CounterPublisher started publishing ExitGames.Diagnostics.Monitoring.CounterSamplePublisher to ExitGames.Diagnostics.Monitoring.CounterSampleSender
+2018-12-03 22:15:43,670 [13] INFO  Photon.LoadBalancing.MasterServer.GameServer.IncomingGameServerPeer - game server connection from 127.0.0.1:49927 established (id=2)
+2018-12-03 22:15:44,179 [15] WARN  Photon.LoadBalancing.Common.NodesReader - Internal address for node 0 unknown; using loop back
+2018-12-03 22:15:44,196 [15] INFO  Photon.LoadBalancing.Common.NodesReader - Node added: 0 = 127.0.0.1
+2018-12-03 22:19:39,243 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 22:19:39,264 [1] INFO  Photon.SocketServer.Diagnostics.HttpQueuePerformanceCounters - User has no Admin rights. HttpQueuePerformanceCounters initialization skipped
+2018-12-03 22:19:39,273 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - Start to initialize Photon: Custom Authentication Results performance counters
+2018-12-03 22:19:39,281 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - User has no Admin rights. CustomAuthResultCounters initialization skipped
+2018-12-03 22:19:39,297 [1] INFO  Photon.Common.LoadBalancer.LoadBalancer`1 - Initialized Load Balancer from configuration file: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancer.config
+2018-12-03 22:19:39,327 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 22:19:39,342 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Plugin configured: name=CardGamePlugins
+2018-12-03 22:19:39,372 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Application {Default}/{Default} starts without Redis
+2018-12-03 22:19:39,417 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Import nodes
+2018-12-03 22:19:39,426 [1] WARN  Photon.LoadBalancing.Common.NodesReader - D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt does not exist, CurrentNodeId = 0
+2018-12-03 22:19:39,440 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Watching D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt
+2018-12-03 22:19:39,450 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - Current Node (nodeId=0) is the active master (leader)
+2018-12-03 22:19:39,459 [1] INFO  Photon.SocketServer.ApplicationBase - Application start: AppId=Master; AppPath=D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancing, Type=Photon.LoadBalancing.MasterServer.MasterApplication 
+2018-12-03 22:19:39,485 [1] INFO  Photon.SocketServer.Diagnostics.CounterPublisher - CounterPublisher started publishing ExitGames.Diagnostics.Monitoring.CounterSamplePublisher to ExitGames.Diagnostics.Monitoring.CounterSampleSender
+2018-12-03 22:19:39,507 [12] INFO  Photon.LoadBalancing.MasterServer.GameServer.IncomingGameServerPeer - game server connection from 127.0.0.1:50069 established (id=2)
+2018-12-03 22:19:39,987 [14] WARN  Photon.LoadBalancing.Common.NodesReader - Internal address for node 0 unknown; using loop back
+2018-12-03 22:19:39,995 [14] INFO  Photon.LoadBalancing.Common.NodesReader - Node added: 0 = 127.0.0.1
+2018-12-03 22:30:57,193 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 22:30:57,222 [1] INFO  Photon.SocketServer.Diagnostics.HttpQueuePerformanceCounters - User has no Admin rights. HttpQueuePerformanceCounters initialization skipped
+2018-12-03 22:30:57,233 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - Start to initialize Photon: Custom Authentication Results performance counters
+2018-12-03 22:30:57,252 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - User has no Admin rights. CustomAuthResultCounters initialization skipped
+2018-12-03 22:30:57,284 [1] INFO  Photon.Common.LoadBalancer.LoadBalancer`1 - Initialized Load Balancer from configuration file: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancer.config
+2018-12-03 22:30:57,326 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 22:30:57,345 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Plugin configured: name=CardGamePlugins
+2018-12-03 22:30:57,431 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Application {Default}/{Default} starts without Redis
+2018-12-03 22:30:57,493 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Import nodes
+2018-12-03 22:30:57,507 [1] WARN  Photon.LoadBalancing.Common.NodesReader - D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt does not exist, CurrentNodeId = 0
+2018-12-03 22:30:57,522 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Watching D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt
+2018-12-03 22:30:57,533 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - Current Node (nodeId=0) is the active master (leader)
+2018-12-03 22:30:57,544 [1] INFO  Photon.SocketServer.ApplicationBase - Application start: AppId=Master; AppPath=D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancing, Type=Photon.LoadBalancing.MasterServer.MasterApplication 
+2018-12-03 22:30:57,578 [1] INFO  Photon.SocketServer.Diagnostics.CounterPublisher - CounterPublisher started publishing ExitGames.Diagnostics.Monitoring.CounterSamplePublisher to ExitGames.Diagnostics.Monitoring.CounterSampleSender
+2018-12-03 22:30:57,608 [13] INFO  Photon.LoadBalancing.MasterServer.GameServer.IncomingGameServerPeer - game server connection from 127.0.0.1:50260 established (id=2)
+2018-12-03 22:30:58,185 [12] WARN  Photon.LoadBalancing.Common.NodesReader - Internal address for node 0 unknown; using loop back
+2018-12-03 22:30:58,194 [12] INFO  Photon.LoadBalancing.Common.NodesReader - Node added: 0 = 127.0.0.1
+2018-12-03 22:32:49,812 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 22:32:49,835 [1] INFO  Photon.SocketServer.Diagnostics.HttpQueuePerformanceCounters - User has no Admin rights. HttpQueuePerformanceCounters initialization skipped
+2018-12-03 22:32:49,845 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - Start to initialize Photon: Custom Authentication Results performance counters
+2018-12-03 22:32:49,854 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - User has no Admin rights. CustomAuthResultCounters initialization skipped
+2018-12-03 22:32:49,870 [1] INFO  Photon.Common.LoadBalancer.LoadBalancer`1 - Initialized Load Balancer from configuration file: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancer.config
+2018-12-03 22:32:49,908 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 22:32:49,924 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Plugin configured: name=CardGamePlugins
+2018-12-03 22:32:49,986 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Application {Default}/{Default} starts without Redis
+2018-12-03 22:32:50,027 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Import nodes
+2018-12-03 22:32:50,036 [1] WARN  Photon.LoadBalancing.Common.NodesReader - D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt does not exist, CurrentNodeId = 0
+2018-12-03 22:32:50,044 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Watching D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt
+2018-12-03 22:32:50,053 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - Current Node (nodeId=0) is the active master (leader)
+2018-12-03 22:32:50,062 [1] INFO  Photon.SocketServer.ApplicationBase - Application start: AppId=Master; AppPath=D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancing, Type=Photon.LoadBalancing.MasterServer.MasterApplication 
+2018-12-03 22:32:50,089 [1] INFO  Photon.SocketServer.Diagnostics.CounterPublisher - CounterPublisher started publishing ExitGames.Diagnostics.Monitoring.CounterSamplePublisher to ExitGames.Diagnostics.Monitoring.CounterSampleSender
+2018-12-03 22:32:50,113 [12] INFO  Photon.LoadBalancing.MasterServer.GameServer.IncomingGameServerPeer - game server connection from 127.0.0.1:50382 established (id=2)
+2018-12-03 22:32:50,593 [14] WARN  Photon.LoadBalancing.Common.NodesReader - Internal address for node 0 unknown; using loop back
+2018-12-03 22:32:50,601 [14] INFO  Photon.LoadBalancing.Common.NodesReader - Node added: 0 = 127.0.0.1
+2018-12-03 22:35:49,891 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 22:35:49,912 [1] INFO  Photon.SocketServer.Diagnostics.HttpQueuePerformanceCounters - User has no Admin rights. HttpQueuePerformanceCounters initialization skipped
+2018-12-03 22:35:49,921 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - Start to initialize Photon: Custom Authentication Results performance counters
+2018-12-03 22:35:49,928 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - User has no Admin rights. CustomAuthResultCounters initialization skipped
+2018-12-03 22:35:49,944 [1] INFO  Photon.Common.LoadBalancer.LoadBalancer`1 - Initialized Load Balancer from configuration file: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancer.config
+2018-12-03 22:35:49,976 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 22:35:49,992 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Plugin configured: name=CardGamePlugins
+2018-12-03 22:35:50,055 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Application {Default}/{Default} starts without Redis
+2018-12-03 22:35:50,098 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Import nodes
+2018-12-03 22:35:50,107 [1] WARN  Photon.LoadBalancing.Common.NodesReader - D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt does not exist, CurrentNodeId = 0
+2018-12-03 22:35:50,114 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Watching D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt
+2018-12-03 22:35:50,122 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - Current Node (nodeId=0) is the active master (leader)
+2018-12-03 22:35:50,129 [1] INFO  Photon.SocketServer.ApplicationBase - Application start: AppId=Master; AppPath=D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancing, Type=Photon.LoadBalancing.MasterServer.MasterApplication 
+2018-12-03 22:35:50,155 [1] INFO  Photon.SocketServer.Diagnostics.CounterPublisher - CounterPublisher started publishing ExitGames.Diagnostics.Monitoring.CounterSamplePublisher to ExitGames.Diagnostics.Monitoring.CounterSampleSender
+2018-12-03 22:35:50,177 [14] INFO  Photon.LoadBalancing.MasterServer.GameServer.IncomingGameServerPeer - game server connection from 127.0.0.1:50516 established (id=2)
+2018-12-03 22:35:50,641 [12] WARN  Photon.LoadBalancing.Common.NodesReader - Internal address for node 0 unknown; using loop back
+2018-12-03 22:35:50,650 [12] INFO  Photon.LoadBalancing.Common.NodesReader - Node added: 0 = 127.0.0.1
+2018-12-03 22:36:53,035 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 22:36:53,060 [1] INFO  Photon.SocketServer.Diagnostics.HttpQueuePerformanceCounters - User has no Admin rights. HttpQueuePerformanceCounters initialization skipped
+2018-12-03 22:36:53,071 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - Start to initialize Photon: Custom Authentication Results performance counters
+2018-12-03 22:36:53,080 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - User has no Admin rights. CustomAuthResultCounters initialization skipped
+2018-12-03 22:36:53,098 [1] INFO  Photon.Common.LoadBalancer.LoadBalancer`1 - Initialized Load Balancer from configuration file: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancer.config
+2018-12-03 22:36:53,132 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 22:36:53,149 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Plugin configured: name=CardGamePlugins
+2018-12-03 22:36:53,218 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Application {Default}/{Default} starts without Redis
+2018-12-03 22:36:53,269 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Import nodes
+2018-12-03 22:36:53,279 [1] WARN  Photon.LoadBalancing.Common.NodesReader - D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt does not exist, CurrentNodeId = 0
+2018-12-03 22:36:53,289 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Watching D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt
+2018-12-03 22:36:53,299 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - Current Node (nodeId=0) is the active master (leader)
+2018-12-03 22:36:53,308 [1] INFO  Photon.SocketServer.ApplicationBase - Application start: AppId=Master; AppPath=D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancing, Type=Photon.LoadBalancing.MasterServer.MasterApplication 
+2018-12-03 22:36:53,337 [1] INFO  Photon.SocketServer.Diagnostics.CounterPublisher - CounterPublisher started publishing ExitGames.Diagnostics.Monitoring.CounterSamplePublisher to ExitGames.Diagnostics.Monitoring.CounterSampleSender
+2018-12-03 22:36:53,375 [13] INFO  Photon.LoadBalancing.MasterServer.GameServer.IncomingGameServerPeer - game server connection from 127.0.0.1:50621 established (id=2)
+2018-12-03 22:36:53,991 [11] WARN  Photon.LoadBalancing.Common.NodesReader - Internal address for node 0 unknown; using loop back
+2018-12-03 22:36:54,007 [11] INFO  Photon.LoadBalancing.Common.NodesReader - Node added: 0 = 127.0.0.1
+2018-12-03 22:41:40,172 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 22:41:40,199 [1] INFO  Photon.SocketServer.Diagnostics.HttpQueuePerformanceCounters - User has no Admin rights. HttpQueuePerformanceCounters initialization skipped
+2018-12-03 22:41:40,209 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - Start to initialize Photon: Custom Authentication Results performance counters
+2018-12-03 22:41:40,220 [1] INFO  Photon.Common.Authentication.Diagnostic.CustomAuthResultCounters - User has no Admin rights. CustomAuthResultCounters initialization skipped
+2018-12-03 22:41:40,237 [1] INFO  Photon.Common.LoadBalancer.LoadBalancer`1 - Initialized Load Balancer from configuration file: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancer.config
+2018-12-03 22:41:40,275 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - TokenCreator intialized with an expiration of 02:46:40
+2018-12-03 22:41:40,293 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Plugin configured: name=CardGamePlugins
+2018-12-03 22:41:40,360 [1] INFO  Photon.LoadBalancing.MasterServer.GameApplication - Application {Default}/{Default} starts without Redis
+2018-12-03 22:41:40,418 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Import nodes
+2018-12-03 22:41:40,427 [1] WARN  Photon.LoadBalancing.Common.NodesReader - D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt does not exist, CurrentNodeId = 0
+2018-12-03 22:41:40,437 [1] INFO  Photon.LoadBalancing.Common.NodesReader - Watching D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\Nodes.txt
+2018-12-03 22:41:40,446 [1] INFO  Photon.LoadBalancing.MasterServer.MasterApplication - Current Node (nodeId=0) is the active master (leader)
+2018-12-03 22:41:40,455 [1] INFO  Photon.SocketServer.ApplicationBase - Application start: AppId=Master; AppPath=D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\LoadBalancing\LoadBalancing, Type=Photon.LoadBalancing.MasterServer.MasterApplication 
+2018-12-03 22:41:40,485 [1] INFO  Photon.SocketServer.Diagnostics.CounterPublisher - CounterPublisher started publishing ExitGames.Diagnostics.Monitoring.CounterSamplePublisher to ExitGames.Diagnostics.Monitoring.CounterSampleSender
+2018-12-03 22:41:40,511 [13] INFO  Photon.LoadBalancing.MasterServer.GameServer.IncomingGameServerPeer - game server connection from 127.0.0.1:50841 established (id=2)
+2018-12-03 22:41:41,050 [15] WARN  Photon.LoadBalancing.Common.NodesReader - Internal address for node 0 unknown; using loop back
+2018-12-03 22:41:41,062 [15] INFO  Photon.LoadBalancing.Common.NodesReader - Node added: 0 = 127.0.0.1

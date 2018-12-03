@@ -13,6 +13,11 @@ namespace CardGame {
             Cards = new List<Card>();
         }
 
+        public void AddCard(Game pGame, Card pCard) {
+            pGame.RegisterFunctions(pCard);
+            Cards.Add(pCard);
+        }
+
         public Card GetCard(int pCardId) {
             Card card = Cards.Find(o => o.Id == pCardId);
             if (card != null) {

@@ -8,6 +8,7 @@ using System.IO;
 using CardGame.Events;
 using System.Collections;
 using System.Threading;
+using NLua;
 
 namespace CardGamePlugins {
 
@@ -85,38 +86,47 @@ namespace CardGamePlugins {
 
                 object canAttack = activePlayer.BoardSide.GetEnhancementValue(attackerId, BoardSide.BoardEnhancements.Can_Attack);
                 if (canAttack != null && (int) canAttack == 1) {
-                    boardState.DamageCalculation(targetId, targetOwnerId, targetIndex, attackerId, attackerOwnerId, attackerIndex);
-                    boardState.DamageCalculation(attackerId, attackerOwnerId, attackerIndex, targetId, targetOwnerId, targetIndex);
+                    IInteractable attacker;
+                    if (playerState.IsPlayerId(attackerId)) {
+                        attacker = activePlayer;
+                    } else {
+                        attacker = activePlayer.BoardSide.Slots[attackerIndex];
+                    }
 
-                    // send health of both attacker and target back to client..
-                    MonsterCard attacker = activePlayer.BoardSide.Slots[attackerIndex];
-                    activePlayer.BoardSide.AddOrModifyEnhancement(attacker.Id, attacker.BoardIndex, BoardSide.BoardEnhancements.Can_Attack, 0, canAttack);
+                    if (attacker.GetAttack() <= 0) {
+                        return;
+                    }
 
                     IInteractable target;
-                    int attackerHealth = (int) attacker.GetHealth();
-                    int targetHealth = 0;
-
-                    if (!playerState.IsPlayerId(targetId)) {
-                        target = opponent.BoardSide.Slots[targetIndex];
-                        targetHealth = (int) target.GetHealth();
-                    } else {
+                    if (playerState.IsPlayerId(targetId)) {
                         target = opponent;
-                        targetHealth = (int) target.GetHealth();
+                    } else {
+                        target = opponent.BoardSide.Slots[targetIndex];
                     }
+
+                    boardState.DamageCalculation(attacker, target);
+                    boardState.DamageCalculation(target, attacker);
+
+                    // Update his attack status (i.e: cant attack after having attacked once)
+                    activePlayer.BoardSide.AddOrModifyEnhancement(attacker.GetId(), attacker.GetBoardIndex(), BoardSide.BoardEnhancements.Can_Attack, 0, canAttack);
+
+                    int attackerHealth = (int) attacker.GetHealth();
+                    int targetHealth = (int) target.GetHealth();
 
                     data.Add("attackerhealth", attackerHealth);
                     data.Add("targethealth", targetHealth);
 
+                    // send health of both attacker and target back to client..
                     RaiseEvent(118, data, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
 
                     if (attackerHealth <= 0) {
-                        activePlayer.BoardSide.KillMonster(attacker.Id, attackerIndex);
+                        if (!playerState.IsPlayerId(target.GetId())) {
+                            activePlayer.BoardSide.KillMonster(attacker as MonsterCard);
+                        }
                     }
                     if (targetHealth <= 0) {
                         if (!playerState.IsPlayerId(target.GetId())) {
-                            opponent.BoardSide.KillMonster(target.GetId(), targetIndex);
-                        } else {
-                            // hey.. player died here, but the client already knows his/her hp is 0 so its aware if its dead.
+                            opponent.BoardSide.KillMonster(target as MonsterCard);
                         }
                     }
                 }
@@ -142,9 +152,9 @@ namespace CardGamePlugins {
                     RaiseEvent(106, data, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
                     // end raise card played event //
 
-                    foreach (EventResponse response in responses) {
-                        RaiseEvent(response.EventCode, response.Data, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
-                    }
+                    //foreach (EventResponse response in responses) {
+                    //    RaiseEvent(response.EventCode, response.Data, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
+                    //}
                 }
 
                 info.Cancel();
@@ -247,7 +257,7 @@ namespace CardGamePlugins {
                         card.RegCost = 0; // change regular cost of turbo cards to 0
                         activePlayer.CurrentTurbo -= card.TurboCost;
 
-                        activePlayer.Hand.Cards.Add(card);
+                        activePlayer.Hand.AddCard(_game, card);
                         activePlayer.Deck.RemoveTurboCard(card);
 
                         fullTableData.Add("regcost", card.RegCost);
@@ -334,7 +344,7 @@ namespace CardGamePlugins {
                 return;
             }
 
-            activePlayer.Hand.Cards.Add(drawn);
+            activePlayer.Hand.AddCard(_game, drawn);
             data.Add("handsize", activePlayer.Hand.Cards.Count);
 
             RaiseEvent(101, data, new int[] { activePlayer.ActorNr }); // sending a draw card event to the activeplayer, including the actual data.

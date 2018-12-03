@@ -21,36 +21,36 @@ namespace CardGame {
         }
 
         // Attack: Target id, Target Owner id, Target Index (onboard), Attacker id, Attacker Index, Attacker Owner Id, GetAttack, Target id, Target Index, Target Owner Id, GetHealth, Subtract, Set_Health
-        public void DamageCalculation(int pTargetId, int pTargetOwnerId, int pTargetIndex, int pAttackerId, int pAttackerOwnerId, int pAttackerIndex) {
+        public void DamageCalculation(IInteractable pAttacker, IInteractable pTarget) {
             byte[] code = new byte[22];
 
             code[0] = (byte) BoardKeys.Instruction.Literal;
-            code[1] = (byte) pTargetId;
+            code[1] = (byte) pTarget.GetId();
             code[2] = (byte) BoardKeys.Instruction.Literal;
-            code[3] = (byte) pTargetOwnerId;
+            code[3] = (byte) pTarget.GetOwnerId();
             code[4] = (byte) BoardKeys.Instruction.Literal;
-            code[5] = (byte) pTargetIndex;
+            code[5] = (byte) pTarget.GetBoardIndex();
 
             code[6] = (byte) BoardKeys.Instruction.Literal;
-            code[7] = (byte) pAttackerId;
+            code[7] = (byte) pAttacker.GetId();
             code[8] = (byte) BoardKeys.Instruction.Literal;
-            code[9] = (byte) pAttackerIndex;
+            code[9] = (byte) pAttacker.GetBoardIndex();
             code[10] = (byte) BoardKeys.Instruction.Literal;
-            code[11] = (byte) pAttackerOwnerId;
+            code[11] = (byte) pAttacker.GetOwnerId();
             code[12] = (byte) BoardKeys.Instruction.Get_Attack;
 
             code[13] = (byte) BoardKeys.Instruction.Literal;
-            code[14] = (byte) pTargetId;
+            code[14] = (byte) pTarget.GetId();
             code[15] = (byte) BoardKeys.Instruction.Literal;
-            code[16] = (byte) pTargetIndex;
+            code[16] = (byte) pTarget.GetBoardIndex();
             code[17] = (byte) BoardKeys.Instruction.Literal;
-            code[18] = (byte) pTargetOwnerId;
+            code[18] = (byte) pTarget.GetOwnerId();
             code[19] = (byte) BoardKeys.Instruction.Get_Health;
 
             code[20] = (byte) BoardKeys.Instruction.Subtract;
             code[21] = (byte) BoardKeys.Instruction.Set_Health;
 
-            Interpret(null, code);
+            Interpret(code);
         }
 
         // EXAMPLE:     Rush 
@@ -61,7 +61,7 @@ namespace CardGame {
         //
         // Attack:      Target id, Target Owner id, Target Index (onboard), Attacker id, Attacker Index, Attacker Owner Id, GetAttack, Target id, Target Index, Target Owner Id, GetHealth, Subtract, Set_Health
         // Stack:       
-        public void Interpret(Card pCard, byte[] pByteCode) {
+        public void Interpret(byte[] pByteCode) {
             for (int i = 0; i < pByteCode.Length; i++) {
                 byte instruction = pByteCode[i];
 
@@ -127,12 +127,10 @@ namespace CardGame {
                             break;
                         }
                     case (byte) BoardKeys.Instruction.Set_Can_Attack: {
-                            MonsterCard card = pCard as MonsterCard;
-                            
                             int value = pop();
-                            int targetIndex = card.BoardIndex;
-                            int playerOwnerId = card.OwnerId;
-                            int targetId = card.Id;
+                            int targetIndex = pop();
+                            int playerOwnerId = pop();
+                            int targetId = pop();
 
                             Player player = PlayerState.GetPlayerById(playerOwnerId);
                             object obj = player.BoardSide.GetEnhancementValue(targetId, BoardSide.BoardEnhancements.Can_Attack);

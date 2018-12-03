@@ -2683,8 +2683,6 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
 
                     Player target = CardGameCore.Instance.GetPlayerByActorNr(targetId);
                     if (target != null) {
-                        // if ded, blah blah
-
                         target.Health = targetHealth;
                         CardGameCore.Instance.UpdateResources(target);
                     } else {

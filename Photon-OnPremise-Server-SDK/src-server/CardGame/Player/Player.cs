@@ -108,5 +108,13 @@ namespace CardGame {
         public void SetAttack(int pAmount) {
             // TODO: Implement at some point..
         }
+
+        public int GetOwnerId() {
+            return -1;
+        }
+
+        public int GetBoardIndex() {
+            return -1;
+        }
     }
 }

@@ -22,12 +22,12 @@ namespace CardGame {
             return false;
         }
 
-        public bool KillMonster(int pId, int pIndex) {
-            if (pIndex >= Slots.Length || pIndex < 0) {
+        public bool KillMonster(MonsterCard pMonster) {
+            if (pMonster.BoardIndex >= Slots.Length || pMonster.BoardIndex < 0) {
                 return false;
             }
-            RemoveEnhancements(pId);
-            Slots[pIndex] = null;
+            RemoveEnhancements(pMonster.Id);
+            Slots[pMonster.BoardIndex] = null;
             return true;
         }
 
@@ -85,22 +85,8 @@ namespace CardGame {
                         }
                     }
                     break;
-                case BoardEnhancements.Can_Attack: {
-                        // Empty
-                    }
-                    break;
-                case BoardEnhancements.Death: {
-                        //// Reset all the enhancement to their original value..
-                        //foreach (KeyValuePair<KeyValuePair<int, BoardEnhancements>, KeyValuePair<object, object>> data in _enhancements) {
-                        //    KeyValuePair<int, BoardEnhancements> enhancementData = data.Key;
-                        //    KeyValuePair<object, object> enhancementValues = data.Value;
-
-                        //    if (enhancementData.Value != BoardEnhancements.Death) {
-                        //        AddOrModifyEnhancement(enhancementData.Key, pIndex, enhancementData.Value, enhancementValues.Value, null);
-                        //    }
-                        //}
-                        break;
-                    }
+                case BoardEnhancements.Can_Attack:
+                case BoardEnhancements.Death:
                 case BoardEnhancements.None:
                 default:
                     break;
@@ -116,6 +102,8 @@ namespace CardGame {
             Can_Attack = 0x02,
             // Death
             Death = 0x03,
+            // Shiel up
+            Has_Single_Shield = 0x04,
 
         }
     }

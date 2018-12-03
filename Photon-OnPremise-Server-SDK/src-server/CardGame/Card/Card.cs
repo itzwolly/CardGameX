@@ -1,6 +1,6 @@
 ﻿namespace CardGame {
     using System;
-    using System.Collections.Generic;
+    using NLua;
 
     public class Card {
         public readonly int Id;
@@ -10,8 +10,8 @@
         public readonly int TurboCost;
         public readonly string ActionsString;
         public readonly bool IsTurbo;
-        public readonly byte[] Actions;
-        
+        public readonly Lua Behaviour;
+
         public int OwnerId {
             get;
             set;
@@ -23,14 +23,16 @@
             Monster
         }
 
-        public Card(int pId, string pName, string pDescription, int pRegCost, int pTurboCost, byte[] pActions, bool pIsTurbo) {
+        public Card(int pId, string pName, string pDescription, int pRegCost, int pTurboCost, bool pIsTurbo) {
             Id = pId;
             Name = pName;
             Description = pDescription;
             RegCost = pRegCost;
             TurboCost = pTurboCost;
             IsTurbo = pIsTurbo;
-            Actions = pActions;
+            Behaviour = new Lua();
+
+            Behaviour.DoFile(LuaHelper.GetScriptFolder() + pId + LuaHelper.FileType);
         }
 
         public static CardType ValidateType(string pCardType) {

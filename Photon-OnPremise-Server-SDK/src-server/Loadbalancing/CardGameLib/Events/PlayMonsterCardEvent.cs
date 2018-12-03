@@ -1,4 +1,5 @@
-﻿using Photon.Hive.Plugin;
+﻿using NLua;
+using Photon.Hive.Plugin;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -40,9 +41,10 @@ namespace CardGame.Events {
                                 playedCard.BoardIndex = boardIndex;
                                 playedCard.OwnerId = _owner.GetId();
 
-                                //InitializeEnhancements(playedCard);
-
-                                _boardState.Interpret(playedCard, playedCard.Actions);
+                                LuaFunction function = playedCard.Behaviour.GetFunction("OnBeforePlayed");
+                                if (function != null) {
+                                    function.Call(playedCard);
+                                }
 
                                 _owner.CurrentMana -= playedCard.RegCost;
                                 _owner.Hand.Cards.Remove(playedCard);

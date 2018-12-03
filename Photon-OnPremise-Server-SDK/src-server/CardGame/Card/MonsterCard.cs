@@ -11,8 +11,8 @@ namespace CardGame {
             set;
         }
 
-        public MonsterCard(int pId, string pName, int? pAttack, int? pHealth, string pDescription, int pRegCost, int pTurboCost, byte[] pActions, bool pIsTurbo) 
-            : base(pId, pName, pDescription, pRegCost, pTurboCost, pActions, pIsTurbo) {
+        public MonsterCard(int pId, string pName, int? pAttack, int? pHealth, string pDescription, int pRegCost, int pTurboCost, bool pIsTurbo)
+            : base(pId, pName, pDescription, pRegCost, pTurboCost, pIsTurbo) {
             Attack = pAttack;
             Health = pHealth;
         }
@@ -44,6 +44,14 @@ namespace CardGame {
                 return;
             }
             Attack = pAmount;
+        }
+
+        public int GetOwnerId() {
+            return OwnerId;
+        }
+
+        public int GetBoardIndex() {
+            return BoardIndex;
         }
     }
 }

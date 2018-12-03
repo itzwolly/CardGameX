@@ -40,10 +40,10 @@
 
                 switch (type) {
                     case Card.CardType.Spell:
-                        card = new SpellCard(info.id, info.name, (info.description == null) ? "" : info.description, info.regcost, info.turbocost, info.GetActions(), false);
+                        card = new SpellCard(info.id, info.name, (info.description == null) ? "" : info.description, info.regcost, info.turbocost, false);
                         break;
                     case Card.CardType.Monster:
-                        card = new MonsterCard(info.id, info.name, info.attack, info.health, (info.description == null) ? "" : info.description, info.regcost, info.turbocost, info.GetActions(), false);
+                        card = new MonsterCard(info.id, info.name, info.attack, info.health, (info.description == null) ? "" : info.description, info.regcost, info.turbocost, false);
                         break;
                     case Card.CardType.None:
                     default:
@@ -65,10 +65,10 @@
 
                 switch (type) {
                     case Card.CardType.Spell:
-                        card = new SpellCard(info.id, info.name, (info.description == null) ? "" : info.description, info.regcost, info.turbocost, info.GetActions(), true);
+                        card = new SpellCard(info.id, info.name, (info.description == null) ? "" : info.description, info.regcost, info.turbocost, true);
                         break;
                     case Card.CardType.Monster:
-                        card = new MonsterCard(info.id, info.name, info.attack, info.health, (info.description == null) ? "" : info.description, info.regcost, info.turbocost, info.GetActions(), true);
+                        card = new MonsterCard(info.id, info.name, info.attack, info.health, (info.description == null) ? "" : info.description, info.regcost, info.turbocost, true);
                         break;
                     case Card.CardType.None:
                     default:
