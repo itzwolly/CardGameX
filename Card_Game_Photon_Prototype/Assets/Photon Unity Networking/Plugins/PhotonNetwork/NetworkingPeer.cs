@@ -2417,7 +2417,7 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
                 break;
             }
             case EventCode.BeginTurn: {
-                Hand.Instance.SelectedCardBehaviour = null;
+                Hand.Instance.SelectedMonsterCardBehaviour = null;
                 BoardManager.Instance.Attacker = null;
 
                 Hashtable data = (Hashtable) photonEvent.Parameters[ParameterCode.CustomEventContent];
@@ -2433,12 +2433,12 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
                     player.TotalTurbo += turbo;
 
                     CardGameCore.Instance.SetActivePlayer(player);
-                    CardGameCore.Instance.UpdateResources(player);
+                    CardGameCore.Instance.UpdatePlayerResources(player);
                 } else {
                      Debug.LogError("Player with given UserId: " + activePlayerUserId + " hasn't been created (yet)");
                 }
                 
-                Debug.Log(EventCode.BeginTurn + " => [BeginTurn] event recieved from server on: " + PhotonNetwork.player.ID + " with data: " + activePlayerUserId + "," + mana + "," + turbo);
+                //Debug.Log(EventCode.BeginTurn + " => [BeginTurn] event recieved from server on: " + PhotonNetwork.player.ID + " with data: " + activePlayerUserId + "," + mana + "," + turbo);
                 break;
             }
             case EventCode.DrawCard: {
@@ -2459,7 +2459,7 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
                             int attack = (int) data["attack"];
                             int health = (int) data["health"];
 
-                            cardData = new MonsterCardData(id, name, description, regCost, -1, attack, health);
+                            cardData = new MonsterCardData(id, name, description, regCost, -1, attack, health, PhotonNetwork.player.ID);
                         } else {
                             cardData = new SpellCardData(id, name, description, regCost, -1);
                         }
@@ -2467,13 +2467,13 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
                         Card drawn = new Card(cardData, false);
                         Hand.Instance.AddCard(drawn, handSize);
 
-                        Debug.Log(EventCode.DrawCard + " => [DrawCard] event recieved from server on: " + PhotonNetwork.player.ID + " with data: " + id + "," + name + "," + type + "," + regCost + "," + description + "," + handSize);
+                        //Debug.Log(EventCode.DrawCard + " => [DrawCard] event recieved from server on: " + PhotonNetwork.player.ID + " with data: " + id + "," + name + "," + type + "," + regCost + "," + description + "," + handSize);
                     } else if (obj is int) {
                         int handSize = (int) obj;
                        
                         HandManager manager = PhotonNetwork.player.TagObject as HandManager;
                         manager.DisplayEnemyCardDrawn(handSize);
-                        Debug.Log(EventCode.DrawCard + " => [DrawCard] event recieved from server on: " + PhotonNetwork.player.ID + " with data: " + handSize);
+                        //Debug.Log(EventCode.DrawCard + " => [DrawCard] event recieved from server on: " + PhotonNetwork.player.ID + " with data: " + handSize);
                     }
                 break;
             }
@@ -2494,7 +2494,7 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
                         // burned card is opponents.
 
                     }
-                    Debug.Log(EventCode.CardBurned + " => [CardBurned] event recieved from server on: " + PhotonNetwork.player.ID + " with data: " + id + "," + name + "," + regCost + "," + description);
+                    //Debug.Log(EventCode.CardBurned + " => [CardBurned] event recieved from server on: " + PhotonNetwork.player.ID + " with data: " + id + "," + name + "," + regCost + "," + description);
                 }
                 break;
             }
@@ -2517,12 +2517,12 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
 
                     Player player = CardGameCore.Instance.GetPlayerByActorNr(originatingPlayer.ID);
                     player.CurrentMana = mana;
-                    CardGameCore.Instance.UpdateResources(player);
+                    CardGameCore.Instance.UpdatePlayerResources(player);
 
                     HandManager manager = PhotonNetwork.player.TagObject as HandManager;
                     manager.DestroyCard(originatingPlayer.ID,/* id,*/ index);
 
-                    Debug.Log(EventCode.CardPlayed + " => [CardPlayed] event recieved from server on: " + PhotonNetwork.player.ID + " with data: " + id + "," + index);
+                    //Debug.Log(EventCode.CardPlayed + " => [CardPlayed] event recieved from server on: " + PhotonNetwork.player.ID + " with data: " + id + "," + index);
                     break;
                 }
             case EventCode.AddMonsterToBoard: {
@@ -2540,21 +2540,25 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
                     int cardHealth = (int) data["health"];
                     bool isTurbo = (bool) data["isturbo"];
 
-                    Debug.Log(EventCode.AddMonsterToBoard + " => [MonsterPlayed] event recieved from server on: " + PhotonNetwork.player.ID + " with data: " + cardId + "," + cardName + " AND MORE");
-
+                    //Debug.Log(EventCode.AddMonsterToBoard + " => [MonsterPlayed] event recieved from server on: " + PhotonNetwork.player.ID + " with data: " + cardId + "," + cardName + " AND MORE");
+                    
                     Card card = null;
                     if (originatingPlayer.ID == PhotonNetwork.player.ID) {
                         card = Hand.Instance.Cards[cardIndex];
                     } else {
-                        MonsterCardData monsterData = new MonsterCardData(cardId, cardName, cardDescription, cardRegCost, cardTurboCost, cardAttack, cardHealth);
+                        Debug.Log("Adding monster with: " + cardAttack + " | " + cardHealth);
+
+                        MonsterCardData monsterData = new MonsterCardData(cardId, cardName, cardDescription, cardRegCost, cardTurboCost, cardAttack, cardHealth, originatingPlayer.ID);
                         card = new Card(monsterData, isTurbo);
                     }
 
                     if (card.Data is MonsterCardData) {
                         MonsterCardData cardData = card.Data as MonsterCardData;
+                        cardData.BoardIndex = boardIndex;
 
-                        GameObject[] slots = BoardManager.Instance.GetBoardSlots(originatingPlayer.ID);
-                        GameObject slot = slots[(originatingPlayer.ID == PhotonNetwork.player.ID) ? boardIndex : (slots.Length - 1) - boardIndex];
+                        Transform parent = BoardManager.Instance.GetBoardById(originatingPlayer.ID);
+                        int index = (originatingPlayer.ID == PhotonNetwork.player.ID) ? boardIndex : (parent.childCount - 1) - boardIndex;
+                        GameObject slot = parent.GetChild(index).gameObject;
 
                         if (cardData != null) {
                             BoardManager.Instance.PlaceMonster(slot, card);
@@ -2592,7 +2596,7 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
                                     int attack = (int) table["attack-" + i];
                                     int health = (int) table["health-" + i];
 
-                                    CardData cardData = new MonsterCardData(id, name, description, -1, turbocost, attack, health);
+                                    CardData cardData = new MonsterCardData(id, name, description, -1, turbocost, attack, health, PhotonNetwork.player.ID);
                                     card = new Card(cardData, true);
                                 } else {
                                     CardData cardData = new SpellCardData(id, name, description, -1, turbocost);
@@ -2640,7 +2644,7 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
 
                     Player player = CardGameCore.Instance.GetPlayerByActorNr(originatingPlayer.ID);
                     player.CurrentTurbo = turbo;
-                    CardGameCore.Instance.UpdateResources(player);
+                    CardGameCore.Instance.UpdatePlayerResources(player);
                     break;
                 }
             case EventCode.TurboCardRecieved: {
@@ -2659,7 +2663,7 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
                         int attack = (int) data["attack"];
                         int health = (int) data["health"];
 
-                        cardData = new MonsterCardData(id, name, description, regCost, turboCost, attack, health);
+                        cardData = new MonsterCardData(id, name, description, regCost, turboCost, attack, health, PhotonNetwork.player.ID);
                     } else {
                         cardData = new SpellCardData(id, name, description, regCost, turboCost);
                     }
@@ -2667,44 +2671,18 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
                     Card drawn = new Card(cardData, true);
                     Hand.Instance.AddCard(drawn, handSize);
 
-                    Debug.Log(EventCode.TurboCardRecieved + " => [TurboCardRecieved] event recieved from server on: " + PhotonNetwork.player.ID + " with data: " + id + "," + name + "," + type + "," + turboCost + "," + description + "," + handSize);
+                    //Debug.Log(EventCode.TurboCardRecieved + " => [TurboCardRecieved] event recieved from server on: " + PhotonNetwork.player.ID + " with data: " + id + "," + name + "," + type + "," + turboCost + "," + description + "," + handSize);
                     break;
                 }
-            case EventCode.UpdateHealth: {
+            case EventCode.UpdateEnhancement: {
                     Hashtable data = (Hashtable) photonEvent.Parameters[ParameterCode.CustomEventContent];
-                    int targetId = (int) data["targetid"];
-                    int targetHealth = (int) data["targethealth"];
+                    int amount = (int) data["amount"];
 
-                    int attackerOwnerId = (int) data["attackerownerid"];
-                    int attackerIndex = (int) data["attackerindex"];
-                    int attackerHealth = (int) data["attackerhealth"];
-
-                    string debug = EventCode.UpdateHealth + " => [UpdateHealth] event recieved from server on: " + PhotonNetwork.player.ID + " with data: " + targetId + "," + targetHealth + ",";
-
-                    Player target = CardGameCore.Instance.GetPlayerByActorNr(targetId);
-                    if (target != null) {
-                        target.Health = targetHealth;
-                        CardGameCore.Instance.UpdateResources(target);
-                    } else {
-                        int targetOwnerId = (int) data["targetownerid"];
-                        int targetIndex = (int) data["targetindex"];
-
-                        debug += targetOwnerId + "," + targetIndex + ",";
-
-                        if (attackerOwnerId == PhotonNetwork.player.ID) {
-                            targetIndex = Mathf.Abs(targetIndex - (BoardManager.Instance.GetBoardSlots(targetOwnerId).Length - 1));
-                        }
-                        if (targetOwnerId == PhotonNetwork.player.ID) {
-                            attackerIndex = Mathf.Abs(attackerIndex - (BoardManager.Instance.GetBoardSlots(attackerIndex).Length - 1));
-                        }
-
-                        BoardManager.Instance.UpdateMonster(targetOwnerId, targetIndex, targetHealth);
-                        BoardManager.Instance.UpdateMonster(attackerOwnerId, attackerIndex, attackerHealth);
+                    for (int i = 0; i < amount; i++) {
+                        byte[] enhancementData = (byte[]) data["enhancement-" + i];
+                        Enhancement enh = Enhancement.Deserialize(enhancementData);
+                        CardGameCore.Instance.Interpret(enh);
                     }
-
-                    debug += attackerOwnerId + "," + attackerIndex + "," + attackerHealth;
-
-                    Debug.Log(debug);
                     break;
                 }
             case PunEvent.OwnershipRequest:
@@ -2712,7 +2690,6 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
                 int[] requestValues = (int[]) photonEvent.Parameters[ParameterCode.CustomEventContent];
                 int requestedViewId = requestValues[0];
                 int currentOwner = requestValues[1];
-
 
                 PhotonView requestedView = PhotonView.Find(requestedViewId);
                 if (requestedView == null)

@@ -57,35 +57,44 @@ public class BoardCardBehaviour : MonoBehaviour {
     private void OnMouseOver() {
         if (Input.GetMouseButtonUp(0)) {
             if (CardGameCore.Instance.GetActivePlayer().UserId == PhotonNetwork.player.UserId) {
-                if (BoardManager.Instance.Attacker != null) {
-                    BoardManager.Instance.Target = gameObject;
+                if (Hand.Instance.SelectedSpellCardBehaviour != null) {
+                    List<IInteractable> datas = Hand.Instance.GetTargets();
+                    if (!datas.Contains(_data)) {
+                        Hand.Instance.GetTargets().Add(_data);
 
-                    int targetId = BoardManager.Instance.Target.GetComponent<BoardCardBehaviour>().Data.Id;
-                    int targetOwnerId = CardGameCore.Instance.Opponent.ActorNr;
-                    int targetIndex = GetSiblingIndex(BoardManager.Instance.Target.transform.parent, BoardManager.Instance.Target.transform.parent.parent);
-                    targetIndex = Mathf.Abs(targetIndex - (BoardManager.Instance.Target.transform.parent.parent.childCount - 1));
+                        Debug.Log("Selecting target!!");
+                    }
+                } else {
+                    if (BoardManager.Instance.Attacker != null) {
+                        BoardManager.Instance.Target = gameObject;
+
+                        int targetId = BoardManager.Instance.Target.GetComponent<BoardCardBehaviour>().Data.Id;
+                        int targetOwnerId = CardGameCore.Instance.Opponent.ActorNr;
+                        int targetIndex = GetSiblingIndex(BoardManager.Instance.Target.transform.parent, BoardManager.Instance.Target.transform.parent.parent);
+                        targetIndex = Mathf.Abs(targetIndex - (BoardManager.Instance.Target.transform.parent.parent.childCount - 1));
 
 
-                    int attackerId = BoardManager.Instance.Attacker.Data.Id;
-                    int attackerOwnerId = CardGameCore.Instance.GetActivePlayer().ActorNr;
-                    int attackerIndex = GetSiblingIndex(BoardManager.Instance.Attacker.transform.parent, BoardManager.Instance.Attacker.transform.parent.parent);
+                        int attackerId = BoardManager.Instance.Attacker.Data.Id;
+                        int attackerOwnerId = CardGameCore.Instance.GetActivePlayer().ActorNr;
+                        int attackerIndex = GetSiblingIndex(BoardManager.Instance.Attacker.transform.parent, BoardManager.Instance.Attacker.transform.parent.parent);
 
-                    Hashtable data = new Hashtable();
-                    data.Add("targetid", targetId);
-                    data.Add("targetownerid", targetOwnerId);
-                    data.Add("targetindex", targetIndex);
+                        Hashtable data = new Hashtable();
+                        data.Add("targetid", targetId);
+                        data.Add("targetownerid", targetOwnerId);
+                        data.Add("targetindex", targetIndex);
 
-                    data.Add("attackerid", attackerId);
-                    data.Add("attackerownerid", attackerOwnerId);
-                    data.Add("attackerindex", attackerIndex);
+                        data.Add("attackerid", attackerId);
+                        data.Add("attackerownerid", attackerOwnerId);
+                        data.Add("attackerindex", attackerIndex);
 
-                    SendAttackEvent(data);
+                        SendAttackEvent(data);
 
-                    BoardManager.Instance.Attacker = null;
-                    BoardManager.Instance.Target = null;
+                        BoardManager.Instance.Attacker = null;
+                        BoardManager.Instance.Target = null;
+                    }
+
+                    BoardManager.Instance.Attacker = this;
                 }
-
-                BoardManager.Instance.Attacker = this;
             } else {
                 Debug.Log("Not your turn..");
             }

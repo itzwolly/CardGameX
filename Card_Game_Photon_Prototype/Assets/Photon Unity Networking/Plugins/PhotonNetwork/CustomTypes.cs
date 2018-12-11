@@ -16,6 +16,7 @@
 
 using ExitGames.Client.Photon;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 
@@ -32,7 +33,6 @@ internal static class CustomTypes
         PhotonPeer.RegisterType(typeof(Vector3), (byte)'V', SerializeVector3, DeserializeVector3);
         PhotonPeer.RegisterType(typeof(Quaternion), (byte)'Q', SerializeQuaternion, DeserializeQuaternion);
         PhotonPeer.RegisterType(typeof(PhotonPlayer), (byte)'P', SerializePhotonPlayer, DeserializePhotonPlayer);
-        //PhotonPeer.RegisterType(typeof(GameState), (byte) 'R', null, DeserializeGameState);
     }
 
 
@@ -174,16 +174,16 @@ internal static class CustomTypes
         }
     }
 
-    //private static object DeserializeGameState(byte[] bytes) {
-    //    GameState gameState = new GameState();
-    //    using (var s = new MemoryStream(bytes)) {
-    //        using (var br = new BinaryReader(s)) {
-    //            gameState.Player1Health = br.ReadInt32();
-    //            gameState.Player2Health = br.ReadInt32();
-    //        }
-    //    }
-    //    return gameState;
-    //}
+    public static byte[] ReadAllBytes(BinaryReader reader) {
+        const int bufferSize = 4096;
+        using (var ms = new MemoryStream()) {
+            byte[] buffer = new byte[bufferSize];
+            int count;
+            while ((count = reader.Read(buffer, 0, buffer.Length)) != 0)
+                ms.Write(buffer, 0, count);
+            return ms.ToArray();
+        }
 
+    }
     #endregion
 }

@@ -22,10 +22,18 @@ public class Hand : MonoBehaviour {
     }
 
     public List<Card> Cards = null;
-    public CardGameBehaviour SelectedCardBehaviour = null;
+    public CardGameBehaviour SelectedMonsterCardBehaviour = null;
+    public CardGameBehaviour SelectedSpellCardBehaviour = null;
+
+    private List<IInteractable> _targets;
 
     public void Init() {
         Cards = new List<Card>();
+        _targets = new List<IInteractable>();
+    }
+
+    public List<IInteractable> GetTargets() {
+        return _targets;
     }
 
     public GameObject AddCard(Card pCard, int pHandSize) {

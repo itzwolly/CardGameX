@@ -2,7 +2,7 @@
     using System;
     using NLua;
 
-    public class Card {
+    public class Card : IScriptable {
         public readonly int Id;
         public readonly string Name;
         public readonly string Description;
@@ -30,9 +30,7 @@
             RegCost = pRegCost;
             TurboCost = pTurboCost;
             IsTurbo = pIsTurbo;
-            Behaviour = new Lua();
-
-            Behaviour.DoFile(LuaHelper.GetScriptFolder() + pId + LuaHelper.FileType);
+            Behaviour = LuaHelper.DoFile(LuaHelper.GetScriptFolder() + pId + LuaHelper.FILE_TYPE, Game.Instance);
         }
 
         public static CardType ValidateType(string pCardType) {
@@ -53,6 +51,29 @@
 
         public bool IsMonster() {
             return this is MonsterCard;
+        }
+
+        public bool IsSpell() {
+            return this is SpellCard;
+        }
+
+        public Lua GetBehaviour() {
+            return Behaviour;
+        }
+
+        public object[] CallFunction(string pFunction, params object[] pArgs) {
+            LuaFunction function = Behaviour.GetFunction(pFunction);
+
+            if (function != null) {
+                return function.Call(pArgs);
+            } else {
+                if (IsMonster()) {
+                    function = Game.Instance.MonsterDefaultBehaviour.GetFunction(LuaHelper.MONSTER_DEFAULT_NAMESPACE + pFunction);
+                } else {
+                    function = Game.Instance.SpellDefaultBehaviour.GetFunction(LuaHelper.SPELL_DEFAULT_NAMESPACE + pFunction);
+                }
+                return function.Call(pArgs);
+            }
         }
     }
 }

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class Player {
+public class Player : IInteractable {
     private const int MAX_MANA = 10;
     private const int MAX_TURBO = 5;
 
-    public int Health;
+    private int _health;
     private int _totalMana;
     private int _totalTurbo;
     private int _currentMana;
@@ -14,7 +14,17 @@ public class Player {
     public readonly int ActorNr;
     public readonly string UserId;
 
-    
+    public int Health {
+        get { return _health; }
+        set {
+            _health = value;
+
+            if (_health < 0) {
+                _health = 0;
+            }
+        }
+    }
+
     public int CurrentMana {
         get { return _currentMana; }
         set {
@@ -59,6 +69,18 @@ public class Player {
     public Player(int pActorNr, string pUserId, int pStartingHealth) {
         ActorNr = pActorNr;
         UserId = pUserId;
-        Health = pStartingHealth;
+        _health = pStartingHealth;
+    }
+
+    public int GetId() {
+        return ActorNr;
+    }
+
+    public int GetBoardIndex() {
+        return -1;
+    }
+
+    public int GetOwnerId() {
+        return -1;
     }
 }

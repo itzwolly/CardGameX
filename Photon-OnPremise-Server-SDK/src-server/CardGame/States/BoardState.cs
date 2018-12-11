@@ -1,229 +1,226 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 
 namespace CardGame {
-
     public class BoardState {
-        public const int BOARD_SIDE_SIZE = 5;
-        private const int MAX_STACK_SIZE = 128;
+        public const int BOARD_SIDE_SIZE = 5; // Amount of slots each side of the board should have..
 
-        public readonly PlayerState PlayerState;
-        
-        private int _stackSize;
-        private int[] _stack;
+        private List<Enhancement> _enhancements;
+        private List<AuraEnhancement> _auraEnhancement;
 
-        public BoardState(PlayerState pPlayerState) {
-            PlayerState = pPlayerState;
-            _stack = new int[MAX_STACK_SIZE];
-            _stackSize = 0;
+        public BoardState() {
+            _enhancements = new List<Enhancement>();
+            _auraEnhancement = new List<AuraEnhancement>();
         }
 
-        // Attack: Target id, Target Owner id, Target Index (onboard), Attacker id, Attacker Index, Attacker Owner Id, GetAttack, Target id, Target Index, Target Owner Id, GetHealth, Subtract, Set_Health
-        public void DamageCalculation(IInteractable pAttacker, IInteractable pTarget) {
-            byte[] code = new byte[22];
+        public Enhancement AddEnhancement(IInteractable pOwner, BoardEnhancements pBoardEnhancement, int pValue) {
+            Enhancement enhancement = new Enhancement(pOwner, pBoardEnhancement, pValue);
+            _enhancements.Add(enhancement);
+            ExecuteAdd(enhancement);
 
-            code[0] = (byte) BoardKeys.Instruction.Literal;
-            code[1] = (byte) pTarget.GetId();
-            code[2] = (byte) BoardKeys.Instruction.Literal;
-            code[3] = (byte) pTarget.GetOwnerId();
-            code[4] = (byte) BoardKeys.Instruction.Literal;
-            code[5] = (byte) pTarget.GetBoardIndex();
-
-            code[6] = (byte) BoardKeys.Instruction.Literal;
-            code[7] = (byte) pAttacker.GetId();
-            code[8] = (byte) BoardKeys.Instruction.Literal;
-            code[9] = (byte) pAttacker.GetBoardIndex();
-            code[10] = (byte) BoardKeys.Instruction.Literal;
-            code[11] = (byte) pAttacker.GetOwnerId();
-            code[12] = (byte) BoardKeys.Instruction.Get_Attack;
-
-            code[13] = (byte) BoardKeys.Instruction.Literal;
-            code[14] = (byte) pTarget.GetId();
-            code[15] = (byte) BoardKeys.Instruction.Literal;
-            code[16] = (byte) pTarget.GetBoardIndex();
-            code[17] = (byte) BoardKeys.Instruction.Literal;
-            code[18] = (byte) pTarget.GetOwnerId();
-            code[19] = (byte) BoardKeys.Instruction.Get_Health;
-
-            code[20] = (byte) BoardKeys.Instruction.Subtract;
-            code[21] = (byte) BoardKeys.Instruction.Set_Health;
-
-            Interpret(code);
+            return enhancement;
         }
 
-        // EXAMPLE:     Rush 
-        // Bytecode:    0x01 (Literal) | 5 (Monster Id), 0x01 (Literal) | 1 (Can Attack, yes or no), 0x13 (Set_Can_Attack)
-        //
-        // Attack:      Target Index, Attacker Index, GetAttack, Target Index, GetHealth, Subtract, Set_Health
-        // Stack:       5           | 4        | 8    | 8-4 = 4  | target = 5, health = 4
-        //
-        // Attack:      Target id, Target Owner id, Target Index (onboard), Attacker id, Attacker Index, Attacker Owner Id, GetAttack, Target id, Target Index, Target Owner Id, GetHealth, Subtract, Set_Health
-        // Stack:       
-        public void Interpret(byte[] pByteCode) {
-            for (int i = 0; i < pByteCode.Length; i++) {
-                byte instruction = pByteCode[i];
+        public AuraEnhancement AddAuraEnhancement(IInteractable pOwner, BoardEnhancements pEnhancement, TargetCollection.TargetType pTargetType, int pValue) {
+            AuraEnhancement aura = new AuraEnhancement(pOwner, pEnhancement, pTargetType, pValue);
+            _auraEnhancement.Add(aura);
 
-                switch (instruction) {
-                    case (byte) BoardKeys.Instruction.Literal: {
-                            int value = pByteCode[++i];
-                            push(value);
-                            break;
-                        }
-                    case (byte) BoardKeys.Instruction.Get_Attack: {
-                            int playerOwnerId = pop(); // Owner id
-                            int targetIndex = pop(); // Board index
-                            int targetId = pop(); // Monster Id
+            for (int i = 0; i < aura.TargetCollection.GetTargets().Count; i++) {
+                IInteractable target = aura.TargetCollection.GetTargets()[i];
+                Enhancement enh = AddEnhancement(target, aura.BoardEnhancement, aura.Value);
+                aura.GetEnhancements().Add(enh);
+            }
+            return aura;
+        }
 
-                            if (PlayerState.IsPlayerId(targetId)) { // Check if target is the player
-                                Player player = PlayerState.GetPlayerById(targetId);
-                                push((int) player.GetAttack());
-                            } else { // its a monster
-                                Player owner = PlayerState.GetPlayerById(playerOwnerId);
-                                MonsterCard monster = owner.BoardSide.Slots[targetIndex];
-
-                                if (monster.Id == targetId) {
-                                    push((int) monster.GetAttack());
-                                } else {
-                                    return; // Something went wrong
-                                }
-                            }
-                            break;
-                        }
-                    case (byte) BoardKeys.Instruction.Get_Health: {
-                            int playerOwnerId = pop(); // Owner id
-                            int targetIndex = pop(); // Board index
-                            int targetId = pop(); // Monster Id
-
-                            if (PlayerState.IsPlayerId(targetId)) { // Check if target is the player
-                                Player player = PlayerState.GetPlayerById(targetId);
-                                push((int) player.GetHealth());
-                            } else { // its a monster
-                                Player owner = PlayerState.GetPlayerById(playerOwnerId);
-                                MonsterCard monster = owner.BoardSide.Slots[targetIndex];
-
-                                if (monster != null && monster.Id == targetId) {
-                                    push((int) monster.GetHealth());
-                                } else {
-                                    return; // Something went wrong
-                                }
-                            }
-                            break;
-                        }
-                    case (byte) BoardKeys.Instruction.Set_Health: {
-                            int newHealth = pop();
-                            int targetIndex = pop();
-                            int playerOwnerId = pop();
-                            int targetId = pop();
-
-                            if (!PlayerState.IsPlayerId(targetId)) {
-                                Player player = PlayerState.GetPlayerById(playerOwnerId);
-                                player.BoardSide.AddOrModifyEnhancement(targetId, targetIndex, BoardSide.BoardEnhancements.Set_Health, newHealth, player.BoardSide.Slots[targetIndex].Health);
-                            } else {
-                                Player player = PlayerState.GetPlayerById(targetId);
-                                player.BoardSide.AddOrModifyEnhancement(targetId, -1, BoardSide.BoardEnhancements.Set_Health, newHealth, player.GetHealth());
-                            }
-                            break;
-                        }
-                    case (byte) BoardKeys.Instruction.Set_Can_Attack: {
-                            int value = pop();
-                            int targetIndex = pop();
-                            int playerOwnerId = pop();
-                            int targetId = pop();
-
-                            Player player = PlayerState.GetPlayerById(playerOwnerId);
-                            object obj = player.BoardSide.GetEnhancementValue(targetId, BoardSide.BoardEnhancements.Can_Attack);
-
-                            if (obj == null) {
-                                player.BoardSide.AddOrModifyEnhancement(targetId, targetIndex, BoardSide.BoardEnhancements.Can_Attack, value, false);
-                            } else {
-                                player.BoardSide.AddOrModifyEnhancement(targetId, targetIndex, BoardSide.BoardEnhancements.Can_Attack, value, (int) obj);
-                            }
-                            break;
-                        }
-                    case (byte) BoardKeys.Instruction.Get_Can_Attack: {
-                            int playerOwnerId = pop();
-                            int targetIndex = pop();
-                            int targetId = pop();
-
-                            Player player = PlayerState.GetPlayerById(playerOwnerId);
-                            object obj = player.BoardSide.GetEnhancementValue(targetId, BoardSide.BoardEnhancements.Can_Attack);
-
-                            if (obj != null) {
-                                push((int) obj);
-                            } else {
-                                return; // Something went wrong
-                            }
-                            break;
-                        }
-                    case (byte) BoardKeys.Instruction.Subtract: {
-                            int b = pop();
-                            int a = pop();
-                            
-                            push(b - a);
-                            break;
-                        }
-                    case (byte) BoardKeys.Instruction.None:
-                    default:
-                        break;
+        public void ValidateAuras(IInteractable pTarget) {
+            for (int i = 0; i < _auraEnhancement.Count; i++) {
+                AuraEnhancement aura = _auraEnhancement[i];
+                if (aura.ShouldReceiveEffects(pTarget)) {
+                    Enhancement enh = Game.Instance.BoardState.AddEnhancement(pTarget, aura.BoardEnhancement, aura.Value);
+                    aura.GetEnhancements().Add(enh);
                 }
             }
         }
 
-        private void push(int pValue) {
-            Debug.Assert(_stackSize < MAX_STACK_SIZE);
-            _stack[_stackSize++] = pValue;
-        }
-        
-        private int pop() {
-            Debug.Assert(_stackSize > 0);
-            return _stack[--_stackSize];
+        public void CleanAuras(IInteractable pTarget) {
+            for (int i = _auraEnhancement.Count - 1; i >= 0; i--) {
+                if (_auraEnhancement[i].Owner != pTarget) { continue; }
+
+                AuraEnhancement aura = _auraEnhancement[i];
+                for (int j = aura.GetEnhancements().Count - 1; j >= 0; j--) {
+                    Enhancement enh = aura.GetEnhancements()[j];
+                    NegateEnhancement(enh);
+                    aura.GetEnhancements().Remove(enh);
+                }
+                _auraEnhancement.Remove(aura);
+            }
         }
 
-        public class BoardKeys {
-            public enum Instruction {
-                // Termination
-                None = 0x00,
-                // Basics bytecode
-                Literal = 0x01,
-                // Basics Gameplay
-                Get_Health = 0x02,
-                Set_Health = 0x03,
-                Get_Attack = 0x04,
-                Set_Attack = 0x05,
-                Destroy_Monster = 0x06,
-                // Math
-                Add = 0x07,
-                Subtract = 0x08,
-                Divide = 0x09,
-                Multiply = 0x10,
-                Random = 0x11,
-                // Rush
-                Get_Can_Attack = 0x12,
-                Set_Can_Attack = 0x13,
-                // Shielded
-                Get_Has_Shield = 0x14,
-                Set_Has_Shield = 0x15,
-                // Shield up
-                Get_Player_Board_Has_Shield = 0x16,
-                Set_Player_Board_Has_Shield = 0x17,
-                // Empower 
-                Get_Adjacent_Monster_Health = 0x18,
-                Set_Adjacent_Monster_Health = 0x19,
-                Get_Adjacent_Monster_Attack = 0x20,
-                Set_Adjacent_Monster_Attack = 0x21,
-                // Enraged
-                Get_Opponent_Board_Health = 0x22,
-                Get_Opponent_Board_Attack = 0x23,
-                // Lure
-                Get_Priority_Spells = 0x24,
-                Set_Priority_Spells = 0x25,
-                // Duplicates in deck
-                Get_Card_Duplicate_Amount_In_Deck = 0x26,
-                // Monster below x hp
-                Get_All_Monster_Health = 0x27,
+        public object GetNewestEnhancementValue(IInteractable pOwner, BoardEnhancements pBoardEnhancement) {
+            Enhancement enh = GetNewestEnhancement(pOwner, pBoardEnhancement);
+            if (enh != null) {
+                return enh.Value;
+            } else {
+                return null;
             }
+        }
+
+        public Enhancement GetNewestEnhancement(IInteractable pOwner, BoardEnhancements pBoardEnhancement) {
+            Enhancement enh = _enhancements.LastOrDefault(o => o.Owner == pOwner && o.BoardEnhancement == pBoardEnhancement);
+            return enh;
+        }
+
+        public List<AuraEnhancement> GetAuraEnhancements() {
+            return _auraEnhancement;
+        }
+
+        public List<Enhancement> GetEnhancements() {
+            return _enhancements;
+        }
+
+        public bool GetUnhandledEnhancements(out Hashtable pTable) {
+            List<Enhancement> enhancements = Game.Instance.BoardState.GetEnhancements().Where(o => o.Handled == false).ToList();
+            Hashtable table = new Hashtable();
+            if (enhancements.Count > 0) {
+                table.Add("amount", enhancements.Count);
+                for (int i = 0; i < enhancements.Count; i++) {
+                    Enhancement enh = enhancements[i];
+                    table.Add("enhancement-" + i, enh.Serialize());
+
+                    if (enh.Owner.GetHealth() <= 0) {
+                        if (enh.Owner is MonsterCard) { // Its a monster..
+                            Game.Instance.PlayerState.GetPlayerById(enh.Owner.GetOwnerId()).BoardSide.KillMonster(enh.Owner as MonsterCard); // So kill it..
+                        } else { // Is Player
+                            // TODO: Do something here..
+                        }
+                    }
+                    enh.Handled = true;
+                }
+                pTable = table;
+                return true;
+            }
+            pTable = null;
+            return false;            
+        }
+
+        public List<Enhancement> GetEnhancements(IInteractable pOwner) {
+            return _enhancements.Where(o => o.Owner == pOwner).ToList();
+        }
+
+        public int GetEnhancementCount(IInteractable pOwner, BoardEnhancements pBoardEnhancement) {
+            if (pOwner == null) { return 0; }
+            return _enhancements.Count(o => o.Owner == pOwner && o.BoardEnhancement == pBoardEnhancement);
+        }
+
+        public int GetEnhancementCount() {
+            return _enhancements.Count;
+        }
+
+        public void RemoveAllEnhancements(IInteractable pOwner) {
+            if (pOwner == null) { return; }
+
+            List<Enhancement> enh = GetEnhancements(pOwner);
+            for (int i = enh.Count - 1; i >= 0; i--) {
+                _enhancements.Remove(enh[i]);
+            }
+        }
+
+        public static BoardEnhancements Serialize(string pEnhancement) {
+            BoardEnhancements enhancement;
+            bool parsed = Enum.TryParse(pEnhancement, out enhancement);
+            if (parsed) {
+                return enhancement;
+            }
+            return BoardEnhancements.None;
+        }
+
+        private void ExecuteAdd(Enhancement pEnhancement) {
+            BoardEnhancements boardEnhancement = pEnhancement.BoardEnhancement;
+            switch (boardEnhancement) {
+                case BoardEnhancements.Set_Health: {
+                        break;
+                    }
+                case BoardEnhancements.Set_Attack: {
+                        break;
+                    }
+                case BoardEnhancements.Add_Health: {
+                        IInteractable owner = pEnhancement.Owner;
+                        int healthToAdd = pEnhancement.Value;
+
+                        pEnhancement.AddOrModifyProperty(boardEnhancement, healthToAdd);
+
+                        owner.SetHealth((int) owner.GetHealth() + healthToAdd);
+                        break;
+                    }
+                case BoardEnhancements.Add_Attack: {
+                        IInteractable owner = pEnhancement.Owner;
+                        int attackToAdd = pEnhancement.Value;
+
+                        pEnhancement.AddOrModifyProperty(boardEnhancement, attackToAdd);
+
+                        owner.SetAttack((int) owner.GetAttack() + attackToAdd);
+                        break;
+                    }
+                case BoardEnhancements.Can_Attack:
+                case BoardEnhancements.Has_Single_Shield:
+                case BoardEnhancements.Spell_Taunt:
+                case BoardEnhancements.None:
+                default:
+                    break;
+            }
+        }
+
+        private void NegateEnhancement(Enhancement pEnhancement) {
+            BoardEnhancements boardEnhancement = pEnhancement.BoardEnhancement;
+            switch (boardEnhancement) {
+                case BoardEnhancements.Set_Health: // TODO: ADD
+                case BoardEnhancements.Set_Attack: // TODO: ADD
+                case BoardEnhancements.Add_Health: {
+                        IInteractable owner = pEnhancement.Owner;
+
+                        int healthToAdd;
+                        if (pEnhancement.GetPropertyValue(boardEnhancement, out healthToAdd)) {
+                            AddEnhancement(owner, boardEnhancement, -healthToAdd);
+                        }
+                        break;
+                    }
+                case BoardEnhancements.Add_Attack: {
+                        IInteractable owner = pEnhancement.Owner;
+
+                        int attackToAdd;
+                        if (pEnhancement.GetPropertyValue(boardEnhancement, out attackToAdd)) {
+                            AddEnhancement(owner, boardEnhancement, -attackToAdd);
+                        }
+                        break;
+                    }
+                case BoardEnhancements.Can_Attack:
+                case BoardEnhancements.Has_Single_Shield:
+                case BoardEnhancements.Spell_Taunt:
+                case BoardEnhancements.None:
+                default:
+                    break;
+            }
+        }
+
+        public enum BoardEnhancements {
+            // Termination
+            None,
+            // Basics
+            Set_Health,
+            Set_Attack,
+            Add_Health,
+            Add_Attack,
+            // Rush
+            Can_Attack,
+            // Shield up
+            Has_Single_Shield,
+            // Lure
+            Spell_Taunt,
         }
     }
 }

@@ -1240,7 +1240,7 @@ using ExitGames.Client.Photon;
 
         public const byte Attack = 117;
 
-        public const byte UpdateHealth = 118;
+        public const byte UpdateEnhancement = 118;
     }
 
 

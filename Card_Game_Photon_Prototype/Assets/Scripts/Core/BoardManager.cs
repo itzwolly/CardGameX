@@ -19,17 +19,17 @@ public class BoardManager : MonoBehaviour {
     }
 
     [SerializeField] private GameObject _cardPrefab;
-    [SerializeField] private GameObject[] _playerBoardSlots;
-    [SerializeField] private GameObject[] _enemyBoardSlots;
+    [SerializeField] private GameObject _playerBoard;
+    [SerializeField] private GameObject _enemyBoard;
 
     [HideInInspector] public BoardCardBehaviour Attacker;
     [HideInInspector] public GameObject Target;
 
-    public GameObject[] GetBoardSlots(int pPlayerId) {
+    public Transform GetBoardById(int pPlayerId) {
         if (pPlayerId == PhotonNetwork.player.ID) {
-            return _playerBoardSlots;
+            return _playerBoard.transform;
         } else {
-            return _enemyBoardSlots;
+            return _enemyBoard.transform;
         }
     }
 
@@ -50,15 +50,20 @@ public class BoardManager : MonoBehaviour {
         return false;
     }
 
-    public void UpdateMonster(int pOwnerId, int pIndex, int pHealth) {
-        Debug.Log(PhotonNetwork.player.UserId + " | " + pIndex + " | " + pOwnerId);
-
-        GameObject[] slots = GetBoardSlots(pOwnerId);
-        GameObject obj = slots[pIndex].transform.GetChild(0).gameObject;
-        BoardCardBehaviour bcb = obj.GetComponent<BoardCardBehaviour>();
-
-        MonsterCardData data = bcb.Data;
-        data.Health = pHealth;
-        bcb.Data = data;
+    public BoardCardBehaviour GetBoardCardBehaviour(int pOwnerId, int pIndex) {
+        Transform parent = GetBoardById(pOwnerId);
+        if (pIndex < 0 || pIndex >= parent.childCount) {
+            Debug.Log("Index out of bounds: " + pIndex);
+            return null;
+        }
+        
+        GameObject slot = parent.GetChild(pIndex).gameObject;
+        if (slot != null) {
+            //Debug.Log("GameObject : " + slot.name + " has " + slot.transform.childCount + " Children");
+            GameObject target = slot.transform.GetChild(0).gameObject;
+            BoardCardBehaviour bcb = target.GetComponent<BoardCardBehaviour>();
+            return bcb;
+        }
+        return null;
     }
 }

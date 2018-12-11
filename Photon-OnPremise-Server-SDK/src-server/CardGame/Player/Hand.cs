@@ -13,8 +13,7 @@ namespace CardGame {
             Cards = new List<Card>();
         }
 
-        public void AddCard(Game pGame, Card pCard) {
-            pGame.RegisterFunctions(pCard);
+        public void AddCard(Card pCard) {
             Cards.Add(pCard);
         }
 

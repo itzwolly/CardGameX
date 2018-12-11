@@ -4,107 +4,62 @@ using System.Linq;
 
 namespace CardGame {
     public class BoardSide {
-        public readonly MonsterCard[] Slots;
-        private Dictionary<KeyValuePair<int, BoardEnhancements>, KeyValuePair<object, object>> _enhancements;
         private Player _owner;
+
+        public readonly BoardSlot[] Slots;
 
         public BoardSide(Player pOwner) {
             _owner = pOwner;
-            Slots = new MonsterCard[BoardState.BOARD_SIDE_SIZE];
-            _enhancements = new Dictionary<KeyValuePair<int, BoardEnhancements>, KeyValuePair<object, object>>();
+            Slots = new BoardSlot[BoardState.BOARD_SIDE_SIZE];
+
+            for (int i = 0; i < Slots.Length; i++) {
+                Slots[i] = new BoardSlot(i, null, _owner);
+            }
         }
 
         public bool Occupy(int pIndex, MonsterCard pMonster) {
-            if (Slots[pIndex] == null) {
-                Slots[pIndex] = pMonster;
+            BoardSlot slot = Slots[pIndex];
+            if (slot.Monster == null) {
+                slot.UpdateMonster(pMonster);
                 return true;
             }
             return false;
         }
 
-        public bool KillMonster(MonsterCard pMonster) {
+        public bool KillMonster(MonsterCard pMonster, bool pRemoveEnhancements = true) {
             if (pMonster.BoardIndex >= Slots.Length || pMonster.BoardIndex < 0) {
                 return false;
             }
-            RemoveEnhancements(pMonster.Id);
-            Slots[pMonster.BoardIndex] = null;
+            BoardSlot slot = Slots[pMonster.BoardIndex];
+            if (pRemoveEnhancements) {
+                Game.Instance.BoardState.RemoveAllEnhancements(pMonster);
+            }
+            slot.ClearMonster();
             return true;
         }
 
-        public void AddOrModifyEnhancement(int pId, int pBoardIndex, BoardEnhancements pEnhancement, object pValue, object pOriginalValue) {
-            KeyValuePair<int, BoardEnhancements> key = new KeyValuePair<int, BoardEnhancements>(pId, pEnhancement);
-            if (_enhancements.ContainsKey(key)) {
-                _enhancements[key] = new KeyValuePair<object, object>(pValue, pOriginalValue);
-            } else {
-                _enhancements.Add(key, new KeyValuePair<object, object>(pValue, pOriginalValue));
+        public MonsterCard GetMonsterByIndex(int pIndex) {
+            if (pIndex < 0 || pIndex >= Slots.Length) {
+                return null;
             }
-
-            Execute(pId, pBoardIndex, pEnhancement);
+            return Slots[pIndex].Monster;
         }
 
-        public bool RemoveEnhancement(int pId, BoardEnhancements pEnhancement) {
-            KeyValuePair<int, BoardEnhancements> key = new KeyValuePair<int, BoardEnhancements>(pId, pEnhancement);
-            bool remove = _enhancements.Remove(key);
-            return remove;
-        }
-
-        public void RemoveEnhancements(int pId) {
-            var itemsToRemove = _enhancements.Where(o => o.Key.Key == pId).ToArray();
-
-            foreach (var item in itemsToRemove) {
-                _enhancements.Remove(item.Key);
+        public BoardSlot GetSlotByIndex(int pIndex) {
+            if (pIndex < 0 || pIndex >= Slots.Length) {
+                return null;
             }
+            return Slots[pIndex];
         }
 
-        public object GetEnhancementValue(int pId, BoardEnhancements pEnhancement) {
-            KeyValuePair<int, BoardEnhancements> key = new KeyValuePair<int, BoardEnhancements>(pId, pEnhancement);
-            if (_enhancements.ContainsKey(key)) {
-                object obj = _enhancements[key].Key;
-                return obj;
+        public List<MonsterCard> GetMonsters() {
+            List<MonsterCard> monsters = new List<MonsterCard>();
+            foreach (BoardSlot slot in Slots) {
+                if (slot.Monster != null) {
+                    monsters.Add(slot.Monster);
+                }
             }
-            return null;
-        }
-
-        public void Execute(int pId, int pIndex, BoardEnhancements pEnhancement) {
-            switch (pEnhancement) {
-                case BoardEnhancements.Set_Health: {
-                        // set temporary health of the target
-                        KeyValuePair<int, BoardEnhancements> key = new KeyValuePair<int, BoardEnhancements>(pId, pEnhancement);
-                        int health = (int) _enhancements[key].Key;
-                        int originalHealth = (int) _enhancements[key].Value;
-
-                        if (pId == _owner.ActorNr) {
-                            _owner.SetHealth(health);
-                        } else {
-                            MonsterCard monster = Slots[pIndex];
-                            if (monster != null && monster.Id == pId) {
-                                monster.SetHealth(health);
-                            } else {
-                                return; // something went wrong..
-                            }
-                        }
-                    }
-                    break;
-                case BoardEnhancements.Can_Attack:
-                case BoardEnhancements.Death:
-                case BoardEnhancements.None:
-                default:
-                    break;
-            }
-        }
-
-        public enum BoardEnhancements {
-            // Termination
-            None = 0x00,
-            // Basics
-            Set_Health = 0x01,
-            // Rush
-            Can_Attack = 0x02,
-            // Death
-            Death = 0x03,
-            // Shiel up
-            Has_Single_Shield = 0x04,
-
+            return monsters;
         }
     }
 }

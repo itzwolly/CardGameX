@@ -1,8 +1,15 @@
 ﻿using UnityEngine;
 using ExitGames.Client.Photon;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class CardGameBehaviour : MonoBehaviour {
+    [SerializeField] private Text _txtName;
+    [SerializeField] private InputField _txtDescription;
+    [SerializeField] private Text _txtCost;
+    [SerializeField] private Text _txtAttack;
+    [SerializeField] private Text _txtHealth;
+
     private int _cardId;
     private int _index;
 
@@ -12,14 +19,7 @@ public class CardGameBehaviour : MonoBehaviour {
     }
     public int Index {
         get { return _index; }
-        //set { _index = value; }
     }
-
-    [SerializeField] private Text _txtName;
-    [SerializeField] private InputField _txtDescription;
-    [SerializeField] private Text _txtCost;
-    [SerializeField] private Text _txtAttack;
-    [SerializeField] private Text _txtHealth;
 
     public string CardName {
         get { return _txtName.text; }
@@ -42,18 +42,8 @@ public class CardGameBehaviour : MonoBehaviour {
         }
     }
 
-    private void SendPlaySpellCardEvent(int pCardId, int pIndex) {
-        RaiseEventOptions options = new RaiseEventOptions();
-        options.Receivers = ReceiverGroup.All;
-        options.TargetActors = null;
-        options.InterestGroup = 0;
-        options.CachingOption = EventCaching.AddToRoomCache;
-
-        Hashtable data = new Hashtable();
-        data.Add("cardid", pCardId);
-        data.Add("cardindex", pIndex);
-
-        PhotonNetwork.networkingPeer.OpRaiseEvent(EventCode.PlaySpellCard, data, true, options);
+    private void SendPlaySpellCardEvent(Hashtable pData) {
+        PhotonNetwork.networkingPeer.OpRaiseEvent(EventCode.PlaySpellCard, pData, true, RaiseEventOptions.Default);
     }
 
     private void OnMouseOver() {
@@ -65,9 +55,36 @@ public class CardGameBehaviour : MonoBehaviour {
 
                     Card selectedCard = Hand.Instance.Cards[_index];
                     if (selectedCard.IsMonster()) {
-                        Hand.Instance.SelectedCardBehaviour = this;
+                        Hand.Instance.SelectedMonsterCardBehaviour = this;
                     } else {
-                        SendPlaySpellCardEvent(selectedCard.Data.Id, _index);
+                        if (Hand.Instance.SelectedSpellCardBehaviour == null) {
+                            Hand.Instance.SelectedSpellCardBehaviour = this;
+                        } else {
+                            List<IInteractable> targets = Hand.Instance.GetTargets();
+                            Hashtable data = new Hashtable();
+                            data.Add("cardid", selectedCard.Data.Id);
+                            data.Add("cardindex", _index);
+                            data.Add("targetamount", targets.Count);
+
+                            for (int i = 0; i < targets.Count; i++) {
+                                IInteractable target = targets[i];
+
+                                int id = target.GetId();
+                                int index = target.GetBoardIndex();
+                                int ownerId = target.GetOwnerId();
+
+                                data.Add("target_id-" + i, id);
+                                data.Add("target_index-" + i, index);
+                                data.Add("target_ownerid-" + i, ownerId);
+                            }
+
+                            Debug.Log("Sending data to server with count: " + data.Count);
+
+                            SendPlaySpellCardEvent(data);
+
+                            Hand.Instance.GetTargets().Clear();
+                            Hand.Instance.SelectedSpellCardBehaviour = null;
+                        }
                     }
                 } else {
                     Debug.Log("Not your turn!");

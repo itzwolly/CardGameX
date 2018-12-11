@@ -116,7 +116,7 @@ public class CardCollectionHandler : MonoBehaviour {
                             data = new SpellCardData(info.id, info.name, (info.description == null) ? "" : info.description, info.regcost, info.turbocost);
                             break;
                         case CardData.CardType.Monster:
-                            data = new MonsterCardData(info.id, info.name, (info.description == null) ? "" : info.description, info.regcost, info.turbocost, info.attack, info.health);
+                            data = new MonsterCardData(info.id, info.name, (info.description == null) ? "" : info.description, info.regcost, info.turbocost, info.attack, info.health, PhotonNetwork.player.ID);
                             break;
                         case CardData.CardType.None:
                         default:

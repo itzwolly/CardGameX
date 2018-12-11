@@ -9,19 +9,17 @@ using CardGame.Events;
 using System.Collections;
 using System.Threading;
 using NLua;
+using System.Linq;
 
 namespace CardGamePlugins {
 
     public class CardGameBehaviour : PluginBase {
         public const string NAME = "CardGameBehaviour";
-        private const int MAX_PLAYERS = 2;
-        private const int TURN_TIME_IN_MS = 10000; // 60000
+        private const int TURN_TIME_IN_MS = 20000; // 60000
 
         public override string Name {
             get { return NAME; }
         }
-
-        private Game _game = null;
 
         public override void OnCreateGame(ICreateGameCallInfo info) {
             string deckCode = info.OperationRequest.Parameters[189] as string;
@@ -32,13 +30,10 @@ namespace CardGamePlugins {
                 info.Fail("No (valid) deck can be found on the server. If you haven't made one, don't forget to do so first.");
                 return;
             }
-
-            _game = new Game(MAX_PLAYERS);
-            _game.AddPlayer(1, info.UserId, deck);
+            
+            Game.Instance.AddPlayer(1, info.UserId, deck);
 
             base.OnCreateGame(info);
-
-            //InitiateFullRoomSequence();
         }
 
         public override void OnJoin(IJoinGameCallInfo info) {
@@ -51,22 +46,20 @@ namespace CardGamePlugins {
                 return;
             }
 
-            _game.AddPlayer(info.ActorNr, info.UserId, deck);
+            Game.Instance.AddPlayer(info.ActorNr, info.UserId, deck);
 
             base.OnJoin(info);
 
             if (info.IsSucceeded) {
                 InitiateFullRoomSequence();
-            } else {
-                // failed to call continue();
             }
         }
 
         public override void OnRaiseEvent(IRaiseEventCallInfo info) {
             if (info.Request.EvCode == 117) { // ATTACK
                 Hashtable data = (Hashtable) info.Request.Data;
-                PlayerState playerState = _game.PlayerState;
-                BoardState boardState = _game.BoardState;
+                PlayerState playerState = Game.Instance.PlayerState;
+                BoardState boardState = Game.Instance.BoardState;
 
                 int targetId = (int) data["targetid"];
                 int targetOwnerId = 0;
@@ -84,49 +77,61 @@ namespace CardGamePlugins {
                 Player activePlayer = playerState.GetActivePlayer();
                 Player opponent = playerState.Opponent;
 
-                object canAttack = activePlayer.BoardSide.GetEnhancementValue(attackerId, BoardSide.BoardEnhancements.Can_Attack);
-                if (canAttack != null && (int) canAttack == 1) {
-                    IInteractable attacker;
-                    if (playerState.IsPlayerId(attackerId)) {
-                        attacker = activePlayer;
-                    } else {
-                        attacker = activePlayer.BoardSide.Slots[attackerIndex];
-                    }
+                IScriptable sAttacker = (playerState.IsPlayerId(attackerId)) ? activePlayer as IScriptable : activePlayer.BoardSide.GetSlotByIndex(attackerIndex).Monster;
+                IScriptable sTarget = (playerState.IsPlayerId(targetId)) ? opponent as IScriptable : opponent.BoardSide.GetSlotByIndex(targetIndex).Monster;
 
-                    if (attacker.GetAttack() <= 0) {
-                        return;
-                    }
+                if (sAttacker == null || sTarget == null) {
+                    info.Cancel();
+                    return;
+                }
 
-                    IInteractable target;
-                    if (playerState.IsPlayerId(targetId)) {
-                        target = opponent;
-                    } else {
-                        target = opponent.BoardSide.Slots[targetIndex];
-                    }
+                IInteractable iAttacker = (sAttacker as IInteractable);
+                IInteractable iTarget = (sTarget as IInteractable);
 
-                    boardState.DamageCalculation(attacker, target);
-                    boardState.DamageCalculation(target, attacker);
+                object[] beforeAttackResult = sAttacker.CallFunction("BeforeAttack", iAttacker, iTarget);
+                object[] onAttackResult = sAttacker.CallFunction("OnAttack", iAttacker, iTarget);
 
-                    // Update his attack status (i.e: cant attack after having attacked once)
-                    activePlayer.BoardSide.AddOrModifyEnhancement(attacker.GetId(), attacker.GetBoardIndex(), BoardSide.BoardEnhancements.Can_Attack, 0, canAttack);
+                if (onAttackResult[0] is bool) {
+                    bool attackResult = (bool) onAttackResult[0];
+                    if (attackResult) {
+                        object[] afterAttackResult = sAttacker.CallFunction("AfterAttack", iAttacker, iTarget);
 
-                    int attackerHealth = (int) attacker.GetHealth();
-                    int targetHealth = (int) target.GetHealth();
-
-                    data.Add("attackerhealth", attackerHealth);
-                    data.Add("targethealth", targetHealth);
-
-                    // send health of both attacker and target back to client..
-                    RaiseEvent(118, data, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
-
-                    if (attackerHealth <= 0) {
-                        if (!playerState.IsPlayerId(target.GetId())) {
-                            activePlayer.BoardSide.KillMonster(attacker as MonsterCard);
+                        if (iAttacker.GetHealth() <= 0) {
+                            sAttacker.CallFunction("OnDeath", iAttacker);
                         }
-                    }
-                    if (targetHealth <= 0) {
-                        if (!playerState.IsPlayerId(target.GetId())) {
-                            opponent.BoardSide.KillMonster(target as MonsterCard);
+
+                        if (iTarget.GetHealth() <= 0) {
+                            sTarget.CallFunction("OnDeath", iTarget);
+                        }
+
+                        //Hashtable toSend = new Hashtable();
+                        //List<Enhancement> enhancements = boardState.GetEnhancements().Where(o => o.Handled == false).ToList();
+                        //if (enhancements.Count > 0) {
+                        //    toSend.Add("amount", enhancements.Count);
+
+                        //    for (int i = 0; i < enhancements.Count; i++) {
+                        //        Enhancement enh = enhancements[i];
+                        //        toSend.Add("enhancement-" + i, enh.Serialize());
+                        //        enh.Handled = true;
+                        //    }
+
+                        //    RaiseEvent(118, toSend, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
+                        //}
+
+                        //if (iAttacker.GetHealth() <= 0) {
+                        //    if (iAttacker is MonsterCard) {
+                        //        activePlayer.BoardSide.KillMonster(iAttacker as MonsterCard);
+                        //    }
+                        //}
+                        //if (iTarget.GetHealth() <= 0) {
+                        //    if (iTarget is MonsterCard) {
+                        //        opponent.BoardSide.KillMonster(iTarget as MonsterCard);
+                        //    }
+                        //}
+
+                        Hashtable toSend;
+                        if (Game.Instance.BoardState.GetUnhandledEnhancements(out toSend)) {
+                            RaiseEvent(118, toSend, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
                         }
                     }
                 }
@@ -134,13 +139,14 @@ namespace CardGamePlugins {
                 info.Cancel();
                 return;
             } else if (info.Request.EvCode == PlaySpellCardEvent.EVENT_CODE) {
-                PlayerState state = _game.PlayerState;
-                PlaySpellCardEvent playSCEvent = new PlaySpellCardEvent(state);
+                BoardState boardState = Game.Instance.BoardState;
+                PlayerState playerState = Game.Instance.PlayerState;
+                PlaySpellCardEvent playSCEvent = new PlaySpellCardEvent(playerState);
 
                 List<EventResponse> responses;
                 bool handled = playSCEvent.Handle(info, out responses);
                 if (handled) {
-                    Player activePlayer = state.GetActivePlayer();
+                    Player activePlayer = playerState.GetActivePlayer();
 
                     // raise card played event.. //
                     Hashtable data = (Hashtable) info.Request.Data;
@@ -152,21 +158,37 @@ namespace CardGamePlugins {
                     RaiseEvent(106, data, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
                     // end raise card played event //
 
-                    //foreach (EventResponse response in responses) {
-                    //    RaiseEvent(response.EventCode, response.Data, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
+                    //Hashtable toSend = new Hashtable();
+                    //List<Enhancement> enhancements = boardState.GetEnhancements().Where(o => o.Handled == false).ToList();
+                    //if (enhancements.Count > 0) {
+                    //    toSend.Add("amount", enhancements.Count);
+
+                    //    for (int i = 0; i < enhancements.Count; i++) {
+                    //        Enhancement enh = enhancements[i];
+                    //        toSend.Add("enhancement-" + i, enh.Serialize());
+                    //        enh.Handled = true;
+                    //    }
+
+                    //    RaiseEvent(118, toSend, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
                     //}
+
+                    Hashtable toSend;
+                    if (Game.Instance.BoardState.GetUnhandledEnhancements(out toSend)) {
+                        RaiseEvent(118, toSend, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
+                    }
                 }
 
                 info.Cancel();
                 return;
             } else if (info.Request.EvCode == PlayMonsterCardEvent.EVENT_CODE) {
-                BoardState state = _game.BoardState;
-                PlayMonsterCardEvent playMCEvent = new PlayMonsterCardEvent(state);
+                BoardState boardState = Game.Instance.BoardState;
+                PlayerState playerState = Game.Instance.PlayerState;
+                PlayMonsterCardEvent playMCEvent = new PlayMonsterCardEvent(playerState, boardState);
 
                 List<EventResponse> responses;
                 bool handled = playMCEvent.Handle(info, out responses);
                 if (handled) {
-                    Player activePlayer = state.PlayerState.GetActivePlayer();
+                    Player activePlayer = playerState.GetActivePlayer();
 
                     // raise card played event.. //
                     Hashtable data = (Hashtable) info.Request.Data;
@@ -183,22 +205,41 @@ namespace CardGamePlugins {
                     foreach (EventResponse response in responses) {
                         RaiseEvent(response.EventCode, response.Data, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
                     }
+
+                    //Hashtable toSend = new Hashtable();
+                    //List<Enhancement> enhancements = boardState.GetEnhancements().Where(o => o.Handled == false).ToList();
+                    //if (enhancements.Count > 0) {
+                    //    toSend.Add("amount", enhancements.Count);
+
+                    //    for (int i = 0; i < enhancements.Count; i++) {
+                    //        Enhancement enh = enhancements[i];
+                    //        toSend.Add("enhancement-" + i, enh.Serialize());
+                    //        enh.Handled = true;
+                    //    }
+
+                    //    RaiseEvent(118, toSend, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
+                    //}
+
+                    Hashtable toSend;
+                    if (Game.Instance.BoardState.GetUnhandledEnhancements(out toSend)) {
+                        RaiseEvent(118, toSend, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
+                    }
                 }
 
                 info.Cancel();
                 return;
             } else if (info.Request.EvCode == 98) { // LoadedGameplayScene.EVENT_CODE a.k.a very start of the game
-                if (!_game.Started) {
+                if (!Game.Instance.Started) {
                     PluginHost.CreateTimer(SendStartTurnEvent, 200, TURN_TIME_IN_MS);
                     PluginHost.CreateTimer(DrawCard, 300, TURN_TIME_IN_MS + 300); // small delay.. as to not spam the client with events
 
-                    _game.Started = true;
+                    Game.Instance.Started = true;
 
                     info.Cancel();
                     return;
                 }
             } else if (info.Request.EvCode == RequestTurboCardsEvent.EVENT_CODE) {
-                PlayerState state = _game.PlayerState;
+                PlayerState state = Game.Instance.PlayerState;
                 RequestTurboCardsEvent requestTurboEvent = new RequestTurboCardsEvent(state);
 
                 List<EventResponse> responses;
@@ -212,7 +253,7 @@ namespace CardGamePlugins {
                 info.Cancel();
                 return;
             } else if (info.Request.EvCode == RequestCloseTurboWindowEvent.EVENT_CODE) {
-                PlayerState state = _game.PlayerState;
+                PlayerState state = Game.Instance.PlayerState;
                 RequestCloseTurboWindowEvent requestTurboCloseEvent = new RequestCloseTurboWindowEvent(state);
 
                 List<EventResponse> responses;
@@ -226,7 +267,7 @@ namespace CardGamePlugins {
                 info.Cancel();
                 return;
             } else if (info.Request.EvCode == AddTurboCardEvent.EVENT_CODE) {
-                PlayerState state = _game.PlayerState;
+                PlayerState state = Game.Instance.PlayerState;
                 AddTurboCardEvent addTurboCardEvent = new AddTurboCardEvent(state);
 
                 List<EventResponse> responses;
@@ -257,7 +298,7 @@ namespace CardGamePlugins {
                         card.RegCost = 0; // change regular cost of turbo cards to 0
                         activePlayer.CurrentTurbo -= card.TurboCost;
 
-                        activePlayer.Hand.AddCard(_game, card);
+                        activePlayer.Hand.AddCard(card);
                         activePlayer.Deck.RemoveTurboCard(card);
 
                         fullTableData.Add("regcost", card.RegCost);
@@ -303,27 +344,45 @@ namespace CardGamePlugins {
             CloseTurboWindow();
 
             // TODO: Before starting new turn, check if there are any events waiting to be executed.
-            Player activePlayer = _game.PlayerState.SetActivePlayer(); 
+            Player activePlayer = Game.Instance.PlayerState.SetActivePlayer(); 
             activePlayer.TotalMana++;
             activePlayer.TotalTurbo++;
-
-            foreach (MonsterCard monster in activePlayer.BoardSide.Slots) {
-                if (monster != null) {
-                    activePlayer.BoardSide.AddOrModifyEnhancement(monster.Id, monster.BoardIndex, BoardSide.BoardEnhancements.Can_Attack, 1, 0);
-                }
-            }
 
             Hashtable data = new Hashtable();
             data.Add("userid", activePlayer.UserId);
             data.Add("mana", 1);
             data.Add("turbo", 1);
             data.Add("turntimelimit", TURN_TIME_IN_MS / 1000);
-            
+
             RaiseEvent(100, data, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
+
+            foreach (MonsterCard card in activePlayer.BoardSide.GetMonsters()) {
+                IScriptable scriptable = card as IScriptable;
+                scriptable.CallFunction("OnStartTurn", card);
+            }
+
+            //Hashtable toSend = new Hashtable();
+            //List<Enhancement> enhancements = Game.Instance.BoardState.GetEnhancements().Where(o => o.Handled == false).ToList();
+            //if (enhancements.Count > 0) {
+            //    toSend.Add("amount", enhancements.Count);
+
+            //    for (int i = 0; i < enhancements.Count; i++) {
+            //        Enhancement enh = enhancements[i];
+            //        toSend.Add("enhancement-" + i, enh.Serialize());
+            //        enh.Handled = true;
+            //    }
+
+            //    //RaiseEvent(118, toSend, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
+            //}
+
+            Hashtable toSend;
+            if (Game.Instance.BoardState.GetUnhandledEnhancements(out toSend)) {
+                RaiseEvent(118, toSend, ReciverGroup.All, activePlayer.ActorNr, (byte) CacheOperation.AddToRoomCache);
+            }
         }
 
         private void DrawCard() {
-            Player activePlayer = _game.PlayerState.GetActivePlayer();
+            Player activePlayer = Game.Instance.PlayerState.GetActivePlayer();
             Card drawn = activePlayer.Deck.DrawCard();
 
             Hashtable data = new Hashtable();
@@ -344,15 +403,15 @@ namespace CardGamePlugins {
                 return;
             }
 
-            activePlayer.Hand.AddCard(_game, drawn);
+            activePlayer.Hand.AddCard(drawn);
             data.Add("handsize", activePlayer.Hand.Cards.Count);
 
             RaiseEvent(101, data, new int[] { activePlayer.ActorNr }); // sending a draw card event to the activeplayer, including the actual data.
-            RaiseEvent(101, activePlayer.Hand.Cards.Count, new int[] { _game.PlayerState.Opponent.ActorNr }); // sending a draw card event to the opponent, but without the actual data.
+            RaiseEvent(101, activePlayer.Hand.Cards.Count, new int[] { Game.Instance.PlayerState.Opponent.ActorNr }); // sending a draw card event to the opponent, but without the actual data.
         }
 
         private void CloseTurboWindow() {
-            PlayerState state = _game.PlayerState;
+            PlayerState state = Game.Instance.PlayerState;
             
             if (state.Data.ContainsKey((byte) PlayerState.PlayerStateKeys.TURBO_VIEWING_KEY)) {
                 int ownerNr = state.Data[(byte) PlayerState.PlayerStateKeys.TURBO_VIEWING_KEY];

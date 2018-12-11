@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace CardGame {
     public class MonsterCard : Card, IInteractable {
         public int? Attack;
         public int? Health;
-
-        public int BoardIndex {
-            get;
-            set;
-        }
+        public int BoardIndex;
 
         public MonsterCard(int pId, string pName, int? pAttack, int? pHealth, string pDescription, int pRegCost, int pTurboCost, bool pIsTurbo)
             : base(pId, pName, pDescription, pRegCost, pTurboCost, pIsTurbo) {
@@ -52,6 +47,10 @@ namespace CardGame {
 
         public int GetBoardIndex() {
             return BoardIndex;
+        }
+
+        public string GetName() {
+            return Name;
         }
     }
 }

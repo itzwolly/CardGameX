@@ -8,11 +8,14 @@ namespace CardGame.Events {
         public const int EVENT_CODE = 105;
 
         private BoardState _boardState = null;
+        private PlayerState _playerState = null;
         private Player _owner = null;
 
-        public PlayMonsterCardEvent(BoardState pBoardState) {
+        public PlayMonsterCardEvent(PlayerState pPlayerState, BoardState pBoardState) {
             _boardState = pBoardState;
-            _owner = _boardState.PlayerState.GetActivePlayer();
+            _playerState = pPlayerState;
+
+            _owner = _playerState.GetActivePlayer();
         }
 
         public override bool Handle(IRaiseEventCallInfo info, out List<EventResponse> pResponses) {
@@ -40,11 +43,9 @@ namespace CardGame.Events {
 
                                 playedCard.BoardIndex = boardIndex;
                                 playedCard.OwnerId = _owner.GetId();
-
-                                LuaFunction function = playedCard.Behaviour.GetFunction("OnBeforePlayed");
-                                if (function != null) {
-                                    function.Call(playedCard);
-                                }
+                                
+                                playedCard.CallFunction("OnPlayed", (playedCard as IInteractable));
+                                Game.Instance.BoardState.ValidateAuras(playedCard);
 
                                 _owner.CurrentMana -= playedCard.RegCost;
                                 _owner.Hand.Cards.Remove(playedCard);
@@ -56,10 +57,6 @@ namespace CardGame.Events {
             }
             pResponses = null;
             return false;
-        }
-
-        private void InitializeEnhancements(MonsterCard pCard) {
-            _owner.BoardSide.AddOrModifyEnhancement(pCard.Id, pCard.BoardIndex, BoardSide.BoardEnhancements.Can_Attack, 0, 0);
         }
     }
 }

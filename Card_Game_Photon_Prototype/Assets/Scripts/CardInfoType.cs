@@ -26,7 +26,7 @@ public class CardInfoType : System.Object {
                     cards.Add(data);
                     break;
                 case CardData.CardType.Monster:
-                    data = new MonsterCardData(info.id, info.name, (info.description == null) ? "" : info.description, info.regcost, info.turbocost, info.attack, info.health);
+                    data = new MonsterCardData(info.id, info.name, (info.description == null) ? "" : info.description, info.regcost, info.turbocost, info.attack, info.health, PhotonNetwork.player.ID);
                     cards.Add(data);
                     break;
                 case CardData.CardType.None:

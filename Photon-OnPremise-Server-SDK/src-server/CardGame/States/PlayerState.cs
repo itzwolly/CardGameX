@@ -63,6 +63,10 @@ namespace CardGame {
             }
             return true;
         }
+
+        public List<Player> GetPlayers() {
+            return _players;
+        }
     }
 
 }

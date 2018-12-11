@@ -1,8 +1,9 @@
-﻿using System;
+﻿using NLua;
+using System;
 
 namespace CardGame {
 
-    public class Player : IInteractable {
+    public class Player : IInteractable, IScriptable {
         public const int STARTING_HEALTH = 10;
         public const int STARTING_MANA = 0; // It's 0 because the very first turn you get +1 mana
         public const int STARTING_TURBO = 0; // It's 0 because the very first turn you get +1 turbo
@@ -22,6 +23,8 @@ namespace CardGame {
         public readonly Deck Deck;
         public readonly Hand Hand;
         public readonly BoardSide BoardSide;
+        public readonly Lua Behaviour;
+
         public bool IsDead = false;
 
         public int Health {
@@ -82,6 +85,7 @@ namespace CardGame {
             Deck = pCurrentDeck;
             Hand = new Hand();
             BoardSide = new BoardSide(this);
+            Behaviour = LuaHelper.DoFile(LuaHelper.GetScriptFolder() + LuaHelper.PLAYER_SCRIPT + LuaHelper.FILE_TYPE, Game.Instance);
         }
         
         public int GetId() {
@@ -115,6 +119,24 @@ namespace CardGame {
 
         public int GetBoardIndex() {
             return -1;
+        }
+
+        public Lua GetBehaviour() {
+            return Behaviour;
+        }
+
+        public string GetName() {
+            return UserId;
+        }
+
+        public object[] CallFunction(string pFunction, params object[] pArgs) {
+            LuaFunction function = Behaviour.GetFunction(pFunction);
+            if (function != null) {
+                return function.Call(pArgs);
+            } else {
+                function = Game.Instance.MonsterDefaultBehaviour.GetFunction(LuaHelper.MONSTER_DEFAULT_NAMESPACE + pFunction);
+                return function.Call(pArgs);
+            }
         }
     }
 }

@@ -26,14 +26,14 @@ public class BoardSlotBehaviour : MonoBehaviour {
         if (Input.GetMouseButtonUp(0)) {
             if (CardGameCore.Instance.GetActivePlayer().UserId == PhotonNetwork.player.UserId) { // Only allowed to play cards if it's your turn.
                 if (!Occupied) {
-                    CardGameBehaviour selectedCard = Hand.Instance.SelectedCardBehaviour;
+                    CardGameBehaviour selectedCard = Hand.Instance.SelectedMonsterCardBehaviour;
                     if (selectedCard != null) {
                         int cardIndex = selectedCard.Index;
                         if (cardIndex >= 0) {
                             Card card = Hand.Instance.Cards[cardIndex];
                             SendPlayMonsterCardEvent(card.Data.Id, cardIndex, _boardIndex);
 
-                            Hand.Instance.SelectedCardBehaviour = null;
+                            Hand.Instance.SelectedMonsterCardBehaviour = null;
                             Occupied = true;
                         }
                     }
