@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1591452216526928}
+  m_IsPrefabAsset: 1
+--- !u!1 &1591452216526928
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4488903522230600}
+  - component: {fileID: 114635532929359480}
+  m_Layer: 0
+  m_Name: Sound Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4488903522230600
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1591452216526928}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.351, y: 8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114635532929359480
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1591452216526928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5906830382b0b7c4d9c4a89093c5083f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ArmorBuff_EventPath: event:/Armor Buff
+  m_ArmorDebuff_EventPath: event:/Armor Debuff
+  m_AttackBuff_EventPath: event:/Attack Buff
+  m_AttackDebuff_EventPath: event:/Attack Debuff
+  m_BeginTurn_EventPath: event:/Begin Turn
+  m_CardDiscard_EventPath: event:/Card Discard
+  m_CardDraw_EventPath: event:/Card Draw
+  m_CardPlay_EventPath: event:/Card Play
+  m_CardSelect_EventPath: event:/Card Select
+  m_Connected_EventPath: event:/Connected
+  m_Damage_EventPath: event:/Damage
+  m_Disconnected_EventPath: event:/Disconnected
+  m_EndTurn_EventPath: event:/End Turn
+  m_Fire_EventPath: event:/Fire
+  m_Heal_EventPath: event:/Heal
+  m_Music_EventPath: event:/Music
+  m_Shuffle_EventPath: event:/Shuffle
+  m_TurboDiscard_EventPath: event:/Turbo Discard
+  m_TurboPlay_EventPath: event:/Turbo Play
+  m_TurboSelect_EventPath: event:/Turbo Select
+  m_UIClick_EventPath: event:/UI Click
+  m_UIForbidden_EventPath: event:/UI Forbidden
+  m_UINotification_EventPath: event:/UI Notification
+  m_UISelect_EventPath: event:/UI Select
+  m_Debug: 1
