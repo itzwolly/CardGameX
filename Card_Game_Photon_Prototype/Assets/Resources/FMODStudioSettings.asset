@@ -13,9 +13,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: D:\_UNI_\3.1\MINOR SKILLED\CardGameX\CardGameX.fspro
-  SourceProjectPathUnformatted: D:\_UNI_\3.1\MINOR SKILLED\CardGameX\CardGameX.fspro
-  SourceBankPathUnformatted: D:\_UNI_\3.1\MINOR SKILLED\CardGameX\Build
+  sourceProjectPath: D:\SourceTree Repos\SKILLVS MINORVS ETERNALVS\CardGameX FMOD\CardGameX.fspro
+  SourceProjectPathUnformatted: D:\SourceTree Repos\SKILLVS MINORVS ETERNALVS\CardGameX
+    FMOD\CardGameX.fspro
+  SourceBankPathUnformatted: D:\SourceTree Repos\SKILLVS MINORVS ETERNALVS\CardGameX
+    FMOD\Build
   AutomaticEventLoading: 1
   AutomaticSampleLoading: 0
   ImportType: 0

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="ParameterPreset" id="{03121fa7-99cf-47b5-b86c-dbe73f6ae106}">
+        <property name="name">
+            <value>Cards On Board</value>
+        </property>
+        <relationship name="folder">
+            <destination>{7f71eb88-836f-49a0-b2f6-fa687d264e95}</destination>
+        </relationship>
+        <relationship name="parameter">
+            <destination>{36b2eb11-3745-4f46-a91c-4ff56d879828}</destination>
+        </relationship>
+    </object>
+    <object class="GameParameter" id="{36b2eb11-3745-4f46-a91c-4ff56d879828}">
+        <property name="maximum">
+            <value>10</value>
+        </property>
+        <property name="initialValue">
+            <value>0</value>
+        </property>
+        <property name="seekSpeed">
+            <value>4.1999998092651367</value>
+        </property>
+    </object>
+</objects>

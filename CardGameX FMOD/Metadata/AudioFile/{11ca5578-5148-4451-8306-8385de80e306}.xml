@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{11ca5578-5148-4451-8306-8385de80e306}">
+        <property name="assetPath">
+            <value>UI_Metal_2.wav</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>0.5625170068027211</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{5858e774-5176-485e-aefc-949a154c2770}</destination>
+        </relationship>
+    </object>
+</objects>

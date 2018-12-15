@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{837a1b90-8835-4593-8e24-c7cc2b8deaa5}">
+        <property name="assetPath">
+            <value>GP_Armor_Down_2.wav</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>0.45000000000000001</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{5858e774-5176-485e-aefc-949a154c2770}</destination>
+        </relationship>
+    </object>
+</objects>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="ParameterPreset" id="{617d07ff-fc09-4444-a509-d6223b03fd03}">
+        <property name="name">
+            <value>Fire Intensity</value>
+        </property>
+        <relationship name="folder">
+            <destination>{7f71eb88-836f-49a0-b2f6-fa687d264e95}</destination>
+        </relationship>
+        <relationship name="parameter">
+            <destination>{a828e32f-8a2a-486f-b73e-a40f469900f7}</destination>
+        </relationship>
+    </object>
+    <object class="GameParameter" id="{a828e32f-8a2a-486f-b73e-a40f469900f7}">
+        <property name="maximum">
+            <value>100</value>
+        </property>
+        <property name="initialValue">
+            <value>0</value>
+        </property>
+        <property name="seekSpeed">
+            <value>43</value>
+        </property>
+    </object>
+</objects>

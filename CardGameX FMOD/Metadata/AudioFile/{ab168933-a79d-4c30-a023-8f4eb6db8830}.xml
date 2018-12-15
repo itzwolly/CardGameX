@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{ab168933-a79d-4c30-a023-8f4eb6db8830}">
+        <property name="assetPath">
+            <value>GP_Turbo_PutDown_2.wav</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>1.2</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{5858e774-5176-485e-aefc-949a154c2770}</destination>
+        </relationship>
+    </object>
+</objects>

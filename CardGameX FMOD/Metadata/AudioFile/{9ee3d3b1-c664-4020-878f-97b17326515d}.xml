@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{9ee3d3b1-c664-4020-878f-97b17326515d}">
+        <property name="assetPath">
+            <value>Fire_Crackling_Wind.wav</value>
+        </property>
+        <property name="isStreaming">
+            <value>true</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>237.47206349206348</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{5858e774-5176-485e-aefc-949a154c2770}</destination>
+        </relationship>
+    </object>
+</objects>

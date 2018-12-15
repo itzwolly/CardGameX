@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{9e816fcd-fc80-4eef-b62d-2dcd01724444}">
+        <property name="assetPath">
+            <value>GP_Damage_5.wav</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>2</value>
+        </property>
+        <property name="length">
+            <value>1.2656462585034014</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{5858e774-5176-485e-aefc-949a154c2770}</destination>
+        </relationship>
+    </object>
+</objects>

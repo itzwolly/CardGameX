@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="ParameterPreset" id="{8af58b9e-0878-4b34-8158-458da493f103}">
+        <property name="name">
+            <value>Enemy Health</value>
+        </property>
+        <relationship name="folder">
+            <destination>{7f71eb88-836f-49a0-b2f6-fa687d264e95}</destination>
+        </relationship>
+        <relationship name="parameter">
+            <destination>{4861a21e-0a76-4609-aaef-a6320338d3fe}</destination>
+        </relationship>
+    </object>
+    <object class="GameParameter" id="{4861a21e-0a76-4609-aaef-a6320338d3fe}">
+        <property name="maximum">
+            <value>100</value>
+        </property>
+        <property name="initialValue">
+            <value>0</value>
+        </property>
+        <property name="seekSpeed">
+            <value>30</value>
+        </property>
+    </object>
+</objects>
