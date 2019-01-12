@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: CartoonFireMat
+  m_Shader: {fileID: 4800000, guid: b3a7881e17b86ff4c8c2fe24c8ebc28a, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Floats:
+    - Vector1_16194B06: 22.3
+    - Vector1_3636C0BD: 29.29
+    - Vector1_6284EADF: 1.44
+    - Vector1_7EB17A39: 0.1
+    - Vector1_9188AA14: -0.5
+    - Vector1_9B2C2F9F: 6
+    m_Colors:
+    - Color_16770BC6: {r: 0.9056604, g: 0.5014886, b: 0, a: 0}
+    - Color_1FCBCF19: {r: 0, g: 0, b: 0, a: 0}
+    - Color_44A555F2: {r: 0.9254298, g: 1, b: 0, a: 0}
