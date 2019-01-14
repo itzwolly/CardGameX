@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: CartoonFireMat
-  m_Shader: {fileID: 4800000, guid: b3a7881e17b86ff4c8c2fe24c8ebc28a, type: 3}
+  m_Shader: {fileID: 4800000, guid: 60b9b1abc3e9d4b4782a23db715e9389, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -17,15 +17,54 @@ Material:
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs: []
+    m_TexEnvs:
+    - Texture2D_6B2E8F72:
+        m_Texture: {fileID: 2800000, guid: 784093440cd0f574cbfd45b3b00554cf, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_7128BF7E:
+        m_Texture: {fileID: 2800000, guid: 240221463c5a0da4eaa4a59cabd8a4a0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_85610406:
+        m_Texture: {fileID: 2800000, guid: dc950c4f8ac57cd42913416bc8273df5, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_A59B6A80:
+        m_Texture: {fileID: 2800000, guid: 8e5e2c33be7cf3e44abd7a444c8da4cf, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_16194B06: 22.3
+    - Vector1_1DDE6EA6: 0
+    - Vector1_252F58F4: 0.15
+    - Vector1_34A62AF9: 3
     - Vector1_3636C0BD: 29.29
+    - Vector1_39475C9A: 0.5
+    - Vector1_39679E0A: 15
+    - Vector1_3AD6B7A4: 1
+    - Vector1_490FFD4F: 0
     - Vector1_6284EADF: 1.44
+    - Vector1_6E29231F: 0.2
     - Vector1_7EB17A39: 0.1
     - Vector1_9188AA14: -0.5
+    - Vector1_9551042: 0.1
     - Vector1_9B2C2F9F: 6
+    - Vector1_AAB44637: 1
+    - Vector1_B52F68F: 0
+    - Vector1_C31BD68E: 0.5
+    - Vector1_C463C59: 0
+    - Vector1_E294DC5: 1
+    - Vector1_E3B5A3EB: 3
+    - Vector1_F58D6C08: 0.3
     m_Colors:
+    - Color_10FCD815: {r: 1, g: 1, b: 1, a: 0}
     - Color_16770BC6: {r: 0.9056604, g: 0.5014886, b: 0, a: 0}
     - Color_1FCBCF19: {r: 0, g: 0, b: 0, a: 0}
     - Color_44A555F2: {r: 0.9254298, g: 1, b: 0, a: 0}
+    - Color_55BC1DAF: {r: 2.996078, g: 1.145098, b: 0, a: 0}
+    - Color_A64A81B2: {r: 0.07796792, g: 0.5566038, b: 0, a: 0}
+    - Color_E3B96F7B: {r: 1.072118, g: 0.5946203, b: 0, a: 0}
+    - Vector2_204307AB: {r: 2, g: 2, b: 0, a: 0}
+    - Vector2_5BD14695: {r: 0.2, g: 0.7, b: 0, a: 0}
+    - Vector4_9E3B5560: {r: 1, g: 1, b: 0, a: 0}

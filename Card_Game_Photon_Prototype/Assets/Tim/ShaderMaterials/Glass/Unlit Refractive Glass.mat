@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Unlit Refractive Glass
-  m_Shader: {fileID: 4800000, guid: 7fbd301a8bd625e4eb0cee68c5b99992, type: 3}
+  m_Shader: {fileID: 4800000, guid: 276025dc79469e14c9fecc2be1f6c7aa, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
