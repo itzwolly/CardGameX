@@ -15,7 +15,7 @@ The card data, such as: name, cost, description, etc. is saved in a database to 
 
 ## Client
 
-The client is made in Unity and connects to the client using Photon's library.
+The client is made in Unity and connects to the server using Photon's library.
 
 ## Game Launcher
 
