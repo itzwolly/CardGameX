@@ -19,7 +19,7 @@ The client is made in Unity and connects to the server using Photon's library.
 
 ## Game Launcher
 
-Card Game X also includes a custom game launcher which allows the user to also update their game files,
-by pressing play. The launcher is made in C# Windows Presentation Forms and it contains secure login using
+Card Game X also includes a custom game launcher which allows the user to login and also update their game files,
+by pressing the Play button. The launcher is made in C# Windows Presentation Forms and it contains secure login using
 threads. The user information is saved in a database to also ensure security.
 
