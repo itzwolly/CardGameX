@@ -1,0 +1,875 @@
+17364: 20:58:06.169 - ---
+17364: 20:58:06.169 - Service: "Photon Socket Server" starting
+17364: 20:58:06.169 - Config File: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\Loadbalancing\PhotonServer.LoadBalancing-Development.config
+17364: 20:58:06.174 - Will produce at most: 10 crash dumps
+17364: 20:58:06.174 - Action: run as exe
+17364: 20:58:06.175 - Server Starting...
+17364: 20:58:06.176 -    Tick count: 375273765 (wraps in: 45.3668 days)
+17364: 20:58:06.176 - Tick count 64: 375273765
+17364: 20:58:06.176 - Photon Version: 4.1.28.2936
+17364: 20:58:06.176 - PID: 12812
+17364: 20:58:06.177 - Config File: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\Loadbalancing\PhotonServer.LoadBalancing-Development.config
+17364: 20:58:06.177 - Will NOT log unimportant exceptions
+17364: 20:58:06.178 - Performance counters NOT enabled, user must have SE_CREATE_GLOBAL_NAME privilege
+17364: 20:58:06.181 - Shutdown timeout enabled: 30000ms
+17364: 20:58:06.183 - Starting I/O thread pool with 2 threads
+17364: 20:58:06.184 - Using Standard allocator
+17364: 20:58:06.184 - Max message size: 512000
+17364: 20:58:06.185 - Starting business logic thread pool with the following settings
+17364: 20:58:06.185 - InitialThreads: 4 threads
+17364: 20:58:06.185 - MinThreads: 4 threads
+17364: 20:58:06.185 - Thread pool is fixed size
+17364: 20:58:06.186 - Starting ENet thread pool with the following settings
+17364: 20:58:06.186 - InitialThreads: 2 threads
+17364: 20:58:06.186 - MinThreads: 2 threads
+17364: 20:58:06.186 - Thread pool is fixed size
+17364: 20:58:06.186 - OnlyDispatchTimers: False
+17364: 20:58:06.187 - S2S: flow control: Max pending writes: 50
+17364: 20:58:06.187 - S2S: flow control: Max queued buffers: 200
+17364: 20:58:06.187 - S2S: flow control: Max pending writes MUX: 500
+17364: 20:58:06.187 - S2S: flow control: Max queued buffers MUX: 2000
+17364: 20:58:06.187 - S2S: MaxInboundMessageSize: 512000
+17364: 20:58:06.187 - S2S: MaxOutboundMessageSize: 512000
+17364: 20:58:06.187 - S2S: No inactivity timeout
+17364: 20:58:06.192 - WebSocket S2S: MaxInboundMessageSize: 512000
+17364: 20:58:06.192 - WebSocket S2S: MaxOutboundMessageSize: 512000
+17364: 20:58:06.192 - WebSocket S2S: No inactivity timeout
+17364: 20:58:06.193 - Max Reliable Data In Transit (awaiting ACKs) per peer : 51200 bytes
+17364: 20:58:06.193 - Per peer bandwidth limit
+17364: 20:58:06.193 - Transmit Rate Limit: 256 KB/Sec
+17364: 20:58:06.193 - Limit period: 200ms
+17364: 20:58:06.193 - Limit per period: 52428 bytes
+17364: 20:58:06.193 - Max queued data for transmission per peer: 512000 bytes
+17364: 20:58:06.193 - Minimum retransmit timeout: 200
+17364: 20:58:06.193 - No Maximum retransmit timeout
+17364: 20:58:06.193 - Minimum ENet timeout: 5000ms
+17364: 20:58:06.193 - Maximum ENet timeout: 30000ms
+17364: 20:58:06.193 - Max Inbound Reliable Data Queued (awaiting resends of earlier sequence numbers) per peer : 163840 bytes
+17364: 20:58:06.193 - No RTT ACK adjustment timeout
+17364: 20:58:06.193 - Outbound ENet: MaxInboundMessageSize: 512000
+17364: 20:58:06.193 - Outbound ENet: MaxOutboundMessageSize: 512000
+17364: 20:58:06.235 - GetRuntime - About to load CLR - versions available:
+17364: 20:58:06.235 - v2.0.50727
+17364: 20:58:06.235 - v4.0.30319
+17364: 20:58:06.235 - Configuration requests: "v2.0.50727"
+17364: 20:58:06.235 - About to load version: "v2.0.50727"
+17364: 20:58:06.266 - About to load runtime: PhotonHostRuntime.PhotonDomainManager from PhotonHostRuntime, Culture=neutral, PublicKeyToken=02C301B61B060C4D
+17364: 20:58:06.266 - CLRBaseDirectory set to "D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server"
+17364: 20:58:06.266 - Optimising event broadcast for 20 or more peers
+17364: 20:58:06.268 - Start: About to load CLR - versions available:
+17364: 20:58:06.268 - v2.0.50727
+17364: 20:58:06.268 - v4.0.30319
+17364: 20:58:06.268 - Configuration requests: "v4.0"
+17364: 20:58:06.268 - About to load version: "v4.0"
+17364: 20:58:06.270 - Loaded version: "v4.0.30319"
+17364: 20:58:06.936 - Photon host runtime loaded
+17364: 20:58:08.624 - LICENSE: No license file was found. Starting with Bootstrap License.
+17364: 20:58:08.624 - License is valid.
+17364: 20:58:08.624 - Licensed for 20 concurrent connections.
+17364: 20:58:08.624 - ENet: Max Reliable Data In Transit (awaiting ACKs) per peer : 51200 bytes
+17364: 20:58:08.624 - ENet: Per peer bandwidth limit
+17364: 20:58:08.624 - ENet: Transmit Rate Limit: 256 KB/Sec
+17364: 20:58:08.624 - ENet: Limit period: 200ms
+17364: 20:58:08.624 - ENet: Limit per period: 52428 bytes
+17364: 20:58:08.624 - ENet: Max queued data for transmission per peer: 512000 bytes
+17364: 20:58:08.624 - ENet: Minimum retransmit timeout: 200
+17364: 20:58:08.624 - No Maximum retransmit timeout
+17364: 20:58:08.624 - ENet: Minimum timeout: 5000ms
+17364: 20:58:08.624 - ENet: Maximum timeout: 30000ms
+17364: 20:58:08.624 - ENet: Max Inbound Reliable Data Queued (awaiting resends of earlier sequence numbers) per peer : 163840 bytes
+17364: 20:58:08.624 - No RTT ACK adjustment timeout
+17364: 20:58:08.625 - About to load application: Master from Photon.LoadBalancing
+17364: 20:58:08.625 - Application Root Directory: "LoadBalancing"
+17364: 20:58:08.625 - Auto restart is enabled for application, existing connections will be terminated during restart
+17364: 20:58:08.625 - Application will restart 1000ms after the last change detected
+17364: 20:58:08.625 - Application will restart if files matching the following are changed: "dll;config"
+17364: 20:58:08.625 - Application will NOT restart if files matching the following are changed: "log4net.config"
+17364: 20:58:08.651 - *******************************************************************************************************************************
+17364: 20:58:08.651 -  Using CustomAssemblyLoader:
+17364: 20:58:08.651 -    PhotonSocketServer.exe is not located in the sub-dir-tree of the configured CLRbaseDirectory 'D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server'.
+17364: 20:58:08.651 -    Setting CLRbaseDirectory to 'D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\bin_Win32'
+17364: 20:58:08.651 -    WARNING: Your Application logs might be found beside the Photon logs - to fix this check the log4net samples in the demos.
+17364: 20:58:08.651 -    WARNING: Code using AppDomain.CurrentDomain.BaseDirectory, should use ApplicationBase.ApplicationRootPath instead.
+17364: 20:58:08.651 - *******************************************************************************************************************************
+17364: 20:58:08.934 - Taking reference on default app domain
+17364: 20:58:09.105 - Application: "Master" started in app domain: 2
+17364: 20:58:09.105 - About to load application: Game from Photon.LoadBalancing
+17364: 20:58:09.105 - Application Root Directory: "LoadBalancing"
+17364: 20:58:09.105 - Auto restart is enabled for application, existing connections will be terminated during restart
+17364: 20:58:09.105 - Application will restart 1000ms after the last change detected
+17364: 20:58:09.105 - Application will restart if files matching the following are changed: "dll;config"
+17364: 20:58:09.105 - Application will NOT restart if files matching the following are changed: "log4net.config"
+17364: 20:58:09.108 - *******************************************************************************************************************************
+17364: 20:58:09.108 -  Using CustomAssemblyLoader:
+17364: 20:58:09.108 -    PhotonSocketServer.exe is not located in the sub-dir-tree of the configured CLRbaseDirectory 'D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server'.
+17364: 20:58:09.108 -    Setting CLRbaseDirectory to 'D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\bin_Win32'
+17364: 20:58:09.108 -    WARNING: Your Application logs might be found beside the Photon logs - to fix this check the log4net samples in the demos.
+17364: 20:58:09.108 -    WARNING: Code using AppDomain.CurrentDomain.BaseDirectory, should use ApplicationBase.ApplicationRootPath instead.
+17364: 20:58:09.108 - *******************************************************************************************************************************
+17364: 20:58:09.328 - Taking reference on default app domain
+17364: 20:58:09.420 - Application: "Game" started in app domain: 3
+17364: 20:58:09.430 - Adding TCP listener on: 0.0.0.0: 4530 with a listen backlog of: 150
+17364: 20:58:09.430 - TCP inactivity timeout: 10000ms
+17364: 20:58:09.430 - TCP disconnect timeout: 120000ms
+17364: 20:58:09.430 - MaxInboundMessageSize: 512000
+17364: 20:58:09.430 - MaxOutboundMessageSize: 512000
+17364: 20:58:09.430 - Forcing all applications ids to: "Master"
+17364: 20:58:09.438 - Serving policy file requests from: "D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\Policy\assets\socket-policy.xml"
+17364: 20:58:09.449 - Adding TCP listener on: 0.0.0.0: 4531 with a listen backlog of: 150
+17364: 20:58:09.449 - TCP inactivity timeout: 10000ms
+17364: 20:58:09.449 - TCP disconnect timeout: 120000ms
+17364: 20:58:09.449 - MaxInboundMessageSize: 512000
+17364: 20:58:09.449 - MaxOutboundMessageSize: 512000
+17364: 20:58:09.449 - Forcing all applications ids to: "Game"
+17364: 20:58:09.449 - Serving policy file requests from: "D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\Policy\assets\socket-policy.xml"
+17364: 20:58:09.449 - Adding TCP listener on: 0.0.0.0: 4520 with a listen backlog of: 150
+17364: 20:58:09.449 - TCP inactivity timeout: 5000ms
+17364: 20:58:09.449 - TCP disconnect timeout: 120000ms
+17364: 20:58:09.449 - MaxInboundMessageSize: 512000
+17364: 20:58:09.449 - MaxOutboundMessageSize: 512000
+17364: 20:58:09.449 - Forcing all applications ids to: "Master"
+17364: 20:58:09.449 - MaxInboundMessageSize: 512000
+17364: 20:58:09.449 - MaxOutboundMessageSize: 512000
+17364: 20:58:09.449 - UDP address specified as: "0.0.0.0" adding listener to each available IPv4 address
+17364: 20:58:09.449 - Adding UDP listener on: 192.168.2.3: 5055 with a listen backlog of: 500
+17364: 20:58:09.449 - Adding UDP listener on: 127.0.0.1: 5055 with a listen backlog of: 500
+17364: 20:58:09.449 - Forcing all applications ids to: "Game"
+17364: 20:58:09.449 - MaxInboundMessageSize: 512000
+17364: 20:58:09.449 - MaxOutboundMessageSize: 512000
+17364: 20:58:09.449 - UDP address specified as: "0.0.0.0" adding listener to each available IPv4 address
+17364: 20:58:09.450 - Adding UDP listener on: 192.168.2.3: 5056 with a listen backlog of: 500
+17364: 20:58:09.450 - Adding UDP listener on: 127.0.0.1: 5056 with a listen backlog of: 500
+17364: 20:58:09.450 - Adding WebSocket TCP listener on: 0.0.0.0: 9090 with a listen backlog of: 150
+17364: 20:58:09.450 - Nagle disabled
+17364: 20:58:09.450 - TCP inactivity timeout: 10000ms
+17364: 20:58:09.450 - MaxInboundMessageSize: 512000
+17364: 20:58:09.450 - MaxOutboundMessageSize: 512000
+17364: 20:58:09.450 - Forcing all applications ids to: "Master"
+17364: 20:58:09.450 - Will accept ANY sub-protocols from the client
+17364: 20:58:09.450 - No automatic WebSocket ping
+17364: 20:58:09.459 - Adding WebSocket TCP listener on: 0.0.0.0: 9091 with a listen backlog of: 150
+17364: 20:58:09.459 - Nagle disabled
+17364: 20:58:09.459 - TCP inactivity timeout: 10000ms
+17364: 20:58:09.459 - MaxInboundMessageSize: 512000
+17364: 20:58:09.459 - MaxOutboundMessageSize: 512000
+17364: 20:58:09.459 - Forcing all applications ids to: "Game"
+17364: 20:58:09.459 - Will accept ANY sub-protocols from the client
+17364: 20:58:09.459 - No automatic WebSocket ping
+17364: 20:58:09.459 - Adding Policy File listener on: 0.0.0.0: 843 with a listen backlog of: 150 and serving Policy File: "D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\Policy\assets\socket-policy.xml"
+17364: 20:58:09.459 - TCP inactivity timeout: 10000ms
+17364: 20:58:09.473 - Adding Policy File listener on: 0.0.0.0: 943 with a listen backlog of: 150 and serving Policy File: "D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\Policy\assets\socket-policy-silverlight.xml"
+17364: 20:58:09.473 - TCP inactivity timeout: 10000ms
+17364: 20:58:09.538 - Service is running...
+16948: 21:01:51.409 - ---
+16948: 21:01:51.409 - Service: "Photon Socket Server" starting
+16948: 21:01:51.409 - Config File: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\Loadbalancing\PhotonServer.LoadBalancing-Development.config
+16948: 21:01:51.410 - Will produce at most: 10 crash dumps
+16948: 21:01:51.410 - Action: run as exe
+16948: 21:01:51.411 - Server Starting...
+16948: 21:01:51.411 -    Tick count: 375499000 (wraps in: 45.3642 days)
+16948: 21:01:51.411 - Tick count 64: 375499000
+16948: 21:01:51.411 - Photon Version: 4.1.28.2936
+16948: 21:01:51.411 - PID: 1812
+16948: 21:01:51.411 - Config File: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\Loadbalancing\PhotonServer.LoadBalancing-Development.config
+16948: 21:01:51.411 - Will NOT log unimportant exceptions
+16948: 21:01:51.412 - Performance counters NOT enabled, user must have SE_CREATE_GLOBAL_NAME privilege
+16948: 21:01:51.413 - Shutdown timeout enabled: 30000ms
+16948: 21:01:51.413 - Starting I/O thread pool with 2 threads
+16948: 21:01:51.414 - Using Standard allocator
+16948: 21:01:51.414 - Max message size: 512000
+16948: 21:01:51.414 - Starting business logic thread pool with the following settings
+16948: 21:01:51.414 - InitialThreads: 4 threads
+16948: 21:01:51.414 - MinThreads: 4 threads
+16948: 21:01:51.414 - Thread pool is fixed size
+16948: 21:01:51.415 - Starting ENet thread pool with the following settings
+16948: 21:01:51.415 - InitialThreads: 2 threads
+16948: 21:01:51.415 - MinThreads: 2 threads
+16948: 21:01:51.415 - Thread pool is fixed size
+16948: 21:01:51.415 - OnlyDispatchTimers: False
+16948: 21:01:51.415 - S2S: flow control: Max pending writes: 50
+16948: 21:01:51.415 - S2S: flow control: Max queued buffers: 200
+16948: 21:01:51.415 - S2S: flow control: Max pending writes MUX: 500
+16948: 21:01:51.415 - S2S: flow control: Max queued buffers MUX: 2000
+16948: 21:01:51.415 - S2S: MaxInboundMessageSize: 512000
+16948: 21:01:51.415 - S2S: MaxOutboundMessageSize: 512000
+16948: 21:01:51.415 - S2S: No inactivity timeout
+16948: 21:01:51.418 - WebSocket S2S: MaxInboundMessageSize: 512000
+16948: 21:01:51.418 - WebSocket S2S: MaxOutboundMessageSize: 512000
+16948: 21:01:51.418 - WebSocket S2S: No inactivity timeout
+16948: 21:01:51.418 - Max Reliable Data In Transit (awaiting ACKs) per peer : 51200 bytes
+16948: 21:01:51.418 - Per peer bandwidth limit
+16948: 21:01:51.418 - Transmit Rate Limit: 256 KB/Sec
+16948: 21:01:51.418 - Limit period: 200ms
+16948: 21:01:51.418 - Limit per period: 52428 bytes
+16948: 21:01:51.418 - Max queued data for transmission per peer: 512000 bytes
+16948: 21:01:51.418 - Minimum retransmit timeout: 200
+16948: 21:01:51.418 - No Maximum retransmit timeout
+16948: 21:01:51.418 - Minimum ENet timeout: 5000ms
+16948: 21:01:51.418 - Maximum ENet timeout: 30000ms
+16948: 21:01:51.418 - Max Inbound Reliable Data Queued (awaiting resends of earlier sequence numbers) per peer : 163840 bytes
+16948: 21:01:51.418 - No RTT ACK adjustment timeout
+16948: 21:01:51.418 - Outbound ENet: MaxInboundMessageSize: 512000
+16948: 21:01:51.418 - Outbound ENet: MaxOutboundMessageSize: 512000
+16948: 21:01:51.421 - GetRuntime - About to load CLR - versions available:
+16948: 21:01:51.421 - v2.0.50727
+16948: 21:01:51.421 - v4.0.30319
+16948: 21:01:51.421 - Configuration requests: "v2.0.50727"
+16948: 21:01:51.421 - About to load version: "v2.0.50727"
+16948: 21:01:51.426 - About to load runtime: PhotonHostRuntime.PhotonDomainManager from PhotonHostRuntime, Culture=neutral, PublicKeyToken=02C301B61B060C4D
+16948: 21:01:51.427 - CLRBaseDirectory set to "D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server"
+16948: 21:01:51.427 - Optimising event broadcast for 20 or more peers
+16948: 21:01:51.428 - Start: About to load CLR - versions available:
+16948: 21:01:51.428 - v2.0.50727
+16948: 21:01:51.428 - v4.0.30319
+16948: 21:01:51.428 - Configuration requests: "v4.0"
+16948: 21:01:51.428 - About to load version: "v4.0"
+16948: 21:01:51.429 - Loaded version: "v4.0.30319"
+16948: 21:01:51.643 - Photon host runtime loaded
+16948: 21:01:53.266 - LICENSE: No license file was found. Starting with Bootstrap License.
+16948: 21:01:53.266 - License is valid.
+16948: 21:01:53.266 - Licensed for 20 concurrent connections.
+16948: 21:01:53.266 - ENet: Max Reliable Data In Transit (awaiting ACKs) per peer : 51200 bytes
+16948: 21:01:53.266 - ENet: Per peer bandwidth limit
+16948: 21:01:53.266 - ENet: Transmit Rate Limit: 256 KB/Sec
+16948: 21:01:53.266 - ENet: Limit period: 200ms
+16948: 21:01:53.266 - ENet: Limit per period: 52428 bytes
+16948: 21:01:53.266 - ENet: Max queued data for transmission per peer: 512000 bytes
+16948: 21:01:53.266 - ENet: Minimum retransmit timeout: 200
+16948: 21:01:53.266 - No Maximum retransmit timeout
+16948: 21:01:53.266 - ENet: Minimum timeout: 5000ms
+16948: 21:01:53.266 - ENet: Maximum timeout: 30000ms
+16948: 21:01:53.266 - ENet: Max Inbound Reliable Data Queued (awaiting resends of earlier sequence numbers) per peer : 163840 bytes
+16948: 21:01:53.266 - No RTT ACK adjustment timeout
+16948: 21:01:53.266 - About to load application: Master from Photon.LoadBalancing
+16948: 21:01:53.266 - Application Root Directory: "LoadBalancing"
+16948: 21:01:53.266 - Auto restart is enabled for application, existing connections will be terminated during restart
+16948: 21:01:53.266 - Application will restart 1000ms after the last change detected
+16948: 21:01:53.266 - Application will restart if files matching the following are changed: "dll;config"
+16948: 21:01:53.266 - Application will NOT restart if files matching the following are changed: "log4net.config"
+16948: 21:01:53.273 - *******************************************************************************************************************************
+16948: 21:01:53.273 -  Using CustomAssemblyLoader:
+16948: 21:01:53.273 -    PhotonSocketServer.exe is not located in the sub-dir-tree of the configured CLRbaseDirectory 'D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server'.
+16948: 21:01:53.273 -    Setting CLRbaseDirectory to 'D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\bin_Win32'
+16948: 21:01:53.273 -    WARNING: Your Application logs might be found beside the Photon logs - to fix this check the log4net samples in the demos.
+16948: 21:01:53.273 -    WARNING: Code using AppDomain.CurrentDomain.BaseDirectory, should use ApplicationBase.ApplicationRootPath instead.
+16948: 21:01:53.273 - *******************************************************************************************************************************
+16948: 21:01:53.426 - Taking reference on default app domain
+16948: 21:01:53.546 - Application: "Master" started in app domain: 2
+16948: 21:01:53.546 - About to load application: Game from Photon.LoadBalancing
+16948: 21:01:53.546 - Application Root Directory: "LoadBalancing"
+16948: 21:01:53.546 - Auto restart is enabled for application, existing connections will be terminated during restart
+16948: 21:01:53.546 - Application will restart 1000ms after the last change detected
+16948: 21:01:53.546 - Application will restart if files matching the following are changed: "dll;config"
+16948: 21:01:53.546 - Application will NOT restart if files matching the following are changed: "log4net.config"
+16948: 21:01:53.550 - *******************************************************************************************************************************
+16948: 21:01:53.550 -  Using CustomAssemblyLoader:
+16948: 21:01:53.550 -    PhotonSocketServer.exe is not located in the sub-dir-tree of the configured CLRbaseDirectory 'D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server'.
+16948: 21:01:53.550 -    Setting CLRbaseDirectory to 'D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\bin_Win32'
+16948: 21:01:53.550 -    WARNING: Your Application logs might be found beside the Photon logs - to fix this check the log4net samples in the demos.
+16948: 21:01:53.550 -    WARNING: Code using AppDomain.CurrentDomain.BaseDirectory, should use ApplicationBase.ApplicationRootPath instead.
+16948: 21:01:53.550 - *******************************************************************************************************************************
+16948: 21:01:53.707 - Taking reference on default app domain
+16948: 21:01:53.812 - Application: "Game" started in app domain: 3
+16948: 21:01:53.812 - Adding TCP listener on: 0.0.0.0: 4530 with a listen backlog of: 150
+16948: 21:01:53.812 - TCP inactivity timeout: 10000ms
+16948: 21:01:53.812 - TCP disconnect timeout: 120000ms
+16948: 21:01:53.812 - MaxInboundMessageSize: 512000
+16948: 21:01:53.812 - MaxOutboundMessageSize: 512000
+16948: 21:01:53.812 - Forcing all applications ids to: "Master"
+16948: 21:01:53.812 - Serving policy file requests from: "D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\Policy\assets\socket-policy.xml"
+16948: 21:01:53.812 - Adding TCP listener on: 0.0.0.0: 4531 with a listen backlog of: 150
+16948: 21:01:53.812 - TCP inactivity timeout: 10000ms
+16948: 21:01:53.812 - TCP disconnect timeout: 120000ms
+16948: 21:01:53.812 - MaxInboundMessageSize: 512000
+16948: 21:01:53.812 - MaxOutboundMessageSize: 512000
+16948: 21:01:53.812 - Forcing all applications ids to: "Game"
+16948: 21:01:53.812 - Serving policy file requests from: "D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\Policy\assets\socket-policy.xml"
+16948: 21:01:53.812 - Adding TCP listener on: 0.0.0.0: 4520 with a listen backlog of: 150
+16948: 21:01:53.812 - TCP inactivity timeout: 5000ms
+16948: 21:01:53.812 - TCP disconnect timeout: 120000ms
+16948: 21:01:53.812 - MaxInboundMessageSize: 512000
+16948: 21:01:53.812 - MaxOutboundMessageSize: 512000
+16948: 21:01:53.813 - Forcing all applications ids to: "Master"
+16948: 21:01:53.813 - MaxInboundMessageSize: 512000
+16948: 21:01:53.813 - MaxOutboundMessageSize: 512000
+16948: 21:01:53.813 - UDP address specified as: "0.0.0.0" adding listener to each available IPv4 address
+16948: 21:01:53.813 - Adding UDP listener on: 192.168.2.3: 5055 with a listen backlog of: 500
+16948: 21:01:53.813 - Adding UDP listener on: 127.0.0.1: 5055 with a listen backlog of: 500
+16948: 21:01:53.813 - Forcing all applications ids to: "Game"
+16948: 21:01:53.813 - MaxInboundMessageSize: 512000
+16948: 21:01:53.813 - MaxOutboundMessageSize: 512000
+16948: 21:01:53.813 - UDP address specified as: "0.0.0.0" adding listener to each available IPv4 address
+16948: 21:01:53.813 - Adding UDP listener on: 192.168.2.3: 5056 with a listen backlog of: 500
+16948: 21:01:53.813 - Adding UDP listener on: 127.0.0.1: 5056 with a listen backlog of: 500
+16948: 21:01:53.813 - Adding WebSocket TCP listener on: 0.0.0.0: 9090 with a listen backlog of: 150
+16948: 21:01:53.813 - Nagle disabled
+16948: 21:01:53.813 - TCP inactivity timeout: 10000ms
+16948: 21:01:53.813 - MaxInboundMessageSize: 512000
+16948: 21:01:53.813 - MaxOutboundMessageSize: 512000
+16948: 21:01:53.813 - Forcing all applications ids to: "Master"
+16948: 21:01:53.813 - Will accept ANY sub-protocols from the client
+16948: 21:01:53.813 - No automatic WebSocket ping
+16948: 21:01:53.814 - Adding WebSocket TCP listener on: 0.0.0.0: 9091 with a listen backlog of: 150
+16948: 21:01:53.814 - Nagle disabled
+16948: 21:01:53.814 - TCP inactivity timeout: 10000ms
+16948: 21:01:53.814 - MaxInboundMessageSize: 512000
+16948: 21:01:53.814 - MaxOutboundMessageSize: 512000
+16948: 21:01:53.814 - Forcing all applications ids to: "Game"
+16948: 21:01:53.814 - Will accept ANY sub-protocols from the client
+16948: 21:01:53.814 - No automatic WebSocket ping
+16948: 21:01:53.814 - Adding Policy File listener on: 0.0.0.0: 843 with a listen backlog of: 150 and serving Policy File: "D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\Policy\assets\socket-policy.xml"
+16948: 21:01:53.814 - TCP inactivity timeout: 10000ms
+16948: 21:01:53.814 - Adding Policy File listener on: 0.0.0.0: 943 with a listen backlog of: 150 and serving Policy File: "D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\Policy\assets\socket-policy-silverlight.xml"
+16948: 21:01:53.814 - TCP inactivity timeout: 10000ms
+16948: 21:01:53.860 - Service is running...
+17416: 22:27:07.692 - ---
+17416: 22:27:07.692 - Service: "Photon Socket Server" starting
+17416: 22:27:07.692 - Config File: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\Loadbalancing\PhotonServer.LoadBalancing-Development.config
+17416: 22:27:07.693 - Will produce at most: 10 crash dumps
+17416: 22:27:07.694 - Action: run as exe
+17416: 22:27:07.694 - Server Starting...
+17416: 22:27:07.694 -    Tick count: 380615281 (wraps in: 45.305 days)
+17416: 22:27:07.694 - Tick count 64: 380615281
+17416: 22:27:07.694 - Photon Version: 4.1.28.2936
+17416: 22:27:07.694 - PID: 8068
+17416: 22:27:07.694 - Config File: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\Loadbalancing\PhotonServer.LoadBalancing-Development.config
+17416: 22:27:07.694 - Will NOT log unimportant exceptions
+17416: 22:27:07.695 - Performance counters NOT enabled, user must have SE_CREATE_GLOBAL_NAME privilege
+17416: 22:27:07.696 - Shutdown timeout enabled: 30000ms
+17416: 22:27:07.697 - Starting I/O thread pool with 2 threads
+17416: 22:27:07.697 - Using Standard allocator
+17416: 22:27:07.697 - Max message size: 512000
+17416: 22:27:07.697 - Starting business logic thread pool with the following settings
+17416: 22:27:07.697 - InitialThreads: 4 threads
+17416: 22:27:07.697 - MinThreads: 4 threads
+17416: 22:27:07.697 - Thread pool is fixed size
+17416: 22:27:07.698 - Starting ENet thread pool with the following settings
+17416: 22:27:07.698 - InitialThreads: 2 threads
+17416: 22:27:07.698 - MinThreads: 2 threads
+17416: 22:27:07.698 - Thread pool is fixed size
+17416: 22:27:07.698 - OnlyDispatchTimers: False
+17416: 22:27:07.698 - S2S: flow control: Max pending writes: 50
+17416: 22:27:07.698 - S2S: flow control: Max queued buffers: 200
+17416: 22:27:07.698 - S2S: flow control: Max pending writes MUX: 500
+17416: 22:27:07.698 - S2S: flow control: Max queued buffers MUX: 2000
+17416: 22:27:07.698 - S2S: MaxInboundMessageSize: 512000
+17416: 22:27:07.698 - S2S: MaxOutboundMessageSize: 512000
+17416: 22:27:07.698 - S2S: No inactivity timeout
+17416: 22:27:07.703 - WebSocket S2S: MaxInboundMessageSize: 512000
+17416: 22:27:07.703 - WebSocket S2S: MaxOutboundMessageSize: 512000
+17416: 22:27:07.703 - WebSocket S2S: No inactivity timeout
+17416: 22:27:07.703 - Max Reliable Data In Transit (awaiting ACKs) per peer : 51200 bytes
+17416: 22:27:07.703 - Per peer bandwidth limit
+17416: 22:27:07.703 - Transmit Rate Limit: 256 KB/Sec
+17416: 22:27:07.703 - Limit period: 200ms
+17416: 22:27:07.703 - Limit per period: 52428 bytes
+17416: 22:27:07.703 - Max queued data for transmission per peer: 512000 bytes
+17416: 22:27:07.703 - Minimum retransmit timeout: 200
+17416: 22:27:07.703 - No Maximum retransmit timeout
+17416: 22:27:07.703 - Minimum ENet timeout: 5000ms
+17416: 22:27:07.703 - Maximum ENet timeout: 30000ms
+17416: 22:27:07.703 - Max Inbound Reliable Data Queued (awaiting resends of earlier sequence numbers) per peer : 163840 bytes
+17416: 22:27:07.703 - No RTT ACK adjustment timeout
+17416: 22:27:07.703 - Outbound ENet: MaxInboundMessageSize: 512000
+17416: 22:27:07.703 - Outbound ENet: MaxOutboundMessageSize: 512000
+17416: 22:27:07.705 - GetRuntime - About to load CLR - versions available:
+17416: 22:27:07.705 - v2.0.50727
+17416: 22:27:07.705 - v4.0.30319
+17416: 22:27:07.705 - Configuration requests: "v2.0.50727"
+17416: 22:27:07.705 - About to load version: "v2.0.50727"
+17416: 22:27:07.710 - About to load runtime: PhotonHostRuntime.PhotonDomainManager from PhotonHostRuntime, Culture=neutral, PublicKeyToken=02C301B61B060C4D
+17416: 22:27:07.711 - CLRBaseDirectory set to "D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server"
+17416: 22:27:07.711 - Optimising event broadcast for 20 or more peers
+17416: 22:27:07.711 - Start: About to load CLR - versions available:
+17416: 22:27:07.711 - v2.0.50727
+17416: 22:27:07.711 - v4.0.30319
+17416: 22:27:07.711 - Configuration requests: "v4.0"
+17416: 22:27:07.711 - About to load version: "v4.0"
+17416: 22:27:07.713 - Loaded version: "v4.0.30319"
+17416: 22:27:07.934 - Photon host runtime loaded
+17416: 22:27:09.632 - LICENSE: No license file was found. Starting with Bootstrap License.
+17416: 22:27:09.632 - License is valid.
+17416: 22:27:09.632 - Licensed for 20 concurrent connections.
+17416: 22:27:09.632 - ENet: Max Reliable Data In Transit (awaiting ACKs) per peer : 51200 bytes
+17416: 22:27:09.632 - ENet: Per peer bandwidth limit
+17416: 22:27:09.632 - ENet: Transmit Rate Limit: 256 KB/Sec
+17416: 22:27:09.632 - ENet: Limit period: 200ms
+17416: 22:27:09.632 - ENet: Limit per period: 52428 bytes
+17416: 22:27:09.632 - ENet: Max queued data for transmission per peer: 512000 bytes
+17416: 22:27:09.632 - ENet: Minimum retransmit timeout: 200
+17416: 22:27:09.632 - No Maximum retransmit timeout
+17416: 22:27:09.632 - ENet: Minimum timeout: 5000ms
+17416: 22:27:09.632 - ENet: Maximum timeout: 30000ms
+17416: 22:27:09.632 - ENet: Max Inbound Reliable Data Queued (awaiting resends of earlier sequence numbers) per peer : 163840 bytes
+17416: 22:27:09.632 - No RTT ACK adjustment timeout
+17416: 22:27:09.632 - About to load application: Master from Photon.LoadBalancing
+17416: 22:27:09.632 - Application Root Directory: "LoadBalancing"
+17416: 22:27:09.632 - Auto restart is enabled for application, existing connections will be terminated during restart
+17416: 22:27:09.632 - Application will restart 1000ms after the last change detected
+17416: 22:27:09.632 - Application will restart if files matching the following are changed: "dll;config"
+17416: 22:27:09.632 - Application will NOT restart if files matching the following are changed: "log4net.config"
+17416: 22:27:09.639 - *******************************************************************************************************************************
+17416: 22:27:09.639 -  Using CustomAssemblyLoader:
+17416: 22:27:09.639 -    PhotonSocketServer.exe is not located in the sub-dir-tree of the configured CLRbaseDirectory 'D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server'.
+17416: 22:27:09.639 -    Setting CLRbaseDirectory to 'D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\bin_Win32'
+17416: 22:27:09.639 -    WARNING: Your Application logs might be found beside the Photon logs - to fix this check the log4net samples in the demos.
+17416: 22:27:09.639 -    WARNING: Code using AppDomain.CurrentDomain.BaseDirectory, should use ApplicationBase.ApplicationRootPath instead.
+17416: 22:27:09.639 - *******************************************************************************************************************************
+17416: 22:27:09.783 - Taking reference on default app domain
+17416: 22:27:09.890 - Application: "Master" started in app domain: 2
+17416: 22:27:09.890 - About to load application: Game from Photon.LoadBalancing
+17416: 22:27:09.890 - Application Root Directory: "LoadBalancing"
+17416: 22:27:09.890 - Auto restart is enabled for application, existing connections will be terminated during restart
+17416: 22:27:09.890 - Application will restart 1000ms after the last change detected
+17416: 22:27:09.890 - Application will restart if files matching the following are changed: "dll;config"
+17416: 22:27:09.890 - Application will NOT restart if files matching the following are changed: "log4net.config"
+17416: 22:27:09.894 - *******************************************************************************************************************************
+17416: 22:27:09.894 -  Using CustomAssemblyLoader:
+17416: 22:27:09.894 -    PhotonSocketServer.exe is not located in the sub-dir-tree of the configured CLRbaseDirectory 'D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server'.
+17416: 22:27:09.894 -    Setting CLRbaseDirectory to 'D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\bin_Win32'
+17416: 22:27:09.894 -    WARNING: Your Application logs might be found beside the Photon logs - to fix this check the log4net samples in the demos.
+17416: 22:27:09.894 -    WARNING: Code using AppDomain.CurrentDomain.BaseDirectory, should use ApplicationBase.ApplicationRootPath instead.
+17416: 22:27:09.894 - *******************************************************************************************************************************
+17416: 22:27:10.085 - Taking reference on default app domain
+17416: 22:27:10.217 - Application: "Game" started in app domain: 3
+17416: 22:27:10.217 - Adding TCP listener on: 0.0.0.0: 4530 with a listen backlog of: 150
+17416: 22:27:10.217 - TCP inactivity timeout: 10000ms
+17416: 22:27:10.217 - TCP disconnect timeout: 120000ms
+17416: 22:27:10.217 - MaxInboundMessageSize: 512000
+17416: 22:27:10.217 - MaxOutboundMessageSize: 512000
+17416: 22:27:10.217 - Forcing all applications ids to: "Master"
+17416: 22:27:10.217 - Serving policy file requests from: "D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\Policy\assets\socket-policy.xml"
+17416: 22:27:10.217 - Adding TCP listener on: 0.0.0.0: 4531 with a listen backlog of: 150
+17416: 22:27:10.217 - TCP inactivity timeout: 10000ms
+17416: 22:27:10.217 - TCP disconnect timeout: 120000ms
+17416: 22:27:10.217 - MaxInboundMessageSize: 512000
+17416: 22:27:10.217 - MaxOutboundMessageSize: 512000
+17416: 22:27:10.217 - Forcing all applications ids to: "Game"
+17416: 22:27:10.218 - Serving policy file requests from: "D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\Policy\assets\socket-policy.xml"
+17416: 22:27:10.218 - Adding TCP listener on: 0.0.0.0: 4520 with a listen backlog of: 150
+17416: 22:27:10.218 - TCP inactivity timeout: 5000ms
+17416: 22:27:10.218 - TCP disconnect timeout: 120000ms
+17416: 22:27:10.218 - MaxInboundMessageSize: 512000
+17416: 22:27:10.218 - MaxOutboundMessageSize: 512000
+17416: 22:27:10.218 - Forcing all applications ids to: "Master"
+17416: 22:27:10.218 - MaxInboundMessageSize: 512000
+17416: 22:27:10.218 - MaxOutboundMessageSize: 512000
+17416: 22:27:10.218 - UDP address specified as: "0.0.0.0" adding listener to each available IPv4 address
+17416: 22:27:10.218 - Adding UDP listener on: 192.168.2.3: 5055 with a listen backlog of: 500
+17416: 22:27:10.218 - Adding UDP listener on: 127.0.0.1: 5055 with a listen backlog of: 500
+17416: 22:27:10.218 - Forcing all applications ids to: "Game"
+17416: 22:27:10.218 - MaxInboundMessageSize: 512000
+17416: 22:27:10.218 - MaxOutboundMessageSize: 512000
+17416: 22:27:10.218 - UDP address specified as: "0.0.0.0" adding listener to each available IPv4 address
+17416: 22:27:10.218 - Adding UDP listener on: 192.168.2.3: 5056 with a listen backlog of: 500
+17416: 22:27:10.218 - Adding UDP listener on: 127.0.0.1: 5056 with a listen backlog of: 500
+17416: 22:27:10.219 - Adding WebSocket TCP listener on: 0.0.0.0: 9090 with a listen backlog of: 150
+17416: 22:27:10.219 - Nagle disabled
+17416: 22:27:10.219 - TCP inactivity timeout: 10000ms
+17416: 22:27:10.219 - MaxInboundMessageSize: 512000
+17416: 22:27:10.219 - MaxOutboundMessageSize: 512000
+17416: 22:27:10.219 - Forcing all applications ids to: "Master"
+17416: 22:27:10.219 - Will accept ANY sub-protocols from the client
+17416: 22:27:10.219 - No automatic WebSocket ping
+17416: 22:27:10.219 - Adding WebSocket TCP listener on: 0.0.0.0: 9091 with a listen backlog of: 150
+17416: 22:27:10.219 - Nagle disabled
+17416: 22:27:10.219 - TCP inactivity timeout: 10000ms
+17416: 22:27:10.219 - MaxInboundMessageSize: 512000
+17416: 22:27:10.219 - MaxOutboundMessageSize: 512000
+17416: 22:27:10.219 - Forcing all applications ids to: "Game"
+17416: 22:27:10.219 - Will accept ANY sub-protocols from the client
+17416: 22:27:10.219 - No automatic WebSocket ping
+17416: 22:27:10.219 - Adding Policy File listener on: 0.0.0.0: 843 with a listen backlog of: 150 and serving Policy File: "D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\Policy\assets\socket-policy.xml"
+17416: 22:27:10.219 - TCP inactivity timeout: 10000ms
+17416: 22:27:10.219 - Adding Policy File listener on: 0.0.0.0: 943 with a listen backlog of: 150 and serving Policy File: "D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\Policy\assets\socket-policy-silverlight.xml"
+17416: 22:27:10.219 - TCP inactivity timeout: 10000ms
+17416: 22:27:10.284 - Service is running...
+240: 22:37:07.266 - ---
+240: 22:37:07.266 - Service: "Photon Socket Server" starting
+240: 22:37:07.266 - Config File: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\Loadbalancing\PhotonServer.LoadBalancing-Development.config
+240: 22:37:07.267 - Will produce at most: 10 crash dumps
+240: 22:37:07.267 - Action: run as exe
+240: 22:37:07.267 - Server Starting...
+240: 22:37:07.267 -    Tick count: 381214843 (wraps in: 45.2981 days)
+240: 22:37:07.267 - Tick count 64: 381214843
+240: 22:37:07.268 - Photon Version: 4.1.28.2936
+240: 22:37:07.268 - PID: 14704
+240: 22:37:07.268 - Config File: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\Loadbalancing\PhotonServer.LoadBalancing-Development.config
+240: 22:37:07.268 - Will NOT log unimportant exceptions
+240: 22:37:07.268 - Performance counters NOT enabled, user must have SE_CREATE_GLOBAL_NAME privilege
+240: 22:37:07.270 - Shutdown timeout enabled: 30000ms
+240: 22:37:07.270 - Starting I/O thread pool with 2 threads
+240: 22:37:07.270 - Using Standard allocator
+240: 22:37:07.270 - Max message size: 512000
+240: 22:37:07.270 - Starting business logic thread pool with the following settings
+240: 22:37:07.270 - InitialThreads: 4 threads
+240: 22:37:07.270 - MinThreads: 4 threads
+240: 22:37:07.270 - Thread pool is fixed size
+240: 22:37:07.271 - Starting ENet thread pool with the following settings
+240: 22:37:07.271 - InitialThreads: 2 threads
+240: 22:37:07.271 - MinThreads: 2 threads
+240: 22:37:07.271 - Thread pool is fixed size
+240: 22:37:07.271 - OnlyDispatchTimers: False
+240: 22:37:07.271 - S2S: flow control: Max pending writes: 50
+240: 22:37:07.271 - S2S: flow control: Max queued buffers: 200
+240: 22:37:07.271 - S2S: flow control: Max pending writes MUX: 500
+240: 22:37:07.271 - S2S: flow control: Max queued buffers MUX: 2000
+240: 22:37:07.271 - S2S: MaxInboundMessageSize: 512000
+240: 22:37:07.271 - S2S: MaxOutboundMessageSize: 512000
+240: 22:37:07.271 - S2S: No inactivity timeout
+240: 22:37:07.275 - WebSocket S2S: MaxInboundMessageSize: 512000
+240: 22:37:07.275 - WebSocket S2S: MaxOutboundMessageSize: 512000
+240: 22:37:07.275 - WebSocket S2S: No inactivity timeout
+240: 22:37:07.275 - Max Reliable Data In Transit (awaiting ACKs) per peer : 51200 bytes
+240: 22:37:07.275 - Per peer bandwidth limit
+240: 22:37:07.275 - Transmit Rate Limit: 256 KB/Sec
+240: 22:37:07.275 - Limit period: 200ms
+240: 22:37:07.275 - Limit per period: 52428 bytes
+240: 22:37:07.275 - Max queued data for transmission per peer: 512000 bytes
+240: 22:37:07.275 - Minimum retransmit timeout: 200
+240: 22:37:07.275 - No Maximum retransmit timeout
+240: 22:37:07.275 - Minimum ENet timeout: 5000ms
+240: 22:37:07.275 - Maximum ENet timeout: 30000ms
+240: 22:37:07.275 - Max Inbound Reliable Data Queued (awaiting resends of earlier sequence numbers) per peer : 163840 bytes
+240: 22:37:07.275 - No RTT ACK adjustment timeout
+240: 22:37:07.275 - Outbound ENet: MaxInboundMessageSize: 512000
+240: 22:37:07.275 - Outbound ENet: MaxOutboundMessageSize: 512000
+240: 22:37:07.277 - GetRuntime - About to load CLR - versions available:
+240: 22:37:07.277 - v2.0.50727
+240: 22:37:07.277 - v4.0.30319
+240: 22:37:07.277 - Configuration requests: "v2.0.50727"
+240: 22:37:07.277 - About to load version: "v2.0.50727"
+240: 22:37:07.286 - About to load runtime: PhotonHostRuntime.PhotonDomainManager from PhotonHostRuntime, Culture=neutral, PublicKeyToken=02C301B61B060C4D
+240: 22:37:07.286 - CLRBaseDirectory set to "D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server"
+240: 22:37:07.286 - Optimising event broadcast for 20 or more peers
+240: 22:37:07.287 - Start: About to load CLR - versions available:
+240: 22:37:07.287 - v2.0.50727
+240: 22:37:07.287 - v4.0.30319
+240: 22:37:07.287 - Configuration requests: "v4.0"
+240: 22:37:07.287 - About to load version: "v4.0"
+240: 22:37:07.288 - Loaded version: "v4.0.30319"
+240: 22:37:07.790 - Photon host runtime loaded
+240: 22:37:09.619 - LICENSE: No license file was found. Starting with Bootstrap License.
+240: 22:37:09.619 - License is valid.
+240: 22:37:09.619 - Licensed for 20 concurrent connections.
+240: 22:37:09.619 - ENet: Max Reliable Data In Transit (awaiting ACKs) per peer : 51200 bytes
+240: 22:37:09.619 - ENet: Per peer bandwidth limit
+240: 22:37:09.619 - ENet: Transmit Rate Limit: 256 KB/Sec
+240: 22:37:09.619 - ENet: Limit period: 200ms
+240: 22:37:09.619 - ENet: Limit per period: 52428 bytes
+240: 22:37:09.619 - ENet: Max queued data for transmission per peer: 512000 bytes
+240: 22:37:09.619 - ENet: Minimum retransmit timeout: 200
+240: 22:37:09.619 - No Maximum retransmit timeout
+240: 22:37:09.619 - ENet: Minimum timeout: 5000ms
+240: 22:37:09.619 - ENet: Maximum timeout: 30000ms
+240: 22:37:09.619 - ENet: Max Inbound Reliable Data Queued (awaiting resends of earlier sequence numbers) per peer : 163840 bytes
+240: 22:37:09.619 - No RTT ACK adjustment timeout
+240: 22:37:09.619 - About to load application: Master from Photon.LoadBalancing
+240: 22:37:09.619 - Application Root Directory: "LoadBalancing"
+240: 22:37:09.619 - Auto restart is enabled for application, existing connections will be terminated during restart
+240: 22:37:09.619 - Application will restart 1000ms after the last change detected
+240: 22:37:09.619 - Application will restart if files matching the following are changed: "dll;config"
+240: 22:37:09.619 - Application will NOT restart if files matching the following are changed: "log4net.config"
+240: 22:37:09.627 - *******************************************************************************************************************************
+240: 22:37:09.627 -  Using CustomAssemblyLoader:
+240: 22:37:09.627 -    PhotonSocketServer.exe is not located in the sub-dir-tree of the configured CLRbaseDirectory 'D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server'.
+240: 22:37:09.627 -    Setting CLRbaseDirectory to 'D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\bin_Win32'
+240: 22:37:09.627 -    WARNING: Your Application logs might be found beside the Photon logs - to fix this check the log4net samples in the demos.
+240: 22:37:09.627 -    WARNING: Code using AppDomain.CurrentDomain.BaseDirectory, should use ApplicationBase.ApplicationRootPath instead.
+240: 22:37:09.627 - *******************************************************************************************************************************
+240: 22:37:09.835 - Taking reference on default app domain
+240: 22:37:09.999 - Application: "Master" started in app domain: 2
+240: 22:37:09.999 - About to load application: Game from Photon.LoadBalancing
+240: 22:37:09.999 - Application Root Directory: "LoadBalancing"
+240: 22:37:09.999 - Auto restart is enabled for application, existing connections will be terminated during restart
+240: 22:37:09.999 - Application will restart 1000ms after the last change detected
+240: 22:37:09.999 - Application will restart if files matching the following are changed: "dll;config"
+240: 22:37:09.999 - Application will NOT restart if files matching the following are changed: "log4net.config"
+240: 22:37:10.003 - *******************************************************************************************************************************
+240: 22:37:10.003 -  Using CustomAssemblyLoader:
+240: 22:37:10.003 -    PhotonSocketServer.exe is not located in the sub-dir-tree of the configured CLRbaseDirectory 'D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server'.
+240: 22:37:10.003 -    Setting CLRbaseDirectory to 'D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\bin_Win32'
+240: 22:37:10.003 -    WARNING: Your Application logs might be found beside the Photon logs - to fix this check the log4net samples in the demos.
+240: 22:37:10.003 -    WARNING: Code using AppDomain.CurrentDomain.BaseDirectory, should use ApplicationBase.ApplicationRootPath instead.
+240: 22:37:10.003 - *******************************************************************************************************************************
+240: 22:37:10.170 - Taking reference on default app domain
+240: 22:37:10.321 - Application: "Game" started in app domain: 3
+240: 22:37:10.321 - Adding TCP listener on: 0.0.0.0: 4530 with a listen backlog of: 150
+240: 22:37:10.321 - TCP inactivity timeout: 10000ms
+240: 22:37:10.321 - TCP disconnect timeout: 120000ms
+240: 22:37:10.321 - MaxInboundMessageSize: 512000
+240: 22:37:10.321 - MaxOutboundMessageSize: 512000
+240: 22:37:10.321 - Forcing all applications ids to: "Master"
+240: 22:37:10.321 - Serving policy file requests from: "D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\Policy\assets\socket-policy.xml"
+240: 22:37:10.322 - Adding TCP listener on: 0.0.0.0: 4531 with a listen backlog of: 150
+240: 22:37:10.322 - TCP inactivity timeout: 10000ms
+240: 22:37:10.322 - TCP disconnect timeout: 120000ms
+240: 22:37:10.322 - MaxInboundMessageSize: 512000
+240: 22:37:10.322 - MaxOutboundMessageSize: 512000
+240: 22:37:10.322 - Forcing all applications ids to: "Game"
+240: 22:37:10.322 - Serving policy file requests from: "D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\Policy\assets\socket-policy.xml"
+240: 22:37:10.322 - Adding TCP listener on: 0.0.0.0: 4520 with a listen backlog of: 150
+240: 22:37:10.322 - TCP inactivity timeout: 5000ms
+240: 22:37:10.322 - TCP disconnect timeout: 120000ms
+240: 22:37:10.322 - MaxInboundMessageSize: 512000
+240: 22:37:10.322 - MaxOutboundMessageSize: 512000
+240: 22:37:10.322 - Forcing all applications ids to: "Master"
+240: 22:37:10.322 - MaxInboundMessageSize: 512000
+240: 22:37:10.322 - MaxOutboundMessageSize: 512000
+240: 22:37:10.322 - UDP address specified as: "0.0.0.0" adding listener to each available IPv4 address
+240: 22:37:10.323 - Adding UDP listener on: 192.168.2.3: 5055 with a listen backlog of: 500
+240: 22:37:10.323 - Adding UDP listener on: 127.0.0.1: 5055 with a listen backlog of: 500
+240: 22:37:10.323 - Forcing all applications ids to: "Game"
+240: 22:37:10.323 - MaxInboundMessageSize: 512000
+240: 22:37:10.323 - MaxOutboundMessageSize: 512000
+240: 22:37:10.323 - UDP address specified as: "0.0.0.0" adding listener to each available IPv4 address
+240: 22:37:10.323 - Adding UDP listener on: 192.168.2.3: 5056 with a listen backlog of: 500
+240: 22:37:10.323 - Adding UDP listener on: 127.0.0.1: 5056 with a listen backlog of: 500
+240: 22:37:10.323 - Adding WebSocket TCP listener on: 0.0.0.0: 9090 with a listen backlog of: 150
+240: 22:37:10.323 - Nagle disabled
+240: 22:37:10.323 - TCP inactivity timeout: 10000ms
+240: 22:37:10.323 - MaxInboundMessageSize: 512000
+240: 22:37:10.323 - MaxOutboundMessageSize: 512000
+240: 22:37:10.323 - Forcing all applications ids to: "Master"
+240: 22:37:10.323 - Will accept ANY sub-protocols from the client
+240: 22:37:10.323 - No automatic WebSocket ping
+240: 22:37:10.323 - Adding WebSocket TCP listener on: 0.0.0.0: 9091 with a listen backlog of: 150
+240: 22:37:10.323 - Nagle disabled
+240: 22:37:10.323 - TCP inactivity timeout: 10000ms
+240: 22:37:10.323 - MaxInboundMessageSize: 512000
+240: 22:37:10.323 - MaxOutboundMessageSize: 512000
+240: 22:37:10.323 - Forcing all applications ids to: "Game"
+240: 22:37:10.323 - Will accept ANY sub-protocols from the client
+240: 22:37:10.323 - No automatic WebSocket ping
+240: 22:37:10.324 - Adding Policy File listener on: 0.0.0.0: 843 with a listen backlog of: 150 and serving Policy File: "D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\Policy\assets\socket-policy.xml"
+240: 22:37:10.324 - TCP inactivity timeout: 10000ms
+240: 22:37:10.324 - Adding Policy File listener on: 0.0.0.0: 943 with a listen backlog of: 150 and serving Policy File: "D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\Policy\assets\socket-policy-silverlight.xml"
+240: 22:37:10.324 - TCP inactivity timeout: 10000ms
+240: 22:37:10.377 - Service is running...
+6760: 23:33:06.895 - ---
+6760: 23:33:06.895 - Service: "Photon Socket Server" starting
+6760: 23:33:06.895 - Config File: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\Loadbalancing\PhotonServer.LoadBalancing-Development.config
+6760: 23:33:06.897 - Will produce at most: 10 crash dumps
+6760: 23:33:06.897 - Action: run as exe
+6760: 23:33:06.897 - Server Starting...
+6760: 23:33:06.897 -    Tick count: 384574484 (wraps in: 45.2592 days)
+6760: 23:33:06.897 - Tick count 64: 384574484
+6760: 23:33:06.897 - Photon Version: 4.1.28.2936
+6760: 23:33:06.897 - PID: 18420
+6760: 23:33:06.897 - Config File: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\Loadbalancing\PhotonServer.LoadBalancing-Development.config
+6760: 23:33:06.898 - Will NOT log unimportant exceptions
+6760: 23:33:06.899 - Performance counters NOT enabled, user must have SE_CREATE_GLOBAL_NAME privilege
+6760: 23:33:06.900 - Shutdown timeout enabled: 30000ms
+6760: 23:33:06.900 - Starting I/O thread pool with 2 threads
+6760: 23:33:06.901 - Using Standard allocator
+6760: 23:33:06.901 - Max message size: 512000
+6760: 23:33:06.901 - Starting business logic thread pool with the following settings
+6760: 23:33:06.901 - InitialThreads: 4 threads
+6760: 23:33:06.901 - MinThreads: 4 threads
+6760: 23:33:06.901 - Thread pool is fixed size
+6760: 23:33:06.902 - Starting ENet thread pool with the following settings
+6760: 23:33:06.902 - InitialThreads: 2 threads
+6760: 23:33:06.902 - MinThreads: 2 threads
+6760: 23:33:06.902 - Thread pool is fixed size
+6760: 23:33:06.902 - OnlyDispatchTimers: False
+6760: 23:33:06.902 - S2S: flow control: Max pending writes: 50
+6760: 23:33:06.902 - S2S: flow control: Max queued buffers: 200
+6760: 23:33:06.902 - S2S: flow control: Max pending writes MUX: 500
+6760: 23:33:06.902 - S2S: flow control: Max queued buffers MUX: 2000
+6760: 23:33:06.902 - S2S: MaxInboundMessageSize: 512000
+6760: 23:33:06.902 - S2S: MaxOutboundMessageSize: 512000
+6760: 23:33:06.902 - S2S: No inactivity timeout
+6760: 23:33:06.907 - WebSocket S2S: MaxInboundMessageSize: 512000
+6760: 23:33:06.907 - WebSocket S2S: MaxOutboundMessageSize: 512000
+6760: 23:33:06.907 - WebSocket S2S: No inactivity timeout
+6760: 23:33:06.908 - Max Reliable Data In Transit (awaiting ACKs) per peer : 51200 bytes
+6760: 23:33:06.908 - Per peer bandwidth limit
+6760: 23:33:06.908 - Transmit Rate Limit: 256 KB/Sec
+6760: 23:33:06.908 - Limit period: 200ms
+6760: 23:33:06.908 - Limit per period: 52428 bytes
+6760: 23:33:06.908 - Max queued data for transmission per peer: 512000 bytes
+6760: 23:33:06.908 - Minimum retransmit timeout: 200
+6760: 23:33:06.908 - No Maximum retransmit timeout
+6760: 23:33:06.908 - Minimum ENet timeout: 5000ms
+6760: 23:33:06.908 - Maximum ENet timeout: 30000ms
+6760: 23:33:06.908 - Max Inbound Reliable Data Queued (awaiting resends of earlier sequence numbers) per peer : 163840 bytes
+6760: 23:33:06.908 - No RTT ACK adjustment timeout
+6760: 23:33:06.908 - Outbound ENet: MaxInboundMessageSize: 512000
+6760: 23:33:06.908 - Outbound ENet: MaxOutboundMessageSize: 512000
+6760: 23:33:06.911 - GetRuntime - About to load CLR - versions available:
+6760: 23:33:06.911 - v2.0.50727
+6760: 23:33:06.911 - v4.0.30319
+6760: 23:33:06.911 - Configuration requests: "v2.0.50727"
+6760: 23:33:06.911 - About to load version: "v2.0.50727"
+6760: 23:33:06.918 - About to load runtime: PhotonHostRuntime.PhotonDomainManager from PhotonHostRuntime, Culture=neutral, PublicKeyToken=02C301B61B060C4D
+6760: 23:33:06.918 - CLRBaseDirectory set to "D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server"
+6760: 23:33:06.918 - Optimising event broadcast for 20 or more peers
+6760: 23:33:06.919 - Start: About to load CLR - versions available:
+6760: 23:33:06.919 - v2.0.50727
+6760: 23:33:06.919 - v4.0.30319
+6760: 23:33:06.919 - Configuration requests: "v4.0"
+6760: 23:33:06.919 - About to load version: "v4.0"
+6760: 23:33:06.920 - Loaded version: "v4.0.30319"
+6760: 23:33:07.254 - Photon host runtime loaded
+10744: 23:33:37.944 - ---
+10744: 23:33:37.944 - Service: "Photon Socket Server" starting
+10744: 23:33:37.944 - Config File: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\Loadbalancing\PhotonServer.LoadBalancing-Development.config
+10744: 23:33:37.946 - Will produce at most: 10 crash dumps
+10744: 23:33:37.946 - Action: run as exe
+10744: 23:33:37.946 - Server Starting...
+10744: 23:33:37.946 -    Tick count: 384605531 (wraps in: 45.2588 days)
+10744: 23:33:37.946 - Tick count 64: 384605531
+10744: 23:33:37.946 - Photon Version: 4.1.28.2936
+10744: 23:33:37.946 - PID: 16828
+10744: 23:33:37.946 - Config File: D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server\Loadbalancing\PhotonServer.LoadBalancing-Development.config
+10744: 23:33:37.947 - Will NOT log unimportant exceptions
+10744: 23:33:37.948 - Performance counters NOT enabled, user must have SE_CREATE_GLOBAL_NAME privilege
+10744: 23:33:37.950 - Shutdown timeout enabled: 30000ms
+10744: 23:33:37.950 - Starting I/O thread pool with 2 threads
+10744: 23:33:37.950 - Using Standard allocator
+10744: 23:33:37.950 - Max message size: 512000
+10744: 23:33:37.950 - Starting business logic thread pool with the following settings
+10744: 23:33:37.950 - InitialThreads: 4 threads
+10744: 23:33:37.950 - MinThreads: 4 threads
+10744: 23:33:37.950 - Thread pool is fixed size
+10744: 23:33:37.951 - Starting ENet thread pool with the following settings
+10744: 23:33:37.951 - InitialThreads: 2 threads
+10744: 23:33:37.951 - MinThreads: 2 threads
+10744: 23:33:37.951 - Thread pool is fixed size
+10744: 23:33:37.951 - OnlyDispatchTimers: False
+10744: 23:33:37.951 - S2S: flow control: Max pending writes: 50
+10744: 23:33:37.951 - S2S: flow control: Max queued buffers: 200
+10744: 23:33:37.951 - S2S: flow control: Max pending writes MUX: 500
+10744: 23:33:37.951 - S2S: flow control: Max queued buffers MUX: 2000
+10744: 23:33:37.951 - S2S: MaxInboundMessageSize: 512000
+10744: 23:33:37.951 - S2S: MaxOutboundMessageSize: 512000
+10744: 23:33:37.951 - S2S: No inactivity timeout
+10744: 23:33:37.956 - WebSocket S2S: MaxInboundMessageSize: 512000
+10744: 23:33:37.956 - WebSocket S2S: MaxOutboundMessageSize: 512000
+10744: 23:33:37.956 - WebSocket S2S: No inactivity timeout
+10744: 23:33:37.956 - Max Reliable Data In Transit (awaiting ACKs) per peer : 51200 bytes
+10744: 23:33:37.956 - Per peer bandwidth limit
+10744: 23:33:37.956 - Transmit Rate Limit: 256 KB/Sec
+10744: 23:33:37.956 - Limit period: 200ms
+10744: 23:33:37.956 - Limit per period: 52428 bytes
+10744: 23:33:37.956 - Max queued data for transmission per peer: 512000 bytes
+10744: 23:33:37.956 - Minimum retransmit timeout: 200
+10744: 23:33:37.956 - No Maximum retransmit timeout
+10744: 23:33:37.956 - Minimum ENet timeout: 5000ms
+10744: 23:33:37.956 - Maximum ENet timeout: 30000ms
+10744: 23:33:37.956 - Max Inbound Reliable Data Queued (awaiting resends of earlier sequence numbers) per peer : 163840 bytes
+10744: 23:33:37.956 - No RTT ACK adjustment timeout
+10744: 23:33:37.956 - Outbound ENet: MaxInboundMessageSize: 512000
+10744: 23:33:37.956 - Outbound ENet: MaxOutboundMessageSize: 512000
+10744: 23:33:37.958 - GetRuntime - About to load CLR - versions available:
+10744: 23:33:37.958 - v2.0.50727
+10744: 23:33:37.958 - v4.0.30319
+10744: 23:33:37.958 - Configuration requests: "v2.0.50727"
+10744: 23:33:37.958 - About to load version: "v2.0.50727"
+10744: 23:33:37.965 - About to load runtime: PhotonHostRuntime.PhotonDomainManager from PhotonHostRuntime, Culture=neutral, PublicKeyToken=02C301B61B060C4D
+10744: 23:33:37.965 - CLRBaseDirectory set to "D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server"
+10744: 23:33:37.965 - Optimising event broadcast for 20 or more peers
+10744: 23:33:37.966 - Start: About to load CLR - versions available:
+10744: 23:33:37.966 - v2.0.50727
+10744: 23:33:37.966 - v4.0.30319
+10744: 23:33:37.966 - Configuration requests: "v4.0"
+10744: 23:33:37.966 - About to load version: "v4.0"
+10744: 23:33:37.968 - Loaded version: "v4.0.30319"
+10744: 23:33:38.189 - Photon host runtime loaded
+10744: 23:33:39.791 - LICENSE: No license file was found. Starting with Bootstrap License.
+10744: 23:33:39.791 - License is valid.
+10744: 23:33:39.791 - Licensed for 20 concurrent connections.
+10744: 23:33:39.791 - ENet: Max Reliable Data In Transit (awaiting ACKs) per peer : 51200 bytes
+10744: 23:33:39.791 - ENet: Per peer bandwidth limit
+10744: 23:33:39.791 - ENet: Transmit Rate Limit: 256 KB/Sec
+10744: 23:33:39.791 - ENet: Limit period: 200ms
+10744: 23:33:39.791 - ENet: Limit per period: 52428 bytes
+10744: 23:33:39.791 - ENet: Max queued data for transmission per peer: 512000 bytes
+10744: 23:33:39.791 - ENet: Minimum retransmit timeout: 200
+10744: 23:33:39.791 - No Maximum retransmit timeout
+10744: 23:33:39.791 - ENet: Minimum timeout: 5000ms
+10744: 23:33:39.791 - ENet: Maximum timeout: 30000ms
+10744: 23:33:39.791 - ENet: Max Inbound Reliable Data Queued (awaiting resends of earlier sequence numbers) per peer : 163840 bytes
+10744: 23:33:39.791 - No RTT ACK adjustment timeout
+10744: 23:33:39.791 - About to load application: Master from Photon.LoadBalancing
+10744: 23:33:39.791 - Application Root Directory: "LoadBalancing"
+10744: 23:33:39.791 - Auto restart is enabled for application, existing connections will be terminated during restart
+10744: 23:33:39.791 - Application will restart 1000ms after the last change detected
+10744: 23:33:39.791 - Application will restart if files matching the following are changed: "dll;config"
+10744: 23:33:39.791 - Application will NOT restart if files matching the following are changed: "log4net.config"
+10744: 23:33:39.798 - *******************************************************************************************************************************
+10744: 23:33:39.798 -  Using CustomAssemblyLoader:
+10744: 23:33:39.798 -    PhotonSocketServer.exe is not located in the sub-dir-tree of the configured CLRbaseDirectory 'D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server'.
+10744: 23:33:39.798 -    Setting CLRbaseDirectory to 'D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\bin_Win32'
+10744: 23:33:39.798 -    WARNING: Your Application logs might be found beside the Photon logs - to fix this check the log4net samples in the demos.
+10744: 23:33:39.798 -    WARNING: Code using AppDomain.CurrentDomain.BaseDirectory, should use ApplicationBase.ApplicationRootPath instead.
+10744: 23:33:39.798 - *******************************************************************************************************************************
+10744: 23:33:39.942 - Taking reference on default app domain
+10744: 23:33:40.043 - Application: "Master" started in app domain: 2
+10744: 23:33:40.043 - About to load application: Game from Photon.LoadBalancing
+10744: 23:33:40.043 - Application Root Directory: "LoadBalancing"
+10744: 23:33:40.043 - Auto restart is enabled for application, existing connections will be terminated during restart
+10744: 23:33:40.043 - Application will restart 1000ms after the last change detected
+10744: 23:33:40.043 - Application will restart if files matching the following are changed: "dll;config"
+10744: 23:33:40.043 - Application will NOT restart if files matching the following are changed: "log4net.config"
+10744: 23:33:40.047 - *******************************************************************************************************************************
+10744: 23:33:40.047 -  Using CustomAssemblyLoader:
+10744: 23:33:40.047 -    PhotonSocketServer.exe is not located in the sub-dir-tree of the configured CLRbaseDirectory 'D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\src-server'.
+10744: 23:33:40.047 -    Setting CLRbaseDirectory to 'D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\bin_Win32'
+10744: 23:33:40.047 -    WARNING: Your Application logs might be found beside the Photon logs - to fix this check the log4net samples in the demos.
+10744: 23:33:40.047 -    WARNING: Code using AppDomain.CurrentDomain.BaseDirectory, should use ApplicationBase.ApplicationRootPath instead.
+10744: 23:33:40.047 - *******************************************************************************************************************************
+10744: 23:33:40.176 - Taking reference on default app domain
+10744: 23:33:40.291 - Application: "Game" started in app domain: 3
+10744: 23:33:40.291 - Adding TCP listener on: 0.0.0.0: 4530 with a listen backlog of: 150
+10744: 23:33:40.291 - TCP inactivity timeout: 10000ms
+10744: 23:33:40.291 - TCP disconnect timeout: 120000ms
+10744: 23:33:40.291 - MaxInboundMessageSize: 512000
+10744: 23:33:40.291 - MaxOutboundMessageSize: 512000
+10744: 23:33:40.291 - Forcing all applications ids to: "Master"
+10744: 23:33:40.291 - Serving policy file requests from: "D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\Policy\assets\socket-policy.xml"
+10744: 23:33:40.292 - Adding TCP listener on: 0.0.0.0: 4531 with a listen backlog of: 150
+10744: 23:33:40.292 - TCP inactivity timeout: 10000ms
+10744: 23:33:40.292 - TCP disconnect timeout: 120000ms
+10744: 23:33:40.292 - MaxInboundMessageSize: 512000
+10744: 23:33:40.292 - MaxOutboundMessageSize: 512000
+10744: 23:33:40.292 - Forcing all applications ids to: "Game"
+10744: 23:33:40.292 - Serving policy file requests from: "D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\Policy\assets\socket-policy.xml"
+10744: 23:33:40.292 - Adding TCP listener on: 0.0.0.0: 4520 with a listen backlog of: 150
+10744: 23:33:40.292 - TCP inactivity timeout: 5000ms
+10744: 23:33:40.292 - TCP disconnect timeout: 120000ms
+10744: 23:33:40.292 - MaxInboundMessageSize: 512000
+10744: 23:33:40.292 - MaxOutboundMessageSize: 512000
+10744: 23:33:40.292 - Forcing all applications ids to: "Master"
+10744: 23:33:40.292 - MaxInboundMessageSize: 512000
+10744: 23:33:40.292 - MaxOutboundMessageSize: 512000
+10744: 23:33:40.292 - UDP address specified as: "0.0.0.0" adding listener to each available IPv4 address
+10744: 23:33:40.292 - Adding UDP listener on: 192.168.2.3: 5055 with a listen backlog of: 500
+10744: 23:33:40.293 - Adding UDP listener on: 127.0.0.1: 5055 with a listen backlog of: 500
+10744: 23:33:40.293 - Forcing all applications ids to: "Game"
+10744: 23:33:40.293 - MaxInboundMessageSize: 512000
+10744: 23:33:40.293 - MaxOutboundMessageSize: 512000
+10744: 23:33:40.293 - UDP address specified as: "0.0.0.0" adding listener to each available IPv4 address
+10744: 23:33:40.293 - Adding UDP listener on: 192.168.2.3: 5056 with a listen backlog of: 500
+10744: 23:33:40.293 - Adding UDP listener on: 127.0.0.1: 5056 with a listen backlog of: 500
+10744: 23:33:40.293 - Adding WebSocket TCP listener on: 0.0.0.0: 9090 with a listen backlog of: 150
+10744: 23:33:40.293 - Nagle disabled
+10744: 23:33:40.293 - TCP inactivity timeout: 10000ms
+10744: 23:33:40.293 - MaxInboundMessageSize: 512000
+10744: 23:33:40.293 - MaxOutboundMessageSize: 512000
+10744: 23:33:40.293 - Forcing all applications ids to: "Master"
+10744: 23:33:40.293 - Will accept ANY sub-protocols from the client
+10744: 23:33:40.293 - No automatic WebSocket ping
+10744: 23:33:40.293 - Adding WebSocket TCP listener on: 0.0.0.0: 9091 with a listen backlog of: 150
+10744: 23:33:40.293 - Nagle disabled
+10744: 23:33:40.293 - TCP inactivity timeout: 10000ms
+10744: 23:33:40.293 - MaxInboundMessageSize: 512000
+10744: 23:33:40.293 - MaxOutboundMessageSize: 512000
+10744: 23:33:40.293 - Forcing all applications ids to: "Game"
+10744: 23:33:40.293 - Will accept ANY sub-protocols from the client
+10744: 23:33:40.293 - No automatic WebSocket ping
+10744: 23:33:40.293 - Adding Policy File listener on: 0.0.0.0: 843 with a listen backlog of: 150 and serving Policy File: "D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\Policy\assets\socket-policy.xml"
+10744: 23:33:40.293 - TCP inactivity timeout: 10000ms
+10744: 23:33:40.294 - Adding Policy File listener on: 0.0.0.0: 943 with a listen backlog of: 150 and serving Policy File: "D:\School\Year 3\Minor\Card_Game_Repository\Photon-OnPremise-Server-SDK\deploy\Policy\assets\socket-policy-silverlight.xml"
+10744: 23:33:40.294 - TCP inactivity timeout: 10000ms
+10744: 23:33:40.350 - Service is running...
