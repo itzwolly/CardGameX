@@ -1,6 +1,6 @@
-# Card Game X
+# Card Game X #
 
-## Server
+## Server ##
 
 The server is setup using Photon as its base and has been extended to be an authoritative server. 
 The server handles the majority of the validations as we don't want the client to be able to cheat, 
@@ -13,13 +13,17 @@ The avialable methods can be extended to include more mechanics aswell.
 
 The card data, such as: name, cost, description, etc. is saved in a database to easily modify when neccessary.
 
-## Client
+## Client ##
 
 The client is made in Unity and connects to the server using Photon's library.
 
-## Game Launcher
+## Game Launcher ##
 
 Card Game X also includes a custom game launcher which allows the user to login and also update their game files,
 by pressing the Play button. The launcher is made in C# Windows Presentation Forms and it contains secure login using
 threads. The user information is saved in a database to also ensure security.
 
+# Made By #
+Oleksandr Mazur - Audio Designer, Game Designer\
+Volkan Baykal - Programmer, Lead Game Designer\
+Tim Joosten - 3D/2D Artist, Game Designer
