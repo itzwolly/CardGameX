@@ -44,4 +44,4 @@ threads. The user information is saved in a database to also ensure security.
 # Made By #
 Volkan Baykal - Programmer, Lead Game Designer\
 Oleksandr Mazur - Audio Designer, Game Designer\
-Tim Joosten - 3D/2D Artist, Game Designer\
+Tim Joosten - 3D/2D Artist, Game Designer
