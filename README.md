@@ -42,6 +42,6 @@ by pressing the Play button. The launcher is made in C# Windows Presentation For
 threads. The user information is saved in a database to also ensure security.
 
 # Made By #
-Oleksandr Mazur - Audio Designer, Game Designer\
 Volkan Baykal - Programmer, Lead Game Designer\
-Tim Joosten - 3D/2D Artist, Game Designer
+Oleksandr Mazur - Audio Designer, Game Designer\
+Tim Joosten - 3D/2D Artist, Game Designer\
