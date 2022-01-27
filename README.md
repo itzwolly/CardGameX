@@ -1,5 +1,21 @@
 # Card Game X #
 
+## Card Example Clips ##
+
+[![Watch the video](https://youtu.be/OyhJCGYyFyI)
+
+[![Watch the video](https://youtu.be/Alu8CzdfGlk)
+
+[![Watch the video](https://youtu.be/kcZhvurNGVU)
+
+[![Watch the video](https://youtu.be/nQ-OVpeFC7w)
+
+[![Watch the video](https://youtu.be/B3oNk27r-DI)
+
+[![Watch the video](https://youtu.be/LYzgmiJqECo)
+
+
+
 ## Server ##
 
 The server is setup using Photon as its base and has been extended to be an authoritative server. 
