@@ -2,19 +2,17 @@
 
 ## Card Example Clips ##
 
-[![Watch the video](https://youtu.be/OyhJCGYyFyI)]
+[![Watch the video](https://img.youtube.com/vi/OyhJCGYyFyI/hqdefault.jpg)](https://youtu.be/OyhJCGYyFyI)
 
-[![Watch the video](https://youtu.be/Alu8CzdfGlk)]
+[![Watch the video](https://img.youtube.com/vi/Alu8CzdfGlk/hqdefault.jpg)](https://youtu.be/Alu8CzdfGlk)
 
-[![Watch the video](https://youtu.be/kcZhvurNGVU)]
+[![Watch the video](https://img.youtube.com/vi/kcZhvurNGVU/hqdefault.jpg)](https://youtu.be/kcZhvurNGVU)
 
-[![Watch the video](https://youtu.be/nQ-OVpeFC7w)]
+[![Watch the video](https://img.youtube.com/vi/nQ-OVpeFC7w/hqdefault.jpg)](https://youtu.be/nQ-OVpeFC7w)
 
-[![Watch the video](https://youtu.be/B3oNk27r-DI)]
+[![Watch the video](https://img.youtube.com/vi/B3oNk27r-DI/hqdefault.jpg)](https://youtu.be/B3oNk27r-DI)
 
-[![Watch the video](https://youtu.be/LYzgmiJqECo)]
-
-
+[![Watch the video](https://img.youtube.com/vi/LYzgmiJqECo/hqdefault.jpg)](https://youtu.be/LYzgmiJqECo)
 
 ## Server ##
 
